@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon-Based Registration Form</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 350px;
+            box-sizing: border-box;
+        }
+        .container h1 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #343a40;
+            font-size: 20px;
+        }
+        .form-group {
+            position: relative;
+            margin-bottom: 12px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px 10px 10px 40px; /* Adjusted padding to accommodate icons */
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #495057;
+            height: 40px; /* Fixed height for consistent alignment */
+        }
+        .form-group i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #adb5bd;
+            font-size: 16px; /* Slightly larger icon size for better visibility */
+        }
+        .form-group .error {
+            color: #dc3545;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .submit-btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        .social-login {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        .google-btn, .facebook-btn {
+            width: 48%;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+        .google-btn {
+            background-color: #db4437;
+        }
+        .google-btn:hover {
+            background-color: #c23321;
+        }
+        .facebook-btn {
+            background-color: #3b5998;
+        }
+        .facebook-btn:hover {
+            background-color: #2d4373;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 12px;
+        }
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Register</h1>
+    <!-- Display Django Messages -->
+    {% if messages %}
+    <div class="messages" style="position: fixed; top: 20px; right: 20px; z-index: 1000; width: 300px;">
+        {% for message in messages %}
+        <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}" style="background-color: {% if message.tags == 'success' %}green{% else %}red{% endif %}; color: white; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    <script>
+        setTimeout(function() {
+            document.querySelector('.messages').style.display = 'none';
+        }, 5000);
+    </script>
+    {% endif %}
+
+    <form method="POST" id="registerForm">
+        {% csrf_token %}
+        <div class="form-group">
+            <i class="fas fa-user"></i>
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            <div class="error" id="usernameError"></div>
+        </div>
+        <div class="form-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+        <div class="form-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <div class="error" id="passwordError"></div>
+        </div>
+        <div class="form-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+            <div class="error" id="confirmPasswordError"></div>
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn" >Register</button>
+    </form>
+    <div class="social-login">
+        <button class="google-btn"><i class="fab fa-google"></i> Google</button>
+        <button class="facebook-btn"><i class="fab fa-facebook-f"></i> Facebook</button>
+    </div>
+    <div class="login-link">
+        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </div>
+</div>
+</body>
+</html> 

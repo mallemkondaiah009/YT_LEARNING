@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .profile-container {
+            width: 90%;
+            max-width: 1200px; /* Wider for grid layout */
+            margin: 50px auto;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            position: relative;
+        }
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .profile-details {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        .profile-details li {
+            padding: 12px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .profile-details li:last-child {
+            border-bottom: none;
+        }
+        .profile-details label {
+            font-weight: bold;
+            display: inline-block;
+            width: 100px;
+        }
+        .watch-later-header {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .watch-later-header h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+        /* Grid Layout */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0;
+        }
+        .video-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .video-card:hover {
+            transform: scale(1.02);
+        }
+        .video-content {
+            padding: 15px;
+        }
+        .video-content h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+            color: #333;
+        }
+        .video-embed {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        .video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .no-videos {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        @media (max-width: 600px) {
+            .profile-container {
+                width: 95%;
+                padding: 20px;
+            }
+            .back-button {
+                top: 15px;
+                left: 15px;
+                padding: 8px 12px;
+            }
+            .video-grid {
+                grid-template-columns: 1fr; /* Single column on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <a href="{% url 'categories_page' %}" class="back-button">Back to Categories</a>
+        <div class="profile-header">
+            <h1>Profile</h1>
+        </div>
+        <ul class="profile-details">
+            <li>
+                <label>Username:</label>
+                <span>{{ user.username }}</span>
+            </li>
+            <li>
+                <label>Email:</label>
+                <span>{{ user.email }}</span>
+            </li>
+        </ul>
+        <div class="watch-later-header">
+            <h2>Watch Later</h2>
+        </div>
+        <main class="video-grid">
+            {% for video in saved_videos %}
+                <article class="video-card" data-video-id="{{ video.video.id }}">
+                    <div class="video-content">
+                        <h3>{{ video.video.title }}</h3>
+                        <div class="video-embed">
+                            {{ video.video.embed_code|safe }}
+                        </div>
+                    </div>
+                </article>
+            {% empty %}
+                <div class="no-videos">No videos saved for later.</div>
+            {% endfor %}
+        </main>
+    </div>
+</body>
+</html>
