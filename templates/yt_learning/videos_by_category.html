@@ -12,7 +12,6 @@
             box-sizing: border-box;
         }
 
-        /* Base Styles */
         body {
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
@@ -28,48 +27,6 @@
             padding: 4rem 2rem;
         }
 
-        /* Progress Section */
-        .progress-section {
-            margin-bottom: 3rem;
-        }
-
-        .progress-label {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 0.75rem;
-        }
-
-        .progress-bar-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .progress-container {
-            flex-grow: 1;
-            background: #e2e8f0;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
-        }
-
-        .progress-bar {
-            width: 0%;
-            height: 10px;
-            background: linear-gradient(90deg, #4c6ef5 0%, #845ef7 100%);
-            border-radius: 12px;
-            transition: width 0.4s ease-in-out;
-            box-shadow: 0 2px 4px rgba(76, 110, 245, 0.3);
-        }
-
-        .progress-text {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #4a5568;
-        }
-
-        /* Header Styles */
         .header {
             text-align: center;
             margin-bottom: 5rem;
@@ -93,7 +50,41 @@
             font-weight: 400;
         }
 
-        /* Video Grid */
+        .language-select-container {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .language-select {
+            appearance: none;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 0.75rem 2.5rem 0.75rem 1rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2d3748;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
+        }
+
+        .language-select:hover {
+            border-color: #4c6ef5;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .language-select:focus {
+            outline: none;
+            border-color: #4c6ef5;
+            box-shadow: 0 0 0 3px rgba(76, 110, 245, 0.3);
+        }
+
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -101,7 +92,6 @@
             padding: 0 1rem;
         }
 
-        /* Video Card */
         .video-card {
             background: #ffffff;
             border-radius: 16px;
@@ -149,7 +139,6 @@
             border-radius: 12px;
         }
 
-        /* Progress Button */
         .select-symbol {
             position: absolute;
             top: 0.75rem;
@@ -185,7 +174,6 @@
             display: none;
         }
 
-        /* Save Button (Context Menu) */
         .save-button-container {
             position: absolute;
             bottom: 1.25rem;
@@ -229,7 +217,6 @@
             stroke: #a0aec0;
         }
 
-        /* Empty State */
         .empty-state {
             grid-column: 1 / -1;
             text-align: center;
@@ -253,7 +240,6 @@
             font-weight: 500;
         }
 
-        /* Footer & Back Button */
         .footer {
             text-align: center;
             margin-top: 3rem;
@@ -284,7 +270,6 @@
             height: 1.5rem;
         }
 
-        /* Responsive Design */
         @media (max-width: 1024px) {
             .video-grid {
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -304,11 +289,6 @@
                 grid-template-columns: 1fr;
                 gap: 1.75rem;
             }
-
-            .progress-bar-container {
-                flex-direction: column;
-                align-items: flex-start;
-            }
         }
 
         @media (max-width: 480px) {
@@ -324,43 +304,35 @@
                 padding: 1.25rem;
             }
 
-            .progress-label {
-                font-size: 1.25rem;
-            }
-
             .save-button-container {
                 width: 100px;
             }
-        }
 
-        /* Animation for Progress Bar */
-        @keyframes slideIn {
-            from { width: 0; }
-            to { width: 100%; }
+            .language-select {
+                width: 100%;
+                max-width: 200px;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <!-- Progress Section -->
-        <div class="progress-section">
-            <div class="progress-label">Progress</div>
-            <div class="progress-bar-container">
-                <div class="progress-container">
-                    <div class="progress-bar" id="progressBar"></div>
-                </div>
-                <span class="progress-text" id="progressText">0%</span>
-            </div>
-        </div>
-
-        <!-- Header Section -->
         <header class="header">
             <h1>{{ category.name }} Videos</h1>
             <p class="subtitle">Unlock a world of knowledge with our expertly curated video collection</p>
+            <div class="language-select-container">
+                <select class="language-select" id="languageSelect" name="language">
+                    {% for language in languages %}
+                        <option value="{{ language.code }}"
+                                {% if language.code == selected_language|default:"Tl" %}selected{% endif %}>
+                            {{ language.lang_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
         </header>
 
-        <!-- Video Grid -->
         <main class="video-grid">
             {% for video in videos %}
                 <article class="video-card" data-video-id="{{ video.id }}">
@@ -370,7 +342,7 @@
                             {{ video.embed_code|safe }}
                         </div>
                     </div>
-                    <div class="select-symbol {% if video.id in saved_video_ids %}saved{% endif %}" data-video-id="{{ video.id }}">
+                    <div class="select-symbol {% if video.id in completed_video_ids %}saved{% endif %}" data-video-id="{{ video.id }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12" />
                         </svg>
@@ -395,7 +367,6 @@
             {% endfor %}
         </main>
 
-        <!-- Footer -->
         <footer class="footer">
             <a href="{% url 'categories_page' %}" class="back-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -406,7 +377,6 @@
         </footer>
     </div>
 
-    <!-- JavaScript -->
     <script>
         function getCookie(name) {
             let cookieValue = null;
@@ -427,22 +397,38 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const videoCards = document.querySelectorAll('.video-card');
-            const totalVideos = videoCards.length;
-            const progressBar = document.getElementById('progressBar');
-            const progressText = document.getElementById('progressText');
-            let selectedVideos = new Set();
 
-            // Initialize progress with saved videos
-            document.querySelectorAll('.select-symbol.saved').forEach(symbol => {
-                selectedVideos.add(symbol.getAttribute('data-video-id'));
+            // Completion Circle Click Handling (no progress update)
+            document.querySelectorAll('.select-symbol').forEach(symbol => {
+                symbol.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const videoId = symbol.getAttribute('data-video-id');
+
+                    if (!symbol.classList.contains('saved')) {
+                        fetch(window.location.href, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                'X-CSRFToken': csrftoken,
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: `action=complete&video_id=${videoId}`
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                symbol.classList.add('saved');
+                            } else {
+                                alert('Error: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred while marking video as completed.');
+                        });
+                    }
+                });
             });
-            updateProgress();
-
-            function updateProgress() {
-                const progressPercentage = Math.round((selectedVideos.size / totalVideos) * 100);
-                progressBar.style.width = `${progressPercentage}%`;
-                progressText.textContent = `${progressPercentage}%`;
-            }
 
             // Right-click to show save button
             videoCards.forEach(card => {
@@ -463,7 +449,6 @@
                 button.addEventListener('click', (e) => {
                     e.preventDefault();
                     const videoId = button.getAttribute('data-video-id');
-                    const symbol = document.querySelector(`.select-symbol[data-video-id="${videoId}"]`);
 
                     fetch(window.location.href, {
                         method: 'POST',
@@ -472,16 +457,13 @@
                             'X-CSRFToken': csrftoken,
                             'X-Requested-With': 'XMLHttpRequest'
                         },
-                        body: `video_id=${videoId}`
+                        body: `action=save&video_id=${videoId}`
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {
-                            symbol.classList.add('saved');
-                            selectedVideos.add(videoId);
-                            updateProgress();
                             button.closest('.video-card').classList.remove('show-save');
-                            alert(data.message); // Replace with better feedback
+                            alert(data.message); // Replace with better feedback (e.g., toast)
                         } else if (data.status === 'info') {
                             alert(data.message);
                         } else {
@@ -492,6 +474,35 @@
                         console.error('Error:', error);
                         alert('An error occurred while saving the video.');
                     });
+                });
+            });
+
+            // Language Select Logic
+            const languageSelect = document.getElementById('languageSelect');
+            languageSelect.addEventListener('change', (e) => {
+                const selectedLanguage = e.target.value;
+                
+                fetch(window.location.href, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': csrftoken,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: `language=${selectedLanguage}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        window.location.reload();
+                    } else {
+                        console.error('Language change failed:', data.message);
+                        alert('Failed to change language');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while changing language');
                 });
             });
         });

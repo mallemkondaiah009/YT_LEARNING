@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'yt_learning',
+    'yt_learning.apps.YtLearningConfig',
     'accounts',
     'rest_framework',
 ]

@@ -1,7 +1,15 @@
 from django.db import models
 from accounts.models import UserRegistrations
 
-# Create your models here.
+class Bashalu(models.Model):
+    lang_name = models.CharField(max_length=100)
+    code = models.CharField(max_length=100, null=True)
+
+    def __str__(self):
+        return self.lang_name
+
+
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
     icon = models.ImageField(upload_to='category_icons/', null=True)
@@ -11,6 +19,7 @@ class Category(models.Model):
     
 class Videos(models.Model):
     title = models.CharField(max_length=100)
+    bhashalu = models.ForeignKey(Bashalu, on_delete=models.CASCADE,null=True)
     yt_video_url = models.URLField(null = True)
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE,null=True)
@@ -29,4 +38,11 @@ class save_watch_later(models.Model):
 
     def __str__(self):
         return self.video.title
+    
+
+class Language(models.Model):
+    lang_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
     

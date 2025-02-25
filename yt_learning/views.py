@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Category, Videos
+from .models import Category, Videos, Bashalu
 from accounts.models import UserRegistrations
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -19,6 +19,7 @@ def categories_page(request):
 def videos_by_category(request, category_id):
     # Retrieve category
     category = get_object_or_404(Category, id=category_id)
+    languages = Bashalu.objects.all()
     
     # Retrieve videos for the category
     videos = Videos.objects.filter(category=category)
@@ -53,7 +54,9 @@ def videos_by_category(request, category_id):
     # Render the page for GET requests
     context = {
         'category': category,
+        'languages': languages,
         'videos': videos,
         'saved_video_ids': list(saved_video_ids),
     }
     return render(request, 'yt_learning/videos_by_category.html', context)
+
