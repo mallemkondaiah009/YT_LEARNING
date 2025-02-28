@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <title>{{ category.name }} Videos - Video Organizer</title>
     <style>
         /* Modern CSS Reset */
@@ -24,7 +25,8 @@
         .container {
             max-width: 1440px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 2rem;
+            position: relative;
         }
 
         .header {
@@ -98,7 +100,6 @@
             overflow: hidden;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
             border: 1px solid #edf2f7;
         }
 
@@ -139,57 +140,12 @@
             border-radius: 12px;
         }
 
-        .select-symbol {
-            position: absolute;
-            top: 0.75rem;
-            right: 0.75rem;
-            cursor: pointer;
-            width: 1.25rem;
-            height: 1.25rem;
-            border: 2px solid #a0aec0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .select-symbol:hover {
-            border-color: #4c6ef5;
-        }
-
-        .select-symbol.saved {
-            border-color: #28a745;
-            background: #28a745;
-        }
-
-        .select-symbol.saved svg {
-            display: block;
-            color: #ffffff;
-        }
-
-        .select-symbol svg {
-            width: 0.75rem;
-            height: 0.75rem;
-            display: none;
-        }
-
         .save-button-container {
-            position: absolute;
-            bottom: 1.25rem;
-            right: 1.25rem;
-            width: 120px;
             background: #ffffff;
             border: 1px solid #e2e8f0;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            opacity: 0;
             transition: opacity 0.2s ease-in-out;
-            z-index: 10;
-        }
-
-        .video-card.show-save .save-button-container {
-            opacity: 1;
         }
 
         .save-button {
@@ -240,22 +196,23 @@
             font-weight: 500;
         }
 
-        .footer {
-            text-align: center;
-            margin-top: 3rem;
+        .back-button-container {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
         }
 
         .back-button {
             display: inline-flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 1rem 2rem;
+            padding: 0.75rem 1.5rem;
             background: linear-gradient(90deg, #2b6cb0 0%, #4a5568 100%);
             color: #ffffff;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 1.125rem;
+            font-size: 1rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
@@ -266,8 +223,8 @@
         }
 
         .back-button svg {
-            width: 1.5rem;
-            height: 1.5rem;
+            width: 1.25rem;
+            height: 1.25rem;
         }
 
         @media (max-width: 1024px) {
@@ -278,7 +235,7 @@
 
         @media (max-width: 768px) {
             .container {
-                padding: 3rem 1.5rem;
+                padding: 1.5rem;
             }
 
             .header h1 {
@@ -288,6 +245,11 @@
             .video-grid {
                 grid-template-columns: 1fr;
                 gap: 1.75rem;
+            }
+
+            .back-button-container {
+                top: 1.5rem;
+                left: 1.5rem;
             }
         }
 
@@ -304,13 +266,19 @@
                 padding: 1.25rem;
             }
 
-            .save-button-container {
-                width: 100px;
-            }
-
             .language-select {
                 width: 100%;
                 max-width: 200px;
+            }
+
+            .back-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+
+            .back-button svg {
+                width: 1rem;
+                height: 1rem;
             }
         }
     </style>
@@ -318,14 +286,23 @@
 </head>
 <body>
     <div class="container">
+        <div class="back-button-container">
+            <a href="{% url 'categories_page' %}" class="back-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
+                </svg>
+                Back to Categories
+            </a>
+        </div>
         <header class="header">
             <h1>{{ category.name }} Videos</h1>
             <p class="subtitle">Unlock a world of knowledge with our expertly curated video collection</p>
             <div class="language-select-container">
                 <select class="language-select" id="languageSelect" name="language">
+                    <option value="" {% if not selected_language %}selected{% endif %}>All Languages</option>
                     {% for language in languages %}
-                        <option value="{{ language.code }}"
-                                {% if language.code == selected_language|default:"Tl" %}selected{% endif %}>
+                        <option value="{{ language.lang_name }}"
+                                {% if language.lang_name == selected_language %}selected{% endif %}>
                             {{ language.lang_name }}
                         </option>
                     {% endfor %}
@@ -337,23 +314,18 @@
             {% for video in videos %}
                 <article class="video-card" data-video-id="{{ video.id }}">
                     <div class="video-content">
-                        <h3>{{ video.title }}</h3>
+                        <h3>{{ video.title }} (Language: {{ video.bhashalu.lang_name }})</h3>
                         <div class="video-embed">
                             {{ video.embed_code|safe }}
                         </div>
-                    </div>
-                    <div class="select-symbol {% if video.id in completed_video_ids %}saved{% endif %}" data-video-id="{{ video.id }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                    </div>
-                    <div class="save-button-container">
-                        <button class="save-button" data-video-id="{{ video.id }}" title="Save for Later">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
-                            </svg>
-                            Save
-                        </button>
+                        <div class="save-button-container" style="position: static; opacity: 1; margin-top: 1rem; width: auto;">
+                            <button class="save-button" data-video-id="{{ video.id }}" title="Save for Later">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                                </svg>
+                                Save Watch Later
+                            </button>
+                        </div>
                     </div>
                 </article>
             {% empty %}
@@ -362,89 +334,16 @@
                         <path d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/>
                         <path d="M15 9h-6v6h6V9z"/>
                     </svg>
-                    <p>No videos available in this category yet.</p>
+                    <p>No videos available in this category{% if selected_language %} for language {{ selected_language }}{% endif %}.</p>
                 </div>
             {% endfor %}
         </main>
-
-        <footer class="footer">
-            <a href="{% url 'categories_page' %}" class="back-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
-                </svg>
-                Back to Categories
-            </a>
-        </footer>
     </div>
 
     <script>
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-
-        const csrftoken = getCookie('csrftoken');
-
         document.addEventListener('DOMContentLoaded', () => {
-            const videoCards = document.querySelectorAll('.video-card');
+            const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-            // Completion Circle Click Handling (no progress update)
-            document.querySelectorAll('.select-symbol').forEach(symbol => {
-                symbol.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const videoId = symbol.getAttribute('data-video-id');
-
-                    if (!symbol.classList.contains('saved')) {
-                        fetch(window.location.href, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                                'X-CSRFToken': csrftoken,
-                                'X-Requested-With': 'XMLHttpRequest'
-                            },
-                            body: `action=complete&video_id=${videoId}`
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'success') {
-                                symbol.classList.add('saved');
-                            } else {
-                                alert('Error: ' + data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('An error occurred while marking video as completed.');
-                        });
-                    }
-                });
-            });
-
-            // Right-click to show save button
-            videoCards.forEach(card => {
-                card.addEventListener('contextmenu', (e) => {
-                    e.preventDefault();
-                    videoCards.forEach(c => c.classList.remove('show-save'));
-                    card.classList.add('show-save');
-                });
-            });
-
-            // Hide save button when clicking elsewhere
-            document.addEventListener('click', () => {
-                videoCards.forEach(card => card.classList.remove('show-save'));
-            });
-
-            // Save Button Logic
             document.querySelectorAll('.save-button').forEach(button => {
                 button.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -462,8 +361,7 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {
-                            button.closest('.video-card').classList.remove('show-save');
-                            alert(data.message); // Replace with better feedback (e.g., toast)
+                            alert(data.message);
                         } else if (data.status === 'info') {
                             alert(data.message);
                         } else {
@@ -477,11 +375,10 @@
                 });
             });
 
-            // Language Select Logic
             const languageSelect = document.getElementById('languageSelect');
             languageSelect.addEventListener('change', (e) => {
                 const selectedLanguage = e.target.value;
-                
+
                 fetch(window.location.href, {
                     method: 'POST',
                     headers: {
@@ -489,7 +386,7 @@
                         'X-CSRFToken': csrftoken,
                         'X-Requested-With': 'XMLHttpRequest'
                     },
-                    body: `language=${selectedLanguage}`
+                    body: `action=language&language=${selectedLanguage}`
                 })
                 .then(response => response.json())
                 .then(data => {
