@@ -30,7 +30,6 @@ def videos_by_category(request, category_id):
     
     # Retrieve videos for the category
     videos = Videos.objects.filter(category=category)
-    print(f"Initial videos count: {videos.count()}")  # Debug: Total videos in category
     
     # Filter videos by selected language name if provided
     if selected_language_name:
@@ -38,11 +37,10 @@ def videos_by_category(request, category_id):
             # Assuming 'bhashalu' is a ForeignKey to Bashalu, get the Bashalu object by lang_name
             language_obj = Bashalu.objects.get(lang_name=selected_language_name)
             videos = videos.filter(bhashalu=language_obj)
-            print(f"Filtered videos count for {selected_language_name}: {videos.count()}")  # Debug: After language filter
+            
         except Bashalu.DoesNotExist:
             videos = Videos.objects.none()
-            print("Language name not found, returning empty queryset")
-    
+               
     # Retrieve saved video IDs using session
     saved_video_ids = []
     user_id = request.session.get('user_id')
@@ -74,7 +72,7 @@ def videos_by_category(request, category_id):
             return JsonResponse({'status': 'success', 'message': 'Language changed'})
     
     # Render the page for GET requests
-    print(f"Final videos count: {videos.count()}")  # Debug: Final count before rendering
+    
     context = {
         'category': category,
         'languages': languages,

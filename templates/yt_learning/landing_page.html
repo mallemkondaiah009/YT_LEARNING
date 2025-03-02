@@ -3,293 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Educational Videos - Video Organizer</title>
+    <title>Educational Video Organizer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Modern CSS Reset */
         *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Base Styles */
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            color: #1a1a1a;
-            background: #f8fafc;
+            color: #1f2a44;
+            background: #f9fafb;
+            overflow-x: hidden;
         }
 
         /* Hero Section */
         .hero {
             position: relative;
-            min-height: 80vh;
-            background: linear-gradient(rgba(30, 41, 59, 0.8), rgba(30, 41, 59, 0.8)),
-                        url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
+            min-height: 85vh;
+            background: linear-gradient(135deg, rgba(17, 24, 39, 0.85), rgba(59, 130, 246, 0.65)),
+                        url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 1.5rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15), transparent);
+            animation: rotateGlow 15s linear infinite;
+            z-index: 0;
         }
 
         .hero-content {
-            max-width: 800px;
-            color: white;
+            position: relative;
+            max-width: 900px;
+            color: #ffffff;
+            animation: fadeInUp 1s ease-out;
+            z-index: 1;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3.75rem;
             font-weight: 800;
-            line-height: 1.2;
+            line-height: 1.15;
             margin-bottom: 1.5rem;
-            letter-spacing: -0.025em;
+            letter-spacing: -0.03em;
         }
 
         .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+            font-size: 1.375rem;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.95;
         }
 
         .cta-button {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
             background: #3b82f6;
-            color: white;
+            color: #ffffff;
             text-decoration: none;
-            border-radius: 9999px;
-            font-weight: 500;
-            transition: all 0.2s ease-in-out;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
         }
 
         .cta-button:hover {
-            background: #2563eb;
-            transform: translateY(-2px);
+            background: #1d4ed8;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
         }
 
         /* Features Section */
         .features {
-            padding: 6rem 2rem;
-            background: white;
-        }
-
-        .features h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            color: #1e293b;
-            margin-bottom: 3rem;
-            font-weight: 800;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            padding: 2rem;
-            background: #f8fafc;
-            border-radius: 1rem;
-            transition: transform 0.2s ease-in-out;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            background: #3b82f6;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-icon svg {
-            color: white;
-        }
-
-        .feature-card h3 {
-            font-size: 1.25rem;
-            color: #1e293b;
-            margin-bottom: 0.75rem;
-        }
-
-        .feature-card p {
-            color: #64748b;
-        }
-
-        /* Showcase Section */
-        .showcase {
-            padding: 6rem 2rem;
-            background: #f1f5f9;
-        }
-
-        .showcase h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            color: #1e293b;
-            margin-bottom: 3rem;
-            font-weight: 800;
-        }
-
-        .showcase-filters {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-button {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            background: white;
-            color: #64748b;
-            border-radius: 9999px;
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-            font-weight: 500;
-        }
-
-        .filter-button.active,
-        .filter-button:hover {
-            background: #3b82f6;
-            color: white;
-        }
-
-        .showcase-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .showcase-card {
-            background: white;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .video-container {
+            padding: 7rem 2rem;
+            background: #ffffff;
             position: relative;
-            padding-top: 56.25%;
-            background: #f1f5f9;
         }
 
-        .video-container iframe {
+        .features::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border: none;
+            background: url('https://www.transparenttextures.com/patterns/subtle-white-feathers.png') repeat;
+            opacity: 0.05;
+            z-index: 0;
         }
 
-        .showcase-content {
-            padding: 1.5rem;
+        .features h2 {
+            text-align: center;
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 4rem;
+            letter-spacing: -0.025em;
+            position: relative;
+            z-index: 1;
         }
 
-        .showcase-content h3 {
-            font-size: 1.25rem;
-            color: #1e293b;
-            margin-bottom: 0.5rem;
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
-        .showcase-content p {
-            color: #64748b;
+        .feature-card {
+            padding: 2.5rem;
+            background: #ffffff;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::after {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1.75rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: #6b7280;
+            font-size: 1rem;
         }
 
         /* Footer */
         .footer {
-            background: #1e293b;
-            color: white;
-            padding: 3rem 2rem;
+            background: #111827;
+            color: #f3f4f6;
+            padding: 4rem 2rem;
             text-align: center;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
         }
 
         .footer-nav {
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
+            gap: 2.5rem;
+            margin-bottom: 1.75rem;
         }
 
         .footer-nav a {
-            color: #e2e8f0;
+            color: #d1d5db;
             text-decoration: none;
-            transition: color 0.2s ease-in-out;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
 
         .footer-nav a:hover {
-            color: white;
+            color: #ffffff;
         }
 
         .copyright {
-            color: #94a3b8;
+            color: #9ca3af;
             font-size: 0.875rem;
+            font-weight: 400;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.125rem;
-            }
-
-            .features h2,
-            .showcase h2 {
-                font-size: 2rem;
-            }
-
-            .showcase-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-nav {
-                flex-direction: column;
-                gap: 1rem;
-            }
+            .hero h1 { font-size: 2.75rem; }
+            .hero p { font-size: 1.125rem; }
+            .features h2 { font-size: 2.25rem; }
+            .feature-card { padding: 2rem; }
+            .footer-nav { flex-direction: column; gap: 1.25rem; }
         }
 
         @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .filter-button {
-                padding: 0.5rem 1rem;
-                font-size: 0.875rem;
-            }
+            .hero h1 { font-size: 2.25rem; }
+            .hero p { font-size: 1rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .cta-button { padding: 0.875rem 2rem; font-size: 1rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Organize & Track Your Learning Journey</h1>
-            <p>A curated collection of educational videos to help you master programming languages and development skills</p>
+            <h1>Master Skills with Seamless Organization</h1>
+            <p>Explore a curated library of educational videos to elevate your programming and development expertise.</p>
             <a href="{% url 'categories_page' %}" class="cta-button">
-                Start Learning
+                Get Started
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
                 </svg>
@@ -297,87 +272,38 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section class="features">
-        <h2>Why Choose Our Platform?</h2>
+        <h2>Empower Your Learning Experience</h2>
         <div class="features-grid">
             <article class="feature-card">
-                <div class="feature-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
-                    </svg>
-                </div>
-                <h3>Save & Organize</h3>
-                <p>Easily save and categorize your favorite educational videos for quick access</p>
+                <img src="https://cdn-icons-png.flaticon.com/512/3767/3767036.png" alt="Organize Icon" class="feature-icon">
+                <h3>Organize Efficiently</h3>
+                <p>Save and categorize your favorite educational videos with an intuitive system.</p>
             </article>
 
             <article class="feature-card">
-                <div class="feature-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/>
-                    </svg>
-                </div>
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="Progress Icon" class="feature-icon">
                 <h3>Track Progress</h3>
-                <p>Monitor your learning journey with our intuitive progress tracking system</p>
+                <p>Stay motivated with a clear view of your learning milestones and achievements.</p>
             </article>
 
             <article class="feature-card">
-                <div class="feature-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
-                    </svg>
-                </div>
-                <h3>Easy Access</h3>
-                <p>Access your video library from anywhere, anytime with our cloud-based platform</p>
+                <img src="https://cdn-icons-png.flaticon.com/512/3771/3771528.png" alt="Access Icon" class="feature-icon">
+                <h3>Seamless Access</h3>
+                <p>Retrieve your video library anytime, anywhere with our cloud-based solution.</p>
             </article>
 
             <article class="feature-card">
-                <div class="feature-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-                    </svg>
-                </div>
-                <h3>Smart Search</h3>
-                <p>Find exactly what you need with our powerful search and filter system</p>
+                <img src="https://cdn-icons-png.flaticon.com/512/3125/3125736.png" alt="Search Icon" class="feature-icon">
+                <h3>Advanced Search</h3>
+                <p>Locate resources instantly with our robust search and filtering capabilities.</p>
             </article>
         </div>
     </section>
 
-    <!-- Video Showcase -->
-    <section class="showcase">
-        <h2>Featured Content</h2>
-        <div class="showcase-filters">
-            <button class="filter-button active">All</button>
-            <button class="filter-button">Python</button>
-            <button class="filter-button">JavaScript</button>
-            <button class="filter-button">Java</button>
-        </div>
-        <div class="showcase-grid">
-            <div class="showcase-card">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/vLqTf2b6GZw" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <div class="showcase-content">
-                    <h3>Python Tutorial for Beginners</h3>
-                    <p>Learn Python basics with this comprehensive beginner's course from freeCodeCamp</p>
-                </div>
-            </div>
-            <div class="showcase-card">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/8DvywoWv6fI" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <div class="showcase-content">
-                    <h3>Java Programming Course</h3>
-                    <p>Master Java fundamentals with this in-depth tutorial for beginners</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer class="footer">
         <nav class="footer-nav">
-            <a href="#about">About</a>
+            <a href="#about">About Us</a>
             <a href="#contact">Contact</a>
             <a href="#privacy">Privacy Policy</a>
         </nav>

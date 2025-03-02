@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token }}">
     <title>{{ category.name }} Videos - Video Organizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
-        /* Modern CSS Reset */
         *, *::before, *::after {
             margin: 0;
             padding: 0;
@@ -14,10 +14,10 @@
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            color: #2d3748;
-            background: linear-gradient(145deg, #f7fafc 0%, #edf2f7 100%);
+            color: #1f2a44;
+            background: linear-gradient(145deg, #f9fafb 0%, #e5e7eb 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -29,24 +29,106 @@
             position: relative;
         }
 
+        /* Sliding Banner */
+        .slider {
+            width: 100%;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .slider-track {
+            display: flex;
+            width: max-content;
+            animation: slide 20s linear infinite;
+            will-change: transform;
+        }
+
+        .slider-item {
+            flex-shrink: 0;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .slider-item img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .slider-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .slider-item span {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1f2a44;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Button Wrapper */
+        .button-wrapper {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(59, 130, 246, 0.3);
+            background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+        }
+
+        .back-button svg {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        /* Header */
         .header {
             text-align: center;
-            margin-bottom: 5rem;
+            margin-bottom: 4rem;
         }
 
         .header h1 {
-            font-size: 3.5rem;
+            font-size: 3.75rem;
             font-weight: 900;
-            color: #1a202c;
-            letter-spacing: -0.03em;
-            background: linear-gradient(90deg, #2b6cb0 0%, #4a5568 100%);
+            color: #111827;
+            letter-spacing: -0.025em;
+            background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .subtitle {
             font-size: 1.25rem;
-            color: #718096;
+            color: #6b7280;
             max-width: 700px;
             margin: 1rem auto 0;
             font-weight: 400;
@@ -61,32 +143,33 @@
         .language-select {
             appearance: none;
             background: #ffffff;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #d1d5db;
             border-radius: 8px;
             padding: 0.75rem 2.5rem 0.75rem 1rem;
             font-size: 1rem;
             font-weight: 500;
-            color: #2d3748;
+            color: #1f2a44;
             cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 0.75rem center;
             background-size: 1rem;
         }
 
         .language-select:hover {
-            border-color: #4c6ef5;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .language-select:focus {
             outline: none;
-            border-color: #4c6ef5;
-            box-shadow: 0 0 0 3px rgba(76, 110, 245, 0.3);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
         }
 
+        /* Video Grid */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -98,24 +181,24 @@
             background: #ffffff;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #edf2f7;
+            border: 1px solid #e5e7eb;
         }
 
         .video-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
         }
 
         .video-content {
-            padding: 1.75rem;
+            padding: 2rem;
         }
 
         .video-content h3 {
-            font-size: 1.375rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            color: #2d3748;
+            color: #111827;
             margin-bottom: 1rem;
             line-height: 1.3;
         }
@@ -126,8 +209,8 @@
             padding-bottom: 56.25%;
             border-radius: 12px;
             overflow: hidden;
-            background: #edf2f7;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            background: #e5e7eb;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .video-embed iframe {
@@ -141,21 +224,23 @@
         }
 
         .save-button-container {
+            margin-top: 1rem;
             background: #ffffff;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #d1d5db;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: opacity 0.2s ease-in-out;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
         }
 
         .save-button {
             cursor: pointer;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.25rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.9rem;
-            color: #2d3748;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #1f2a44;
             background: transparent;
             border: none;
             width: 100%;
@@ -164,13 +249,13 @@
         }
 
         .save-button:hover {
-            background: #f7fafc;
+            background: #f9fafb;
         }
 
         .save-button svg {
             width: 1rem;
             height: 1rem;
-            stroke: #a0aec0;
+            stroke: #6b7280;
         }
 
         .empty-state {
@@ -179,54 +264,24 @@
             padding: 5rem 2rem;
             background: #ffffff;
             border-radius: 16px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
-            border: 1px solid #edf2f7;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
         }
 
         .empty-icon {
-            width: 56px;
-            height: 56px;
-            color: #a0aec0;
+            width: 64px;
+            height: 64px;
+            color: #9ca3af;
             margin-bottom: 1.5rem;
         }
 
         .empty-state p {
             font-size: 1.25rem;
-            color: #718096;
+            color: #6b7280;
             font-weight: 500;
         }
 
-        .back-button-container {
-            position: absolute;
-            top: 2rem;
-            left: 2rem;
-        }
-
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: linear-gradient(90deg, #2b6cb0 0%, #4a5568 100%);
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .back-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-        }
-
-        .back-button svg {
-            width: 1rem;
-            height: 1rem;
-        }
-
+        /* Responsive Design */
         @media (max-width: 1024px) {
             .video-grid {
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -234,59 +289,130 @@
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 1.5rem;
-            }
-
-            .header h1 {
-                font-size: 2.75rem;
-            }
-
-            .video-grid {
-                grid-template-columns: 1fr;
-                gap: 1.75rem;
-            }
-
-            .back-button-container {
-                top: 1.5rem;
-                left: 1.5rem;
-            }
+            .container { padding: 1.5rem; }
+            .header h1 { font-size: 2.75rem; }
+            .video-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+            .slider-item img { width: 40px; height: 40px; }
         }
 
         @media (max-width: 480px) {
-            .header h1 {
-                font-size: 2.25rem;
-            }
-
-            .subtitle {
-                font-size: 1.125rem;
-            }
-
-            .video-content {
-                padding: 1.25rem;
-            }
-
-            .language-select {
-                width: 100%;
-                max-width: 200px;
-            }
-
-            .back-button {
-                padding: 0.5rem 1rem;
-                font-size: 0.875rem;
-            }
-
-            .back-button svg {
-                width: 1rem;
-                height: 1rem;
-            }
+            .header h1 { font-size: 2.25rem; }
+            .subtitle { font-size: 1.125rem; }
+            .video-content { padding: 1.25rem; }
+            .language-select { width: 100%; max-width: 200px; }
+            .back-button { padding: 0.4rem 1rem; font-size: 0.75rem; }
+            .back-button svg { width: 0.875rem; height: 0.875rem; }
+            .slider-item span { font-size: 0.875rem; }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <div class="back-button-container">
+        <!-- Sliding Banner -->
+        <div class="slider">
+            <div class="slider-track">
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/python/python.png" alt="Python">
+                    <span>Python</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/java/java.png" alt="Java">
+                    <span>Java</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/c/c.png" alt="C">
+                    <span>C</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/cpp/cpp.png" alt="C++">
+                    <span>C++</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/go/go.png" alt="Go">
+                    <span>Go</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/javascript/javascript.png" alt="JavaScript">
+                    <span>JavaScript</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/ruby/ruby.png" alt="Ruby">
+                    <span>Ruby</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/php/php.png" alt="PHP">
+                    <span>PHP</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/swift/swift.png" alt="Swift">
+                    <span>Swift</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/kotlin/kotlin.png" alt="Kotlin">
+                    <span>Kotlin</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/typescript/typescript.png" alt="TypeScript">
+                    <span>TypeScript</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/873/873131.png" alt="R">
+                    <span>R</span>
+                </div>
+                <!-- Duplicate items for seamless looping -->
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/python/python.png" alt="Python">
+                    <span>Python</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/java/java.png" alt="Java">
+                    <span>Java</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/c/c.png" alt="C">
+                    <span>C</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/cpp/cpp.png" alt="C++">
+                    <span>C++</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/go/go.png" alt="Go">
+                    <span>Go</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/javascript/javascript.png" alt="JavaScript">
+                    <span>JavaScript</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/ruby/ruby.png" alt="Ruby">
+                    <span>Ruby</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/php/php.png" alt="PHP">
+                    <span>PHP</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/swift/swift.png" alt="Swift">
+                    <span>Swift</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/kotlin/kotlin.png" alt="Kotlin">
+                    <span>Kotlin</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos@0.0.3/src/typescript/typescript.png" alt="TypeScript">
+                    <span>TypeScript</span>
+                </div>
+                <div class="slider-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/873/873131.png" alt="R">
+                    <span>R</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="button-wrapper">
             <a href="{% url 'categories_page' %}" class="back-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
@@ -294,6 +420,7 @@
                 Back to Categories
             </a>
         </div>
+
         <header class="header">
             <h1>{{ category.name }} Videos</h1>
             <p class="subtitle">Unlock a world of knowledge with our expertly curated video collection</p>
@@ -318,10 +445,10 @@
                         <div class="video-embed">
                             {{ video.embed_code|safe }}
                         </div>
-                        <div class="save-button-container" style="position: static; opacity: 1; margin-top: 1rem; width: auto;">
+                        <div class="save-button-container">
                             <button class="save-button" data-video-id="{{ video.id }}" title="Save for Later">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 0 0 1 2 2z"/>
                                 </svg>
                                 Save Watch Later
                             </button>
@@ -345,62 +472,55 @@
             const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
             document.querySelectorAll('.save-button').forEach(button => {
-                button.addEventListener('click', (e) => {
+                button.addEventListener('click', async (e) => {
                     e.preventDefault();
                     const videoId = button.getAttribute('data-video-id');
+                    try {
+                        const response = await fetch(window.location.href, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                'X-CSRFToken': csrftoken,
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: `action=save&video_id=${videoId}`
+                        });
+                        const data = await response.json();
+                        if (data.status === 'success' || data.status === 'info') {
+                            alert(data.message);
+                        } else {
+                            alert('Error: ' + data.message);
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('An error occurred while saving the video.');
+                    }
+                });
+            });
 
-                    fetch(window.location.href, {
+            const languageSelect = document.getElementById('languageSelect');
+            languageSelect.addEventListener('change', async (e) => {
+                const selectedLanguage = e.target.value;
+                try {
+                    const response = await fetch(window.location.href, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
                             'X-CSRFToken': csrftoken,
                             'X-Requested-With': 'XMLHttpRequest'
                         },
-                        body: `action=save&video_id=${videoId}`
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            alert(data.message);
-                        } else if (data.status === 'info') {
-                            alert(data.message);
-                        } else {
-                            alert('Error: ' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('An error occurred while saving the video.');
+                        body: `action=language&language=${selectedLanguage}`
                     });
-                });
-            });
-
-            const languageSelect = document.getElementById('languageSelect');
-            languageSelect.addEventListener('change', (e) => {
-                const selectedLanguage = e.target.value;
-
-                fetch(window.location.href, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-CSRFToken': csrftoken,
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    body: `action=language&language=${selectedLanguage}`
-                })
-                .then(response => response.json())
-                .then(data => {
+                    const data = await response.json();
                     if (data.status === 'success') {
                         window.location.reload();
                     } else {
-                        console.error('Language change failed:', data.message);
                         alert('Failed to change language');
                     }
-                })
-                .catch(error => {
+                } catch (error) {
                     console.error('Error:', error);
                     alert('An error occurred while changing language');
-                });
+                }
             });
         });
     </script>
