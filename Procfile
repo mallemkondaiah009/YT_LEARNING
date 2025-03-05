@@ -1,0 +1,1 @@
+web: gunicorn host_file.wsgi:application
