@@ -29,40 +29,7 @@
             position: relative;
         }
 
-        .progress-bar-container {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            width: 200px;
-            background: #ffffff;
-            padding: 0.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-
-        .progress-bar-label {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: #1f2a44;
-            margin-bottom: 0.25rem;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: #e5e7eb;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
-            width: 0;
-            transition: width 0.3s ease;
-        }
-
+        /* Sliding Banner */
         .slider {
             width: 100%;
             overflow: hidden;
@@ -109,12 +76,14 @@
             100% { transform: translateX(-50%); }
         }
 
+        /* Button Wrapper */
         .button-wrapper {
             display: flex;
             justify-content: flex-start;
             margin-bottom: 2rem;
         }
 
+        /* Back Button */
         .back-button {
             display: inline-flex;
             align-items: center;
@@ -141,6 +110,7 @@
             height: 1rem;
         }
 
+        /* Header */
         .header {
             text-align: center;
             margin-bottom: 4rem;
@@ -199,6 +169,7 @@
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
         }
 
+        /* Video Grid Wrapper */
         .video-grid-wrapper {
             width: 100%;
             overflow-x: auto;
@@ -220,6 +191,7 @@
             background-color: #e5e7eb;
         }
 
+        /* Video Grid */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -234,7 +206,7 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid #e5e7eb;
-            position: relative;
+            position: relative; /* Ensure save button stays in place */
         }
 
         .video-card:hover {
@@ -245,7 +217,7 @@
         .video-content {
             padding: 2rem;
             position: relative;
-            z-index: 1;
+            z-index: 1; /* Ensure content stays above any hover effects */
         }
 
         .video-content h3 {
@@ -276,6 +248,7 @@
             border-radius: 12px;
         }
 
+        /* Save Button Container */
         .save-button-container {
             margin-top: 1.5rem;
             padding: 0.5rem;
@@ -286,12 +259,10 @@
                         inset 0 1px 1px rgba(255, 255, 255, 0.8);
             transition: all 0.3s ease;
             position: relative;
-            z-index: 2;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            z-index: 2; /* Keep above video card hover */
         }
 
+        /* Save Button */
         .save-button {
             cursor: pointer;
             padding: 0.75rem 1.5rem;
@@ -305,12 +276,13 @@
             background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
             border: none;
             border-radius: 8px;
+            width: 100%;
+            text-align: center;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
-            opacity: 1;
-            flex-grow: 1;
+            opacity: 1; /* Ensure it’s always fully visible */
         }
 
         .save-button:hover {
@@ -366,35 +338,9 @@
             }
         }
 
+        /* Ensure save button stays visible on video card hover */
         .video-card:hover .save-button {
-            transform: none;
-        }
-
-        .progress-mark {
-            width: 24px;
-            height: 24px;
-            background: #ffffff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            margin-left: 0.5rem;
-            cursor: pointer;
-        }
-
-        .progress-mark.completed svg {
-            stroke: #10b981; /* Green for completed */
-        }
-
-        .progress-mark:not(.completed) svg {
-            stroke: #d1d5db; /* Gray for not completed */
-        }
-
-        .progress-mark:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transform: none; /* Prevent save button from moving with card */
         }
 
         .empty-state {
@@ -420,21 +366,7 @@
             font-weight: 500;
         }
 
-        .loading-spinner {
-            border: 4px solid #f3f4f6;
-            border-top: 4px solid #3b82f6;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
+        /* Responsive Design */
         @media (max-width: 1024px) {
             .video-grid {
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -447,7 +379,6 @@
             .video-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); width: max-content; }
             .video-card { width: 280px; }
             .slider-item img { width: 40px; height: 40px; }
-            .progress-bar-container { width: 150px; }
         }
 
         @media (max-width: 480px) {
@@ -458,20 +389,12 @@
             .back-button { padding: 0.4rem 1rem; font-size: 0.75rem; }
             .back-button svg { width: 0.875rem; height: 0.875rem; }
             .slider-item span { font-size: 0.875rem; }
-            .progress-mark { width: 20px; height: 20px; }
-            .progress-bar-container { width: 120px; top: 0.5rem; right: 0.5rem; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="progress-bar-container">
-            <div class="progress-bar-label">Progress</div>
-            <div class="progress-bar">
-                <div class="progress-bar-fill" style="width: {{ completed_percentage|default:0 }}%;"></div>
-            </div>
-        </div>
-
+        <!-- Back Button -->
         <div class="button-wrapper">
             <a href="{% url 'categories_page' %}" class="back-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -497,26 +420,23 @@
             </div>
         </header>
 
+        <!-- Video Grid Wrapper -->
         <main class="video-grid-wrapper">
             <div class="video-grid">
                 {% for video in videos %}
                     <article class="video-card" data-video-id="{{ video.id }}">
                         <div class="video-content">
+                            <!-- <h3>{{ video.title }} (Language: {{ video.bhashalu.lang_name }})</h3> -->
                             <div class="video-embed">
                                 {{ video.embed_code|safe }}
                             </div>
                             <div class="save-button-container">
                                 <button class="save-button" data-video-id="{{ video.id }}" title="Save for Later">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M19 21l-7-5-7 5V5a2 0 0 1 2-2h10a2 0 0 1 2 2z"/>
+                                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 0 0 1 2 2z"/>
                                     </svg>
                                     <span>Save</span>
                                 </button>
-                                <div class="progress-mark {% if video.completed %}completed{% endif %}" data-video-id="{{ video.id }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="20 6 9 17 4 12"/>
-                                    </svg>
-                                </div>
                             </div>
                         </div>
                     </article>
@@ -536,104 +456,38 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            const videoGrid = document.querySelector('.video-grid');
-            const progressBarFill = document.querySelector('.progress-bar-fill');
-            let totalVideos = document.querySelectorAll('.video-card').length;
-            let completedVideos = document.querySelectorAll('.progress-mark.completed').length;
 
-            console.log(`Total Videos: ${totalVideos}`);
-            console.log(`Initial Completed Videos: ${completedVideos}`);
-
-            const updateProgressBar = () => {
-                const percentage = totalVideos > 0 ? (completedVideos / totalVideos) * 100 : 0;
-                console.log(`Percentage: ${percentage}%`);
-                progressBarFill.style.width = `${percentage}%`;
-            };
-            updateProgressBar();
-
-            const attachSaveButtonListeners = () => {
-                document.querySelectorAll('.save-button').forEach(button => {
-                    button.removeEventListener('click', saveVideoHandler);
-                    button.addEventListener('click', saveVideoHandler);
-                });
-            };
-
-            const attachProgressMarkListeners = () => {
-                document.querySelectorAll('.progress-mark').forEach(mark => {
-                    mark.removeEventListener('click', toggleProgressHandler);
-                    mark.addEventListener('click', toggleProgressHandler);
-                });
-            };
-
-            const saveVideoHandler = async (e) => {
-                e.preventDefault();
-                const button = e.currentTarget;
-                const videoId = button.getAttribute('data-video-id');
-                try {
-                    const response = await fetch(window.location.href, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'X-CSRFToken': csrftoken,
-                            'X-Requested-With': 'XMLHttpRequest'
-                        },
-                        body: `action=save&video_id=${videoId}`
-                    });
-                    const data = await response.json();
-                    if (data.status === 'success' || data.status === 'info') {
-                        alert(data.message);
-                    } else {
-                        alert('Error: ' + data.message);
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('An error occurred while saving the video.');
-                }
-            };
-
-            const toggleProgressHandler = async (e) => {
-                const mark = e.currentTarget;
-                const videoId = mark.getAttribute('data-video-id');
-                const isCompleted = mark.classList.contains('completed');
-
-                try {
-                    const response = await fetch(window.location.href, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'X-CSRFToken': csrftoken,
-                            'X-Requested-With': 'XMLHttpRequest'
-                        },
-                        body: `action=toggle_progress&video_id=${videoId}`
-                    });
-                    const data = await response.json();
-                    if (data.status === 'success') {
-                        if (isCompleted) {
-                            mark.classList.remove('completed');
-                            completedVideos--;
+            document.querySelectorAll('.save-button').forEach(button => {
+                button.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    const videoId = button.getAttribute('data-video-id');
+                    try {
+                        const response = await fetch(window.location.href, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                'X-CSRFToken': csrftoken,
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: `action=save&video_id=${videoId}`
+                        });
+                        const data = await response.json();
+                        if (data.status === 'success' || data.status === 'info') {
+                            alert(data.message);
                         } else {
-                            mark.classList.add('completed');
-                            completedVideos++;
+                            alert('Error: ' + data.message);
                         }
-                        console.log(`Completed Videos: ${completedVideos}`);
-                        updateProgressBar();
-                    } else {
-                        alert('Error: ' + data.message);
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('An error occurred while saving the video.');
                     }
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('An error occurred while updating progress.');
-                }
-            };
-
-            attachSaveButtonListeners();
-            attachProgressMarkListeners();
+                });
+            });
 
             const languageSelect = document.getElementById('languageSelect');
             languageSelect.addEventListener('change', async (e) => {
                 const selectedLanguage = e.target.value;
                 try {
-                    videoGrid.innerHTML = `<div class="empty-state"><div class="loading-spinner"></div><p>Loading videos...</p></div>`;
                     const response = await fetch(window.location.href, {
                         method: 'POST',
                         headers: {
@@ -641,24 +495,17 @@
                             'X-CSRFToken': csrftoken,
                             'X-Requested-With': 'XMLHttpRequest'
                         },
-                        body: `action=language&language=${encodeURIComponent(selectedLanguage)}`
+                        body: `action=language&language=${selectedLanguage}`
                     });
                     const data = await response.json();
-                    if (data.status === 'success' && data.html) {
-                        videoGrid.innerHTML = data.html;
-                        attachSaveButtonListeners();
-                        attachProgressMarkListeners();
-                        totalVideos = document.querySelectorAll('.video-card').length;
-                        completedVideos = document.querySelectorAll('.progress-mark.completed').length;
-                        console.log(`New Total Videos: ${totalVideos}`);
-                        console.log(`New Completed Videos: ${completedVideos}`);
-                        updateProgressBar();
+                    if (data.status === 'success') {
+                        window.location.reload();
                     } else {
-                        videoGrid.innerHTML = `<div class="empty-state"><svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/><path d="M15 9h-6v6h6V9z"/></svg><p>No videos available${selectedLanguage ? ` for language ${selectedLanguage}` : ''}.</p></div>`;
+                        alert('Failed to change language');
                     }
                 } catch (error) {
                     console.error('Error:', error);
-                    videoGrid.innerHTML = `<div class="empty-state"><p>Error loading videos. Please try again.</p></div>`;
+                    alert('An error occurred while changing language');
                 }
             });
         });
