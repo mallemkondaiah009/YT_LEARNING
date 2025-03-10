@@ -29,7 +29,40 @@
             position: relative;
         }
 
-        /* Sliding Banner */
+        .progress-bar-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            width: 200px;
+            background: #ffffff;
+            padding: 0.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .progress-bar-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1f2a44;
+            margin-bottom: 0.25rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e5e7eb;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
         .slider {
             width: 100%;
             overflow: hidden;
@@ -76,14 +109,12 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* Button Wrapper */
         .button-wrapper {
             display: flex;
             justify-content: flex-start;
             margin-bottom: 2rem;
         }
 
-        /* Back Button */
         .back-button {
             display: inline-flex;
             align-items: center;
@@ -110,7 +141,6 @@
             height: 1rem;
         }
 
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 4rem;
@@ -169,7 +199,27 @@
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
         }
 
-        /* Video Grid */
+        .video-grid-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #3b82f6 #e5e7eb;
+        }
+
+        .video-grid-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .video-grid-wrapper::-webkit-scrollbar-thumb {
+            background-color: #3b82f6;
+            border-radius: 4px;
+        }
+
+        .video-grid-wrapper::-webkit-scrollbar-track {
+            background-color: #e5e7eb;
+        }
+
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -184,6 +234,7 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid #e5e7eb;
+            position: relative;
         }
 
         .video-card:hover {
@@ -193,6 +244,8 @@
 
         .video-content {
             padding: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .video-content h3 {
@@ -224,38 +277,124 @@
         }
 
         .save-button-container {
-            margin-top: 1rem;
-            background: #ffffff;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 1.5rem;
+            padding: 0.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05),
+                        inset 0 1px 1px rgba(255, 255, 255, 0.8);
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .save-button {
             cursor: pointer;
-            padding: 0.75rem 1.25rem;
+            padding: 0.75rem 1.5rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: center;
+            gap: 0.75rem;
             font-size: 0.875rem;
-            font-weight: 500;
+            font-weight: 600;
             color: #1f2a44;
-            background: transparent;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
             border: none;
-            width: 100%;
-            text-align: left;
-            transition: background 0.2s ease;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            opacity: 1;
+            flex-grow: 1;
         }
 
         .save-button:hover {
-            background: #f9fafb;
+            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .save-button:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .save-button svg {
-            width: 1rem;
-            height: 1rem;
-            stroke: #6b7280;
+            width: 1.125rem;
+            height: 1.125rem;
+            stroke: #3b82f6;
+            transition: transform 0.3s ease;
+        }
+
+        .save-button:hover svg {
+            transform: scale(1.1);
+        }
+
+        .save-button::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+
+        .save-button:active::after {
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+        }
+
+        .video-card:hover .save-button {
+            transform: none;
+        }
+
+        .progress-mark {
+            width: 24px;
+            height: 24px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            margin-left: 0.5rem;
+            cursor: pointer;
+        }
+
+        .progress-mark.completed svg {
+            stroke: #10b981; /* Green for completed */
+        }
+
+        .progress-mark:not(.completed) svg {
+            stroke: #d1d5db; /* Gray for not completed */
+        }
+
+        .progress-mark:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
         .empty-state {
@@ -281,7 +420,21 @@
             font-weight: 500;
         }
 
-        /* Responsive Design */
+        .loading-spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         @media (max-width: 1024px) {
             .video-grid {
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -291,8 +444,10 @@
         @media (max-width: 768px) {
             .container { padding: 1.5rem; }
             .header h1 { font-size: 2.75rem; }
-            .video-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+            .video-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); width: max-content; }
+            .video-card { width: 280px; }
             .slider-item img { width: 40px; height: 40px; }
+            .progress-bar-container { width: 150px; }
         }
 
         @media (max-width: 480px) {
@@ -303,12 +458,20 @@
             .back-button { padding: 0.4rem 1rem; font-size: 0.75rem; }
             .back-button svg { width: 0.875rem; height: 0.875rem; }
             .slider-item span { font-size: 0.875rem; }
+            .progress-mark { width: 20px; height: 20px; }
+            .progress-bar-container { width: 120px; top: 0.5rem; right: 0.5rem; }
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="progress-bar-container">
+            <div class="progress-bar-label">Progress</div>
+            <div class="progress-bar">
+                <div class="progress-bar-fill" style="width: {{ completed_percentage|default:0 }}%;"></div>
+            </div>
+        </div>
 
-        <!-- Back Button -->
         <div class="button-wrapper">
             <a href="{% url 'categories_page' %}" class="back-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -334,70 +497,78 @@
             </div>
         </header>
 
-        <main class="video-grid">
-            {% for video in videos %}
-                <article class="video-card" data-video-id="{{ video.id }}">
-                    <div class="video-content">
-                        <h3>{{ video.title }} (Language: {{ video.bhashalu.lang_name }})</h3>
-                        <div class="video-embed">
-                            {{ video.embed_code|safe }}
+        <main class="video-grid-wrapper">
+            <div class="video-grid">
+                {% for video in videos %}
+                    <article class="video-card" data-video-id="{{ video.id }}">
+                        <div class="video-content">
+                            <div class="video-embed">
+                                {{ video.embed_code|safe }}
+                            </div>
+                            <div class="save-button-container">
+                                <button class="save-button" data-video-id="{{ video.id }}" title="Save for Later">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M19 21l-7-5-7 5V5a2 0 0 1 2-2h10a2 0 0 1 2 2z"/>
+                                    </svg>
+                                    <span>Save</span>
+                                </button>
+                                <div class="progress-mark {% if video.completed %}completed{% endif %}" data-video-id="{{ video.id }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
-                        <div class="save-button-container">
-                            <button class="save-button" data-video-id="{{ video.id }}" title="Save for Later">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 0 0 1 2 2z"/>
-                                </svg>
-                                Save Watch Later
-                            </button>
-                        </div>
+                    </article>
+                {% empty %}
+                    <div class="empty-state">
+                        <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/>
+                            <path d="M15 9h-6v6h6V9z"/>
+                        </svg>
+                        <p>No videos available in this category{% if selected_language %} for language {{ selected_language }}{% endif %}.</p>
                     </div>
-                </article>
-            {% empty %}
-                <div class="empty-state">
-                    <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/>
-                        <path d="M15 9h-6v6h6V9z"/>
-                    </svg>
-                    <p>No videos available in this category{% if selected_language %} for language {{ selected_language }}{% endif %}.</p>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </main>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const videoGrid = document.querySelector('.video-grid');
+            const progressBarFill = document.querySelector('.progress-bar-fill');
+            let totalVideos = document.querySelectorAll('.video-card').length;
+            let completedVideos = document.querySelectorAll('.progress-mark.completed').length;
 
-            document.querySelectorAll('.save-button').forEach(button => {
-                button.addEventListener('click', async (e) => {
-                    e.preventDefault();
-                    const videoId = button.getAttribute('data-video-id');
-                    try {
-                        const response = await fetch(window.location.href, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                                'X-CSRFToken': csrftoken,
-                                'X-Requested-With': 'XMLHttpRequest'
-                            },
-                            body: `action=save&video_id=${videoId}`
-                        });
-                        const data = await response.json();
-                        if (data.status === 'success' || data.status === 'info') {
-                            alert(data.message);
-                        } else {
-                            alert('Error: ' + data.message);
-                        }
-                    } catch (error) {
-                        console.error('Error:', error);
-                        alert('An error occurred while saving the video.');
-                    }
+            console.log(`Total Videos: ${totalVideos}`);
+            console.log(`Initial Completed Videos: ${completedVideos}`);
+
+            const updateProgressBar = () => {
+                const percentage = totalVideos > 0 ? (completedVideos / totalVideos) * 100 : 0;
+                console.log(`Percentage: ${percentage}%`);
+                progressBarFill.style.width = `${percentage}%`;
+            };
+            updateProgressBar();
+
+            const attachSaveButtonListeners = () => {
+                document.querySelectorAll('.save-button').forEach(button => {
+                    button.removeEventListener('click', saveVideoHandler);
+                    button.addEventListener('click', saveVideoHandler);
                 });
-            });
+            };
 
-            const languageSelect = document.getElementById('languageSelect');
-            languageSelect.addEventListener('change', async (e) => {
-                const selectedLanguage = e.target.value;
+            const attachProgressMarkListeners = () => {
+                document.querySelectorAll('.progress-mark').forEach(mark => {
+                    mark.removeEventListener('click', toggleProgressHandler);
+                    mark.addEventListener('click', toggleProgressHandler);
+                });
+            };
+
+            const saveVideoHandler = async (e) => {
+                e.preventDefault();
+                const button = e.currentTarget;
+                const videoId = button.getAttribute('data-video-id');
                 try {
                     const response = await fetch(window.location.href, {
                         method: 'POST',
@@ -406,17 +577,88 @@
                             'X-CSRFToken': csrftoken,
                             'X-Requested-With': 'XMLHttpRequest'
                         },
-                        body: `action=language&language=${selectedLanguage}`
+                        body: `action=save&video_id=${videoId}`
                     });
                     const data = await response.json();
-                    if (data.status === 'success') {
-                        window.location.reload();
+                    if (data.status === 'success' || data.status === 'info') {
+                        alert(data.message);
                     } else {
-                        alert('Failed to change language');
+                        alert('Error: ' + data.message);
                     }
                 } catch (error) {
                     console.error('Error:', error);
-                    alert('An error occurred while changing language');
+                    alert('An error occurred while saving the video.');
+                }
+            };
+
+            const toggleProgressHandler = async (e) => {
+                const mark = e.currentTarget;
+                const videoId = mark.getAttribute('data-video-id');
+                const isCompleted = mark.classList.contains('completed');
+
+                try {
+                    const response = await fetch(window.location.href, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-CSRFToken': csrftoken,
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: `action=toggle_progress&video_id=${videoId}`
+                    });
+                    const data = await response.json();
+                    if (data.status === 'success') {
+                        if (isCompleted) {
+                            mark.classList.remove('completed');
+                            completedVideos--;
+                        } else {
+                            mark.classList.add('completed');
+                            completedVideos++;
+                        }
+                        console.log(`Completed Videos: ${completedVideos}`);
+                        updateProgressBar();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while updating progress.');
+                }
+            };
+
+            attachSaveButtonListeners();
+            attachProgressMarkListeners();
+
+            const languageSelect = document.getElementById('languageSelect');
+            languageSelect.addEventListener('change', async (e) => {
+                const selectedLanguage = e.target.value;
+                try {
+                    videoGrid.innerHTML = `<div class="empty-state"><div class="loading-spinner"></div><p>Loading videos...</p></div>`;
+                    const response = await fetch(window.location.href, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-CSRFToken': csrftoken,
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: `action=language&language=${encodeURIComponent(selectedLanguage)}`
+                    });
+                    const data = await response.json();
+                    if (data.status === 'success' && data.html) {
+                        videoGrid.innerHTML = data.html;
+                        attachSaveButtonListeners();
+                        attachProgressMarkListeners();
+                        totalVideos = document.querySelectorAll('.video-card').length;
+                        completedVideos = document.querySelectorAll('.progress-mark.completed').length;
+                        console.log(`New Total Videos: ${totalVideos}`);
+                        console.log(`New Completed Videos: ${completedVideos}`);
+                        updateProgressBar();
+                    } else {
+                        videoGrid.innerHTML = `<div class="empty-state"><svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/><path d="M15 9h-6v6h6V9z"/></svg><p>No videos available${selectedLanguage ? ` for language ${selectedLanguage}` : ''}.</p></div>`;
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    videoGrid.innerHTML = `<div class="empty-state"><p>Error loading videos. Please try again.</p></div>`;
                 }
             });
         });
