@@ -206,7 +206,7 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid #e5e7eb;
-            position: relative; /* Ensure save button stays in place */
+            position: relative;
         }
 
         .video-card:hover {
@@ -217,15 +217,7 @@
         .video-content {
             padding: 2rem;
             position: relative;
-            z-index: 1; /* Ensure content stays above any hover effects */
-        }
-
-        .video-content h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #111827;
-            margin-bottom: 1rem;
-            line-height: 1.3;
+            z-index: 1;
         }
 
         .video-embed {
@@ -248,18 +240,17 @@
             border-radius: 12px;
         }
 
-        /* Save Button Container */
-        .save-button-container {
+        /* Controls Container */
+        .controls-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-top: 1.5rem;
-            padding: 0.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05),
-                        inset 0 1px 1px rgba(255, 255, 255, 0.8);
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 2; /* Keep above video card hover */
+            padding: 0.75rem;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
         }
 
         /* Save Button */
@@ -269,24 +260,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
             font-size: 0.875rem;
             font-weight: 600;
             color: #1f2a44;
-            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-            border: none;
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
             border-radius: 8px;
-            width: 100%;
-            text-align: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            position: relative;
-            overflow: hidden;
-            opacity: 1; /* Ensure it’s always fully visible */
         }
 
         .save-button:hover {
-            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+            background: #e5e7eb;
+            border-color: #3b82f6;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
@@ -297,8 +284,8 @@
         }
 
         .save-button svg {
-            width: 1.125rem;
-            height: 1.125rem;
+            width: 1rem;
+            height: 1rem;
             stroke: #3b82f6;
             transition: transform 0.3s ease;
         }
@@ -307,40 +294,93 @@
             transform: scale(1.1);
         }
 
-        .save-button::after {
+        /* Custom Checkbox (Toggle Switch) */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toggle-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #1f2a44;
+        }
+
+        .progress-checkbox {
+            display: none; /* Hide default checkbox */
+        }
+
+        .progress-toggle {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+            background: #d1d5db;
+            border-radius: 20px;
+            transition: background 0.3s ease;
+            cursor: pointer;
+        }
+
+        .progress-toggle::after {
             content: '';
             position: absolute;
-            width: 100px;
-            height: 100px;
-            background: rgba(59, 130, 246, 0.2);
+            width: 16px;
+            height: 16px;
+            left: 2px;
+            top: 2px;
+            background: #ffffff;
             border-radius: 50%;
-            transform: scale(0);
-            animation: ripple 0.6s linear;
-            pointer-events: none;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
+            transition: transform 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
-        .save-button:active::after {
-            animation: ripple 0.6s ease-out;
+        .progress-checkbox:checked + .progress-toggle {
+            background: #3b82f6;
         }
 
-        @keyframes ripple {
-            0% {
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(2);
-                opacity: 0;
-            }
+        .progress-checkbox:checked + .progress-toggle::after {
+            transform: translateX(20px);
+        }
+
+        /* Overall Progress Bar (Top Right) */
+        .overall-progress-container {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
+        }
+
+        .overall-progress-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1f2a44;
+        }
+
+        .overall-progress-bar-wrapper {
+            width: 100%;
+            height: 12px;
+            background: #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid #d1d5db;
+        }
+
+        .overall-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6 0%, #1e40af 100%);
+            border-radius: 6px;
+            transition: width 0.3s ease;
         }
 
         /* Ensure save button stays visible on video card hover */
         .video-card:hover .save-button {
-            transform: none; /* Prevent save button from moving with card */
+            transform: none;
         }
 
         .empty-state {
@@ -371,6 +411,9 @@
             .video-grid {
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             }
+            .overall-progress-container {
+                width: 150px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -379,6 +422,14 @@
             .video-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); width: max-content; }
             .video-card { width: 280px; }
             .slider-item img { width: 40px; height: 40px; }
+            .overall-progress-container {
+                top: 1.5rem;
+                right: 1.5rem;
+                width: 120px;
+            }
+            .controls-container {
+                padding: 0.5rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -389,11 +440,53 @@
             .back-button { padding: 0.4rem 1rem; font-size: 0.75rem; }
             .back-button svg { width: 0.875rem; height: 0.875rem; }
             .slider-item span { font-size: 0.875rem; }
+            .overall-progress-container {
+                top: 1rem;
+                right: 1rem;
+                width: 100px;
+            }
+            .overall-progress-label {
+                font-size: 0.75rem;
+            }
+            .overall-progress-bar-wrapper {
+                height: 10px;
+            }
+            .save-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+            }
+            .save-button svg {
+                width: 0.875rem;
+                height: 0.875rem;
+            }
+            .toggle-label {
+                font-size: 0.75rem;
+            }
+            .progress-toggle {
+                width: 34px;
+                height: 18px;
+            }
+            .progress-toggle::after {
+                width: 14px;
+                height: 14px;
+            }
+            .progress-checkbox:checked + .progress-toggle::after {
+                transform: translateX(16px);
+            }
         }
     </style>
 </head>
 <body>
+    {% load dict_filters %}
     <div class="container">
+        <!-- Overall Progress Bar -->
+        <div class="overall-progress-container">
+            <span class="overall-progress-label">Overall Progress</span>
+            <div class="overall-progress-bar-wrapper">
+                <div class="overall-progress-bar" style="width: {{ overall_progress|default:0 }}%;"></div>
+            </div>
+        </div>
+
         <!-- Back Button -->
         <div class="button-wrapper">
             <a href="{% url 'categories_page' %}" class="back-button">
@@ -426,17 +519,22 @@
                 {% for video in videos %}
                     <article class="video-card" data-video-id="{{ video.id }}">
                         <div class="video-content">
-                            <!-- <h3>{{ video.title }} (Language: {{ video.bhashalu.lang_name }})</h3> -->
                             <div class="video-embed">
                                 {{ video.embed_code|safe }}
                             </div>
-                            <div class="save-button-container">
+                            <div class="controls-container">
                                 <button class="save-button" data-video-id="{{ video.id }}" title="Save for Later">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 0 0 1 2 2z"/>
+                                        <path d="M19 21l-7-5-7 5V5a2 0 0 1 2-2h10a2 0 0 1 2 2z"/>
                                     </svg>
                                     <span>Save</span>
                                 </button>
+                                <div class="toggle-container">
+                                    <input type="checkbox" class="progress-checkbox" id="progress-{{ video.id }}" data-video-id="{{ video.id }}"
+                                        {% if video_progress|get_item:video.id >= 100 %}checked{% endif %}>
+                                    <label for="progress-{{ video.id }}" class="progress-toggle"></label>
+                                    <span class="toggle-label">Completed</span>
+                                </div>
                             </div>
                         </div>
                     </article>
@@ -507,6 +605,40 @@
                     console.error('Error:', error);
                     alert('An error occurred while changing language');
                 }
+            });
+
+            document.querySelectorAll('.progress-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', async (e) => {
+                    const videoId = checkbox.getAttribute('data-video-id');
+                    const isChecked = checkbox.checked;
+                    const overallProgressBar = document.querySelector('.overall-progress-bar');
+                    
+                    try {
+                        const response = await fetch(window.location.href, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                'X-CSRFToken': csrftoken,
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: `action=update_progress&video_id=${videoId}&completed=${isChecked}`
+                        });
+                        
+                        const data = await response.json();
+                        if (data.status === 'success') {
+                            if (data.overall_progress !== undefined) {
+                                overallProgressBar.style.width = `${data.overall_progress}%`;
+                            }
+                        } else {
+                            checkbox.checked = !isChecked;
+                            alert('Failed to update progress: ' + data.message);
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        checkbox.checked = !isChecked;
+                        alert('An error occurred while updating progress');
+                    }
+                });
             });
         });
     </script>

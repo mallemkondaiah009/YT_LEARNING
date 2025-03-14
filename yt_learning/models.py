@@ -47,4 +47,18 @@ class Language(models.Model):
         return self.name
     
 
+class VideoProgress(models.Model):
+    user = models.ForeignKey(UserRegistrations, on_delete=models.CASCADE, related_name='video_progress', null=True)
+    video = models.ForeignKey(Videos, on_delete=models.CASCADE, related_name='user_progress', null=True)
+    progress = models.FloatField(default=0.0)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        unique_together = ('user', 'video')
+        verbose_name = 'Video Progress'
+        verbose_name_plural = 'Video Progress'
+
+    def __str__(self):
+        return f"{self.user} - {self.video} - {self.progress}%"
+
     
