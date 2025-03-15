@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token }}">
-    <title>{{ category.name }} CodeHive Videos</title>
+    <title>CodeHive {{ category.name }} Videos</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after {
@@ -30,7 +30,6 @@
             position: relative;
         }
 
-        /* Sliding Banner */
         .slider {
             width: 100%;
             overflow: hidden;
@@ -77,14 +76,12 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* Button Wrapper */
         .button-wrapper {
             display: flex;
             justify-content: flex-start;
             margin-bottom: 2rem;
         }
 
-        /* Back Button */
         .back-button {
             display: inline-flex;
             align-items: center;
@@ -111,7 +108,6 @@
             height: 1rem;
         }
 
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 4rem;
@@ -170,7 +166,6 @@
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
         }
 
-        /* Video Grid Wrapper */
         .video-grid-wrapper {
             width: 100%;
             overflow-x: auto;
@@ -192,7 +187,6 @@
             background-color: #e5e7eb;
         }
 
-        /* Video Grid */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -241,7 +235,6 @@
             border-radius: 12px;
         }
 
-        /* Controls Container */
         .controls-container {
             display: flex;
             justify-content: space-between;
@@ -254,7 +247,6 @@
             border: 1px solid #e5e7eb;
         }
 
-        /* Save Button */
         .save-button {
             cursor: pointer;
             padding: 0.75rem 1.5rem;
@@ -295,7 +287,6 @@
             transform: scale(1.1);
         }
 
-        /* Custom Checkbox (Toggle Switch) */
         .toggle-container {
             display: flex;
             align-items: center;
@@ -309,7 +300,7 @@
         }
 
         .progress-checkbox {
-            display: none; /* Hide default checkbox */
+            display: none;
         }
 
         .progress-toggle {
@@ -344,7 +335,6 @@
             transform: translateX(20px);
         }
 
-        /* Overall Progress Bar (Top Right) */
         .overall-progress-container {
             position: absolute;
             top: 2rem;
@@ -379,7 +369,6 @@
             transition: width 0.3s ease;
         }
 
-        /* Ensure save button stays visible on video card hover */
         .video-card:hover .save-button {
             transform: none;
         }
@@ -407,6 +396,108 @@
             font-weight: 500;
         }
 
+        /* Authentication Overlay Styles */
+        .auth-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(31, 42, 68, 0.85); /* Darker, matching #1f2a44 vibe */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .auth-container {
+            background: #ffffff;
+            padding: 2rem 3rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 420px;
+            width: 90%;
+            transform: scale(0.95);
+            animation: scaleUp 0.4s ease-out forwards;
+        }
+
+        @keyframes scaleUp {
+            to { transform: scale(1); }
+        }
+
+        .auth-container h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: #1f2a44;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .auth-container p {
+            font-size: 1.125rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            max-width: 340px;
+        }
+
+        .auth-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .auth-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+            min-width: 130px;
+        }
+
+        .auth-link:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.35);
+            background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+        }
+
+        .auth-link:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 6px rgba(59, 130, 246, 0.2);
+        }
+
+        .auth-link.register {
+            background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+        }
+
+        .auth-link.register:hover {
+            background: linear-gradient(135deg, #059669 0%, #065f46 100%);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+        }
+
+        .blur-content {
+            filter: blur(8px);
+            pointer-events: none;
+            transition: filter 0.5s ease;
+        }
+
         /* Responsive Design */
         @media (max-width: 1024px) {
             .video-grid {
@@ -430,6 +521,13 @@
             }
             .controls-container {
                 padding: 0.5rem;
+            }
+            .auth-container {
+                padding: 1.5rem 2rem;
+            }
+            .auth-links {
+                flex-direction: column;
+                gap: 0.75rem;
             }
         }
 
@@ -474,12 +572,24 @@
             .progress-checkbox:checked + .progress-toggle::after {
                 transform: translateX(16px);
             }
+            .auth-container h2 {
+                font-size: 1.75rem;
+            }
+            .auth-container p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .auth-link {
+                padding: 0.65rem 1.75rem;
+                font-size: 0.875rem;
+                min-width: 110px;
+            }
         }
     </style>
 </head>
 <body>
     {% load dict_filters %}
-    <div class="container">
+    <div class="container {% if not request.session.user_id %}blur-content{% endif %}">
         <!-- Overall Progress Bar -->
         <div class="overall-progress-container">
             <span class="overall-progress-label">Overall Progress</span>
@@ -517,41 +627,57 @@
         <!-- Video Grid Wrapper -->
         <main class="video-grid-wrapper">
             <div class="video-grid">
-                {% for video in videos %}
-                    <article class="video-card" data-video-id="{{ video.id }}">
-                        <div class="video-content">
-                            <div class="video-embed">
-                                {{ video.embed_code|safe }}
-                            </div>
-                            <div class="controls-container">
-                                <button class="save-button" data-video-id="{{ video.id }}" title="Save for Later">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M19 21l-7-5-7 5V5a2 0 0 1 2-2h10a2 0 0 1 2 2z"/>
-                                    </svg>
-                                    <span>Save</span>
-                                </button>
-                                <div class="toggle-container">
-                                    <input type="checkbox" class="progress-checkbox" id="progress-{{ video.id }}" data-video-id="{{ video.id }}"
-                                        {% if video_progress|get_item:video.id >= 100 %}checked{% endif %}>
-                                    <label for="progress-{{ video.id }}" class="progress-toggle"></label>
-                                    <span class="toggle-label">Completed</span>
+                {% if request.session.user_id %}
+                    {% for video in videos %}
+                        <article class="video-card" data-video-id="{{ video.id }}">
+                            <div class="video-content">
+                                <div class="video-embed">
+                                    {{ video.embed_code|safe }}
+                                </div>
+                                <div class="controls-container">
+                                    <button class="save-button" data-video-id="{{ video.id }}" title="Save for Later">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M19 21l-7-5-7 5V5a2 0 0 1 2-2h10a2 0 0 1 2 2z"/>
+                                        </svg>
+                                        <span>Save</span>
+                                    </button>
+                                    <div class="toggle-container">
+                                        <input type="checkbox" class="progress-checkbox" id="progress-{{ video.id }}" data-video-id="{{ video.id }}"
+                                            {% if video_progress|get_item:video.id >= 100 %}checked{% endif %}>
+                                        <label for="progress-{{ video.id }}" class="progress-toggle"></label>
+                                        <span class="toggle-label">Completed</span>
+                                    </div>
                                 </div>
                             </div>
+                        </article>
+                    {% empty %}
+                        <div class="empty-state">
+                            <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/>
+                                <path d="M15 9h-6v6h6V9z"/>
+                            </svg>
+                            <p>No videos available in this category{% if selected_language %} for language {{ selected_language }}{% endif %}.</p>
                         </div>
-                    </article>
-                {% empty %}
-                    <div class="empty-state">
-                        <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/>
-                            <path d="M15 9h-6v6h6V9z"/>
-                        </svg>
-                        <p>No videos available in this category{% if selected_language %} for language {{ selected_language }}{% endif %}.</p>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                {% endif %}
             </div>
         </main>
     </div>
 
+    {% if not request.session.user_id %}
+        <div class="auth-overlay">
+            <div class="auth-container">
+                <h2>Explore CodeHive</h2>
+                <p>Sign in or create an account to dive into our curated video library.</p>
+                <div class="auth-links">
+                    <a href="{% url 'login_category' %}" class="auth-link">Sign In</a>
+                    <a href="{% url 'register_category' %}" class="auth-link register">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if request.session.user_id %}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -609,7 +735,7 @@
             });
 
             document.querySelectorAll('.progress-checkbox').forEach(checkbox => {
-                checkbox.addEventListener('change', async (e) => {
+                button.addEventListener('change', async (e) => {
                     const videoId = checkbox.getAttribute('data-video-id');
                     const isChecked = checkbox.checked;
                     const overallProgressBar = document.querySelector('.overall-progress-bar');
@@ -643,5 +769,6 @@
             });
         });
     </script>
+    {% endif %}
 </body>
 </html>

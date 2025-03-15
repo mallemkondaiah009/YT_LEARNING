@@ -23,6 +23,7 @@ def videos_by_category(request, category_id):
     # Retrieve category
     category = get_object_or_404(Category, id=category_id)
     languages = Bashalu.objects.all()
+    request.session['category_id'] = category.id
     
     # Get selected language name from POST request or session
     selected_language_name = request.POST.get('language')
