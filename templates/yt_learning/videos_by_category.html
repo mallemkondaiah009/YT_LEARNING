@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load dict_filters %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -403,7 +404,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(31, 42, 68, 0.85); /* Darker, matching #1f2a44 vibe */
+            background: rgba(31, 42, 68, 0.85);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -588,7 +589,6 @@
     </style>
 </head>
 <body>
-    {% load dict_filters %}
     <div class="container {% if not request.session.user_id %}blur-content{% endif %}">
         <!-- Overall Progress Bar -->
         <div class="overall-progress-container">
@@ -682,6 +682,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+            // Save button functionality
             document.querySelectorAll('.save-button').forEach(button => {
                 button.addEventListener('click', async (e) => {
                     e.preventDefault();
@@ -709,6 +710,7 @@
                 });
             });
 
+            // Language select functionality
             const languageSelect = document.getElementById('languageSelect');
             languageSelect.addEventListener('change', async (e) => {
                 const selectedLanguage = e.target.value;
@@ -734,13 +736,15 @@
                 }
             });
 
+            // Progress checkbox functionality
             document.querySelectorAll('.progress-checkbox').forEach(checkbox => {
-                button.addEventListener('change', async (e) => {
+                checkbox.addEventListener('change', async (e) => {
                     const videoId = checkbox.getAttribute('data-video-id');
                     const isChecked = checkbox.checked;
                     const overallProgressBar = document.querySelector('.overall-progress-bar');
-                    
+
                     try {
+                        checkbox.disabled = true; // Disable during request
                         const response = await fetch(window.location.href, {
                             method: 'POST',
                             headers: {
@@ -753,17 +757,19 @@
                         
                         const data = await response.json();
                         if (data.status === 'success') {
-                            if (data.overall_progress !== undefined) {
+                            if (overallProgressBar && data.overall_progress !== undefined) {
                                 overallProgressBar.style.width = `${data.overall_progress}%`;
                             }
                         } else {
-                            checkbox.checked = !isChecked;
-                            alert('Failed to update progress: ' + data.message);
+                            checkbox.checked = !isChecked; // Revert on failure
+                            alert(`Failed to update progress: ${data.message}`);
                         }
                     } catch (error) {
                         console.error('Error:', error);
-                        checkbox.checked = !isChecked;
+                        checkbox.checked = !isChecked; // Revert on error
                         alert('An error occurred while updating progress');
+                    } finally {
+                        checkbox.disabled = false; // Re-enable after request
                     }
                 });
             });

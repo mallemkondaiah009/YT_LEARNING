@@ -17,8 +17,6 @@ def categories_page(request):
 
 
 
-
-
 def videos_by_category(request, category_id):
     # Retrieve category
     category = get_object_or_404(Category, id=category_id)
@@ -48,6 +46,7 @@ def videos_by_category(request, category_id):
     video_progress = {}
     overall_progress = 0.0
     user_id = request.session.get('user_id')
+    
     if user_id:
         try:
             user = UserRegistrations.objects.get(id=user_id)
@@ -65,7 +64,7 @@ def videos_by_category(request, category_id):
             video_progress = {}
             overall_progress = 0.0
     
-    # Handle POST request
+    # Handle POST request for AJAX calls
     if request.method == "POST" and request.headers.get('x-requested-with') == 'XMLHttpRequest':
         if not user_id:
             return JsonResponse({'status': 'error', 'message': 'User not authenticated'}, status=401)
@@ -79,8 +78,7 @@ def videos_by_category(request, category_id):
             if not save_watch_later.objects.filter(video=video, user=user).exists():
                 save_watch_later.objects.create(video=video, user=user)
                 return JsonResponse({'status': 'success', 'message': 'Video saved for later'})
-            else:
-                return JsonResponse({'status': 'info', 'message': 'Video already saved'})
+            return JsonResponse({'status': 'info', 'message': 'Video already saved'})
         
         elif action == 'language':
             return JsonResponse({'status': 'success', 'message': 'Language changed'})
@@ -91,29 +89,32 @@ def videos_by_category(request, category_id):
             
             try:
                 video = Videos.objects.get(id=video_id)
-                VideoProgress.objects.update_or_create(
+                progress, created = VideoProgress.objects.update_or_create(
                     user=user,
                     video=video,
                     defaults={'progress': 100.0 if completed else 0.0}
                 )
-                # Recalculate overall progress after update
+                
+                # Recalculate overall progress
                 progress_records = VideoProgress.objects.filter(user=user, video__in=videos).values('video_id', 'progress')
                 video_progress = {record['video_id']: record['progress'] for record in progress_records}
                 total_videos = videos.count()
+                overall_progress = 0.0
                 if total_videos > 0:
                     completed_progress = sum(video_progress.get(video.id, 0.0) for video in videos)
                     overall_progress = (completed_progress / (total_videos * 100.0)) * 100.0
+                
                 return JsonResponse({
                     'status': 'success',
                     'message': 'Progress updated',
-                    'overall_progress': overall_progress
+                    'overall_progress': round(overall_progress, 2)  # Round for cleaner display
                 })
             except Videos.DoesNotExist:
-                return JsonResponse({'status': 'error', 'message': 'Video not found'})
+                return JsonResponse({'status': 'error', 'message': 'Video not found'}, status=404)
             except Exception as e:
-                return JsonResponse({'status': 'error', 'message': str(e)})
+                return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     
-    # Prepare context
+    # Prepare context for template rendering
     context = {
         'category': category,
         'languages': languages,
@@ -121,7 +122,7 @@ def videos_by_category(request, category_id):
         'saved_video_ids': list(saved_video_ids),
         'selected_language': selected_language_name,
         'video_progress': video_progress,
-        'overall_progress': overall_progress,  # Add overall progress to context
+        'overall_progress': round(overall_progress, 2),  # Round for consistency
     }
     
     return render(request, 'yt_learning/videos_by_category.html', context)
