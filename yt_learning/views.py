@@ -126,3 +126,8 @@ def videos_by_category(request, category_id):
     }
     
     return render(request, 'yt_learning/videos_by_category.html', context)
+
+
+
+def Compilers_view(request):
+    return render(request, 'compilers/compiler.html')

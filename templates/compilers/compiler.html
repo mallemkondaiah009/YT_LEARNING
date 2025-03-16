@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Code Runner with Input</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-6">
+
+    <h1 class="text-3xl font-bold mb-4">Online Code Runner</h1>
+
+    <!-- Language Selector -->
+    <label for="language" class="block mb-2 text-lg">Select Language:</label>
+    <select id="language" class="bg-gray-700 text-white p-2 rounded mb-4">
+        <option value="python">Python</option>
+        <option value="javascript">JavaScript</option>
+        <option value="c">C</option>
+        <option value="cpp">C++</option>
+        <option value="java">Java</option>
+    </select>
+
+    <!-- Code Editor -->
+    <textarea id="code" rows="6" class="w-full p-3 bg-gray-800 text-white rounded mb-4" placeholder="Write your code here..."></textarea>
+
+    <!-- Input Box for User Input -->
+    <label for="input" class="block mb-2 text-lg">User Input:</label>
+    <textarea id="input" rows="2" class="w-full p-3 bg-gray-800 text-white rounded mb-4" placeholder="Enter input values (if needed)..."></textarea>
+
+    <!-- Run Button -->
+    <button id="run-btn" class="bg-green-600 px-4 py-2 rounded text-white">Run Code</button>
+
+    <!-- Output Box -->
+    <h2 class="text-xl font-semibold mt-4">Output:</h2>
+    <pre id="output" class="bg-gray-800 p-3 rounded text-green-300"></pre>
+
+    <script>
+        document.getElementById("run-btn").addEventListener("click", () => {
+            const language = document.getElementById("language").value;
+            const code = document.getElementById("code").value;
+            const userInput = document.getElementById("input").value;
+
+            fetch("https://emkc.org/api/v2/piston/execute", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    language: language,
+                    version: "*", // Latest version
+                    files: [{ content: code }],
+                    stdin: userInput // Passing user input dynamically
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("output").innerText = data.run.stdout || data.run.stderr || "No output";
+            })
+            .catch(error => {
+                document.getElementById("output").innerText = "Error running code";
+                console.error(error);
+            });
+        });
+    </script>
+
+</body>
+</html>
