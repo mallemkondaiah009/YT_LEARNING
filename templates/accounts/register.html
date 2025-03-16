@@ -3,168 +3,371 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registeration</title>
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Register | CodeHive</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #e9ecef;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        /* Reset & Base Styles */
+        *, *::before, *::after {
             margin: 0;
-        }
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 350px;
+            padding: 0;
             box-sizing: border-box;
         }
-        .container h1 {
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f5f7fa;
+            color: #1a1a1a;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        /* Register Container */
+        .register-container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05),
+                        0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+        }
+
+        /* Header */
+        .register-header {
             text-align: center;
-            margin-bottom: 15px;
-            color: #343a40;
-            font-size: 20px;
+            margin-bottom: 2rem;
         }
+
+        .register-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Form Elements */
         .form-group {
+            margin-bottom: 1.25rem;
             position: relative;
-            margin-bottom: 12px;
         }
-        .form-group input {
+
+        .form-input {
             width: 100%;
-            padding: 10px 10px 10px 40px; /* Adjusted padding to accommodate icons */
-            box-sizing: border-box;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            font-size: 13px;
-            color: #495057;
-            height: 40px; /* Fixed height for consistent alignment */
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            color: #1a1a1a;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            transition: border-color 0.15s ease-in-out;
         }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
         .form-group i {
             position: absolute;
-            left: 12px;
+            left: 0.875rem;
             top: 50%;
             transform: translateY(-50%);
-            color: #adb5bd;
-            font-size: 16px; /* Slightly larger icon size for better visibility */
+            color: #9ca3af;
+            font-size: 1rem;
         }
-        .form-group .error {
-            color: #dc3545;
-            font-size: 11px;
-            margin-top: 4px;
+
+        .error {
+            color: #dc2626;
+            font-size: 0.75rem;
+            margin-top: 0.375rem;
         }
-        .submit-btn {
+
+        /* Submit Button */
+        .submit-button {
+            display: block;
             width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #ffffff;
+            background-color: #2563eb;
             border: none;
-            border-radius: 4px;
-            font-size: 14px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.15s ease-in-out;
         }
-        .submit-btn:disabled {
-            background-color: #6c757d;
-            cursor: not-allowed;
+
+        .submit-button:hover {
+            background-color: #1d4ed8;
         }
-        .social-login {
+
+        .submit-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
+        }
+
+        /* Divider */
+        .divider {
             display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-        }
-        .google-btn, .facebook-btn {
-            width: 48%;
-            padding: 8px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            color: white;
-            font-size: 12px;
-            transition: background-color 0.3s ease;
+            align-items: center;
             text-align: center;
+            margin: 1.5rem 0;
         }
-        .google-btn {
-            background-color: #db4437;
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e5e7eb;
         }
-        .google-btn:hover {
-            background-color: #c23321;
+
+        .divider span {
+            padding: 0 1rem;
+            color: #6b7280;
+            font-size: 0.875rem;
         }
-        .facebook-btn {
-            background-color: #3b5998;
+
+        /* Social Login */
+        .social-login {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
         }
-        .facebook-btn:hover {
-            background-color: #2d4373;
+
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
         }
+
+        .social-button:hover {
+            background-color: #f9fafb;
+            border-color: #d1d5db;
+        }
+
+        .social-button img {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.75rem;
+        }
+
+        /* Login Link */
         .login-link {
             text-align: center;
-            margin-top: 15px;
-            font-size: 12px;
+            font-size: 0.875rem;
+            color: #6b7280;
         }
+
         .login-link a {
-            color: #007bff;
+            color: #2563eb;
             text-decoration: none;
+            font-weight: 500;
         }
+
         .login-link a:hover {
             text-decoration: underline;
+        }
+
+        /* Alert Messages */
+        .messages {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-width: 320px;
+            width: 100%;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.3s ease-out forwards;
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        .alert-success {
+            background-color: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .alert-error {
+            background-color: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+
+        .alert.fade-out {
+            animation: slideOut 0.3s ease-in forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .register-container {
+                padding: 1.5rem;
+            }
+
+            .register-header h1 {
+                font-size: 1.25rem;
+            }
+
+            .messages {
+                max-width: calc(100% - 2rem);
+                right: 1rem;
+                left: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Register</h1>
-    <!-- Display Django Messages -->
     {% if messages %}
-    <div class="messages" style="position: fixed; top: 20px; right: 20px; z-index: 1000; width: 300px;">
+    <div class="messages" role="alert" aria-live="polite">
         {% for message in messages %}
-        <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}" style="background-color: {% if message.tags == 'success' %}green{% else %}red{% endif %}; color: white; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
-            {{ message }}
-        </div>
+            <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}">
+                {{ message }}
+            </div>
         {% endfor %}
     </div>
     <script>
-        setTimeout(function() {
-            document.querySelector('.messages').style.display = 'none';
-        }, 5000);
+        document.addEventListener('DOMContentLoaded', () => {
+            const messages = document.querySelectorAll('.alert');
+            messages.forEach(message => {
+                setTimeout(() => {
+                    message.classList.add('fade-out');
+                    setTimeout(() => {
+                        message.remove();
+                    }, 300);
+                }, 5000);
+            });
+        });
     </script>
     {% endif %}
 
-    <form method="POST" id="registerForm">
-        {% csrf_token %}
-        <div class="form-group">
-            <i class="fas fa-user"></i>
-            <input type="text" id="username" name="username" placeholder="Username" required>
-            <div class="error" id="usernameError"></div>
+    <main class="register-container">
+        <div class="register-header">
+            <h1>Create an Account</h1>
+            <p>Please fill in your details to register</p>
         </div>
-        <div class="form-group">
-            <i class="fas fa-envelope"></i>
-            <input type="email" id="email" name="email" placeholder="Email" required>
-            <div class="error" id="emailError"></div>
+
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <i class="fa-solid fa-circle-user"></i>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    class="form-input"
+                    placeholder="Choose a username"
+                    required
+                >
+                <div class="error" id="usernameError"></div>
+            </div>
+
+            <div class="form-group">
+                <i class="fa-solid fa-at"></i>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    class="form-input"
+                    placeholder="Enter your email"
+                    required
+                >
+                <div class="error" id="emailError"></div>
+            </div>
+
+            <div class="form-group">
+                <i class="fa-solid fa-key"></i>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    class="form-input"
+                    placeholder="Create a password"
+                    required
+                >
+                <div class="error" id="passwordError"></div>
+            </div>
+
+            <div class="form-group">
+                <i class="fa-solid fa-shield-halved"></i>
+                <input 
+                    type="password" 
+                    id="confirmPassword" 
+                    name="confirmPassword" 
+                    class="form-input"
+                    placeholder="Confirm your password"
+                    required
+                >
+                <div class="error" id="confirmPasswordError"></div>
+            </div>
+
+            <button type="submit" class="submit-button">
+                Create Account
+            </button>
+        </form>
+
+        <div class="divider">
+            <span>or register with</span>
         </div>
-        <div class="form-group">
-            <i class="fas fa-lock"></i>
-            <input type="password" id="password" name="password" placeholder="Password" required>
-            <div class="error" id="passwordError"></div>
+
+        <div class="social-login">
+            <button type="button" class="social-button">
+                <img src="https://www.google.com/favicon.ico" alt="Google logo">
+                Sign up with Google
+            </button>
         </div>
-        <div class="form-group">
-            <i class="fas fa-lock"></i>
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
-            <div class="error" id="confirmPasswordError"></div>
-        </div>
-        <button type="submit" class="submit-btn" id="submitBtn" >Register</button>
-    </form>
-    <div class="social-login">
-        <button class="google-btn"><i class="fab fa-google"></i> Google</button>
-        <button class="facebook-btn"><i class="fab fa-facebook-f"></i> Facebook</button>
-    </div>
-    <div class="login-link">
-        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
-    </div>
-</div>
+
+        <p class="login-link">
+            Already have an account? <a href="{% url 'login' %}">Sign in</a>
+        </p>
+    </main>
 </body>
-</html> 
+</html>

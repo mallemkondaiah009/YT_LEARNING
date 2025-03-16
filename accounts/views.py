@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import UserRegistrations
+from .models import UserRegistrations, UserStreak
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
@@ -78,29 +78,40 @@ def Logout_View(request):
 
 
 
+
+
 def Profile_View(request):
-    # Retrieve the user using the user_id from the session
     user_id = request.session.get('user_id')
     if not user_id:
         return redirect('login')
     
     user = get_object_or_404(UserRegistrations, id=user_id)
     
-    # Retrieve the user's saved videos with related video details
+    # Get or create streak
+    try:
+        streak = UserStreak.objects.get(user=user)
+    except UserStreak.DoesNotExist:
+        streak = UserStreak.objects.create(user=user)
+    
+    # Update streak
+    streak.update_streak()
+
+    # Retrieve saved videos
     saved_videos = (
         save_watch_later.objects
         .filter(user=user)
-        .select_related('video')  # Optimize query by selecting related video data
-        .order_by('date')  # Optional: Order by date added, adjust as needed
+        .select_related('video')
+        .order_by('date')
     )
     
-    # Prepare the context with user and saved videos
     context = {
         'user': user,
         'saved_videos': saved_videos,
+        'current_streak': streak.streak_count,
+        'longest_streak': streak.longest_streak,
+        'last_visit': streak.last_visit,
     }
     return render(request, 'accounts/profile.html', context)
-
 
 
 def Register_Category_View(request):

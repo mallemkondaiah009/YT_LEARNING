@@ -78,35 +78,35 @@
         }
 
         .button-wrapper {
-            display: flex;
-            justify-content: flex-start;
-            margin-bottom: 2rem;
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            z-index: 10;
         }
 
-        .back-button {
-            display: inline-flex;
+        .back-arrow {
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1.25rem;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
             color: #ffffff;
             text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.875rem;
+            border-radius: 50%;
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2);
         }
 
-        .back-button:hover {
-            transform: translateY(-2px);
+        .back-arrow:hover {
+            transform: scale(1.1) translateX(-4px);
             box-shadow: 0 6px 14px rgba(59, 130, 246, 0.3);
             background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
         }
 
-        .back-button svg {
-            width: 1rem;
-            height: 1rem;
+        .back-arrow svg {
+            width: 20px;
+            height: 20px;
         }
 
         .header {
@@ -530,6 +530,18 @@
                 flex-direction: column;
                 gap: 0.75rem;
             }
+            .button-wrapper {
+                top: 1.5rem;
+                left: 1.5rem;
+            }
+            .back-arrow {
+                width: 36px;
+                height: 36px;
+            }
+            .back-arrow svg {
+                width: 18px;
+                height: 18px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -537,8 +549,6 @@
             .subtitle { font-size: 1.125rem; }
             .video-content { padding: 1.25rem; }
             .language-select { width: 100%; max-width: 200px; }
-            .back-button { padding: 0.4rem 1rem; font-size: 0.75rem; }
-            .back-button svg { width: 0.875rem; height: 0.875rem; }
             .slider-item span { font-size: 0.875rem; }
             .overall-progress-container {
                 top: 1rem;
@@ -585,6 +595,18 @@
                 font-size: 0.875rem;
                 min-width: 110px;
             }
+            .button-wrapper {
+                top: 1rem;
+                left: 1rem;
+            }
+            .back-arrow {
+                width: 32px;
+                height: 32px;
+            }
+            .back-arrow svg {
+                width: 16px;
+                height: 16px;
+            }
         }
     </style>
 </head>
@@ -598,13 +620,12 @@
             </div>
         </div>
 
-        <!-- Back Button -->
+        <!-- Back Arrow -->
         <div class="button-wrapper">
-            <a href="{% url 'categories_page' %}" class="back-button">
+            <a href="{% url 'categories_page' %}" class="back-arrow">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
+                    <path d="m15 18-6-6 6-6"/>
                 </svg>
-                Back to Categories
             </a>
         </div>
 
