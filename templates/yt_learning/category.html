@@ -293,9 +293,7 @@
             <div class="nav-links">
                 {% if request.session.user_id %}
                     <a href="{% url 'categories_page' %}">Home</a>
-                    <a href="#" class="active">Categories</a>
-                    <a href="{% url 'compiler' %}" class="active">Code</a>
-                    <a href="#about">About</a>
+                    <a href="{% url 'codeground' %}" class="active">Code</a>
                     <a href="{% url 'logout' %}">Logout</a>
                     <a href="{% url 'profile' %}" class="nav-icon" title="Profile">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -304,9 +302,7 @@
                         </svg>
                     </a>
                 {% else %}
-                    <a href="{% url 'landing_page' %}">Home</a>
-                    <a href="#" class="active">Categories</a>
-                    <a href="#about">About</a>
+                    <a href="{% url 'categories_page' %}">Home</a>
                     <a href={% url 'login' %}>Sign In</a>
                     <a href={% url 'register' %}>Sign Up</a>
                 {% endif %}

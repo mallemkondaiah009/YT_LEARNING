@@ -129,5 +129,8 @@ def videos_by_category(request, category_id):
 
 
 
+def Code_Ground_view(request):
+    return render(request, 'compilers/codeground.html')
+
 def Compilers_view(request):
     return render(request, 'compilers/compiler.html')

@@ -24,6 +24,81 @@
             overflow-x: hidden;
         }
 
+        /* Header Styles */
+        .header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: #1e293b;
+            font-weight: 700;
+            font-size: 1.25rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-logo:hover {
+            color: #3b82f6;
+        }
+
+        .nav-logo svg {
+            color: #3b82f6;
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            height: 100%;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #3b82f6;
+        }
+
+        .nav-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            color: #64748b;
+            transition: color 0.2s ease;
+        }
+
+        .nav-icon:hover {
+            color: #3b82f6;
+        }
+
         /* Hero Section */
         .hero {
             position: relative;
@@ -189,6 +264,31 @@
             font-size: 1rem;
         }
 
+        .feature-card a.btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .feature-card a.btn:hover {
+            background: #1d4ed8;
+        }
+
+        .organize { border: 3px solid #8b5cf6; } /* Purple */
+        .progress { border: 3px solid #10b981; } /* Teal */
+        .access { border: 3px solid #f59e0b; } /* Amber */
+        .search { border: 3px solid #ec4899; } /* Pink */
+        .playground { border: 3px solid #3b82f6; } /* Blue */
+        .days-100 { border: 3px solid #34a853; } /* Green */
+        .days-50 { border: 3px solid #fbbc05; } /* Yellow */
+        .days-30 { border: 3px solid #ea4335; } /* Red */
+
         /* Footer */
         .footer {
             background: #111827;
@@ -245,6 +345,18 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
             .hero h1 { font-size: 2.75rem; }
             .hero p { font-size: 1.125rem; }
             .features h2 { font-size: 2.25rem; }
@@ -257,10 +369,40 @@
             .hero p { font-size: 1rem; }
             .features-grid { grid-template-columns: 1fr; }
             .cta-button { padding: 0.875rem 2rem; font-size: 1rem; }
+            .nav-links { gap: 1rem; }
         }
     </style>
 </head>
 <body>
+    <!-- Header Section -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="{% url 'categories_page' %}" class="nav-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m7 4 10 8-10 8V4Z"/>
+                </svg>
+                CodeHive
+            </a>
+            <div class="nav-links">
+                {% if request.session.user_id %}
+                    <a href="{% url 'categories_page' %}">Home</a>
+                    <a href="{% url 'codeground' %}" class="active">Code</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                    <a href="{% url 'profile' %}" class="nav-icon" title="Profile">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 20a6 6 0 0 0-12 0"/>
+                            <circle cx="12" cy="10" r="4"/>
+                        </svg>
+                    </a>
+                {% else %}
+                    <a href="{% url 'categories_page' %}">Home</a>
+                    <a href="{% url 'login' %}">Sign In</a>
+                    <a href="{% url 'register' %}">Sign Up</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
     <section class="hero">
         <div class="hero-content">
             <h1>Master Skills with Seamless Organization</h1>
@@ -277,28 +419,52 @@
     <section class="features">
         <h2>Empower Your Learning Experience</h2>
         <div class="features-grid">
-            <article class="feature-card">
+            <article class="feature-card organize">
                 <img src="https://cdn-icons-png.flaticon.com/512/3767/3767036.png" alt="Organize Icon" class="feature-icon">
                 <h3>Organize Efficiently</h3>
                 <p>Save and categorize your favorite educational videos with an intuitive system.</p>
             </article>
 
-            <article class="feature-card">
+            <article class="feature-card progress">
                 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="Progress Icon" class="feature-icon">
                 <h3>Track Progress</h3>
                 <p>Stay motivated with a clear view of your learning milestones and achievements.</p>
             </article>
 
-            <article class="feature-card">
+            <article class="feature-card access">
                 <img src="https://cdn-icons-png.flaticon.com/512/3771/3771528.png" alt="Access Icon" class="feature-icon">
                 <h3>Seamless Access</h3>
                 <p>Retrieve your video library anytime, anywhere with our cloud-based solution.</p>
             </article>
 
-            <article class="feature-card">
+            <article class="feature-card search">
                 <img src="https://cdn-icons-png.flaticon.com/512/3125/3125736.png" alt="Search Icon" class="feature-icon">
                 <h3>Advanced Search</h3>
                 <p>Locate resources instantly with our robust search and filtering capabilities.</p>
+            </article>
+
+            <article class="feature-card playground">
+                <img src="https://cdn-icons-png.flaticon.com/512/2920/2920130.png" alt="Compiler Icon" class="feature-icon">
+                <h3>Code Playground</h3>
+                <p>Test your coding skills with our interactive online compiler.</p>
+            </article>
+
+            <article class="feature-card days-100">
+                <img src="https://cdn-icons-png.flaticon.com/512/3659/3659790.png" alt="100 Days Icon" class="feature-icon">
+                <h3>100 Days of Code</h3>
+                <p>Commit to coding daily for 100 days and track your progress.</p>
+            </article>
+
+            <article class="feature-card days-50">
+                <img src="https://cdn-icons-png.flaticon.com/512/3658/3658951.png" alt="50 Days Icon" class="feature-icon">
+                <h3>50 Days of Code</h3>
+                <p>Master coding concepts with a 50-day structured program.</p>
+            </article>
+
+            <article class="feature-card days-30">
+                <img src="https://cdn-icons-png.flaticon.com/512/3658/3658955.png" alt="30 Days Icon" class="feature-icon">
+                <h3>30 Days of Code</h3>
+                <p>Build a strong foundation with a 30-day coding bootcamp.</p>
             </article>
         </div>
     </section>

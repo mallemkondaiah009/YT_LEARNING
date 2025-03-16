@@ -4,35 +4,267 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Code Runner with Input</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Modern CSS Reset */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: #1e293b;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .nav-logo svg {
+            color: #3b82f6;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #3b82f6;
+        }
+
+        .nav-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            color: #64748b;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .nav-icon:hover {
+            color: #3b82f6;
+        }
+
+        /* Main Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #1e293b;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            color: #64748b;
+            font-size: 1.125rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        select {
+            width: 100%;
+            max-width: 300px;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0;
+            color: #1e293b;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            background: white;
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0;
+            color: #1e293b;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            resize: vertical;
+        }
+
+        #code {
+            min-height: 200px;
+        }
+
+        #input {
+            min-height: 80px;
+        }
+
+        button {
+            background: #3b82f6;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease-in-out;
+        }
+
+        button:hover {
+            background: #2563eb;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        pre {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            color: #34a853;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            select, textarea, button {
+                padding: 0.5rem;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-white p-6">
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="{% url 'categories_page' %}" class="nav-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m7 4 10 8-10 8V4Z"/>
+                </svg>
+                CodeHive
+            </a>
+            <div class="nav-links">
+                {% if request.session.user_id %}
+                    <a href="{% url 'categories_page' %}">Home</a>
+                    <a href="{% url 'codeground' %}" class="active">Code</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                    <a href="{% url 'profile' %}" class="nav-icon" title="Profile">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 20a6 6 0 0 0-12 0"/>
+                            <circle cx="12" cy="10" r="4"/>
+                        </svg>
+                    </a>
+                {% else %}
+                    <a href="{% url 'categories_page' %}">Home</a>
+                    <a href={% url 'login' %}>Sign In</a>
+                    <a href={% url 'register' %}>Sign Up</a>
+                {% endif %}
+                
+            </div>
+        </nav>
+    </header>
 
-    <h1 class="text-3xl font-bold mb-4">Online Code Runner</h1>
+    <div class="container">
+        <h1>Online Code Runner</h1>
 
-    <!-- Language Selector -->
-    <label for="language" class="block mb-2 text-lg">Select Language:</label>
-    <select id="language" class="bg-gray-700 text-white p-2 rounded mb-4">
-        <option value="python">Python</option>
-        <option value="javascript">JavaScript</option>
-        <option value="c">C</option>
-        <option value="cpp">C++</option>
-        <option value="java">Java</option>
-    </select>
+        <!-- Language Selector -->
+        <label for="language">Select Language:</label>
+        <select id="language">
+            <option value="python">Python</option>
+            <option value="javascript">JavaScript</option>
+            <option value="c">C</option>
+            <option value="cpp">C++</option>
+            <option value="java">Java</option>
+        </select>
 
-    <!-- Code Editor -->
-    <textarea id="code" rows="6" class="w-full p-3 bg-gray-800 text-white rounded mb-4" placeholder="Write your code here..."></textarea>
+        <!-- Code Editor -->
+        <textarea id="code" placeholder="Write your code here..."></textarea>
 
-    <!-- Input Box for User Input -->
-    <label for="input" class="block mb-2 text-lg">User Input:</label>
-    <textarea id="input" rows="2" class="w-full p-3 bg-gray-800 text-white rounded mb-4" placeholder="Enter input values (if needed)..."></textarea>
+        <!-- Input Box for User Input -->
+        <label for="input">User Input:</label>
+        <textarea id="input" placeholder="Enter input values (if needed)..."></textarea>
 
-    <!-- Run Button -->
-    <button id="run-btn" class="bg-green-600 px-4 py-2 rounded text-white">Run Code</button>
+        <!-- Run Button -->
+        <button id="run-btn">Run Code</button>
 
-    <!-- Output Box -->
-    <h2 class="text-xl font-semibold mt-4">Output:</h2>
-    <pre id="output" class="bg-gray-800 p-3 rounded text-green-300"></pre>
+        <!-- Output Box -->
+        <h2>Output:</h2>
+        <pre id="output"></pre>
+    </div>
 
     <script>
         document.getElementById("run-btn").addEventListener("click", () => {
@@ -60,6 +292,5 @@
             });
         });
     </script>
-
 </body>
 </html>
