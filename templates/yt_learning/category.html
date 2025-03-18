@@ -1,9 +1,11 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeHive Categories</title>
+    <title>Hexa Codes | Categories</title>
+    <link rel="icon" href="{% static 'images/hexa_codes_logo.jpg' %}" type="image/jpg">
     <style>
         /* Modern CSS Reset */
         *, *::before, *::after {
@@ -321,7 +323,7 @@
 
             <section class="categories-grid">
                 {% for category in categories %}
-                    <a href="{% url 'videos_by_category' category.id %}" class="category-card">
+                    <a href="{% url 'videos_by_category' category.name %}" class="category-card">
                         <div class="category-icon">
                             {% if category.icon %}
                                 <img src="{{ category.icon.url }}" alt="{{ category.name }} icon">

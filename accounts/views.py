@@ -176,7 +176,7 @@ def Login_Category_View(request):
         request.session['username'] = user.username
         messages.success(request, 'Login successful.')
         #take category_id from the form and redirect to videos_by_category
-        category_id=request.session.get('category_id')
-        return redirect('videos_by_category', category_id=category_id)
+        category_name=request.session.get('category_name')
+        return redirect('videos_by_category', category_name=category_name)
     
     return render(request, 'accounts/login.html')
