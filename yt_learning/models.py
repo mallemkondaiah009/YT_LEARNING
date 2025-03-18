@@ -1,6 +1,7 @@
 from django.db import models
 from accounts.models import UserRegistrations
 
+
 class Bashalu(models.Model):
     lang_name = models.CharField(max_length=100)
     code = models.CharField(max_length=100, null=True)

@@ -17,6 +17,8 @@ def categories_page(request):
 
 
 
+
+
 def videos_by_category(request, category_id):
     # Retrieve category
     category = get_object_or_404(Category, id=category_id)
@@ -126,7 +128,6 @@ def videos_by_category(request, category_id):
     }
     
     return render(request, 'yt_learning/videos_by_category.html', context)
-
 
 
 def Code_Ground_view(request):
