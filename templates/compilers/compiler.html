@@ -48,10 +48,18 @@
             color: #1e293b;
             font-weight: 700;
             font-size: 1.25rem;
+            transition: color 0.2s ease;
         }
 
-        .nav-logo svg {
+        .nav-logo:hover {
             color: #3b82f6;
+        }
+
+        .logo-image {
+            width: 32px;
+            height: 32px;
+            object-fit: cover;
+            border-radius: 4px;
         }
 
         .nav-links {
@@ -214,15 +222,13 @@
     <header class="header">
         <nav class="nav-container">
             <a href="{% url 'categories_page' %}" class="nav-logo">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m7 4 10 8-10 8V4Z"/>
-                </svg>
+                <img src="{% static 'images/hexa_codes_logo.jpg' %}" alt="HexaCodes Logo" class="logo-image">
                 HexaCodes
             </a>
             <div class="nav-links">
                 {% if request.session.user_id %}
                     <a href="{% url 'categories_page' %}">Home</a>
-                    <a href="{% url 'codeground' %}" class="active">Code</a>
+                    <a href="{% url 'codeground' %}">Code</a>
                     <a href="{% url 'logout' %}">Logout</a>
                     <a href="{% url 'profile' %}" class="nav-icon" title="Profile">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -232,10 +238,9 @@
                     </a>
                 {% else %}
                     <a href="{% url 'categories_page' %}">Home</a>
-                    <a href={% url 'login' %}>Sign In</a>
-                    <a href={% url 'register' %}>Sign Up</a>
+                    <a href="{% url 'login' %}">Sign In</a>
+                    <a href="{% url 'register' %}">Sign Up</a>
                 {% endif %}
-                
             </div>
         </nav>
     </header>
@@ -247,10 +252,11 @@
         <label for="language">Select Language:</label>
         <select id="language">
             <option value="python">Python</option>
+            <option value="java">Java</option>
             <option value="javascript">JavaScript</option>
             <option value="c">C</option>
             <option value="cpp">C++</option>
-            <option value="java">Java</option>
+            
         </select>
 
         <!-- Code Editor -->
