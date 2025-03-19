@@ -1,0 +1,1471 @@
+[
+    {
+        "id": 1,
+        "title": "Reverse a String",
+        "problem": "Write a function that reverses a given string.",
+        "input": "A string s",
+        "output": "The reversed string",
+        "test_cases": [
+            {"input": "hello", "output": "olleh"},
+            {"input": "", "output": ""},
+            {"input": "12345", "output": "54321"},
+            {"input": "a", "output": "a"}
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Find the Maximum Element in an Array",
+        "problem": "Write a function that finds the maximum element in an array of integers.",
+        "input": "An array of integers arr",
+        "output": "The maximum integer in the array. If the array is empty, return -1.",
+        "test_cases": [
+            {"input": "[1, 3, 5, 2, 4]", "output": 5},
+            {"input": "[]", "output": -1},
+            {"input": "[-1, -5, -2, -8]", "output": -1},
+            {"input": "[7]", "output": 7}
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Check if a Number is Palindrome",
+        "problem": "Write a function that checks if a given integer is a palindrome (reads the same forwards and backwards).",
+        "input": "An integer n",
+        "output": "true if it’s a palindrome, false otherwise",
+        "test_cases": [
+            {"input": 121, "output": true},
+            {"input": 123, "output": false},
+            {"input": 0, "output": true},
+            {"input": -121, "output": false}
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Sum of Even Numbers",
+        "problem": "Write a function that calculates the sum of all even numbers in an array.",
+        "input": "An array of integers arr",
+        "output": "The sum of even numbers in the array",
+        "test_cases": [
+            {"input": "[1, 2, 3, 4, 5]", "output": 6},
+            {"input": "[1, 3, 5]", "output": 0},
+            {"input": "[2, 4, 6]", "output": 12},
+            {"input": "[]", "output": 0}
+        ]
+    },
+    {
+        "id": 5,
+        "title": "Count Vowels in a String",
+        "problem": "Write a function that counts the number of vowels (a, e, i, o, u) in a string (case-insensitive).",
+        "input": "A string s",
+        "output": "The number of vowels in the string",
+        "test_cases": [
+            {"input": "hello", "output": 2},
+            {"input": "WHY", "output": 0},
+            {"input": "AeIoU", "output": 5},
+            {"input": "", "output": 0}
+        ]
+    },
+    {
+        "id": 6,
+        "title": "Check if a String is All Uppercase",
+        "problem": "Write a function that checks if all alphabetic characters in a string are uppercase.",
+        "input": "A string s",
+        "output": "true if all alphabetic characters are uppercase, false otherwise. Non-alphabetic characters are ignored.",
+        "test_cases": [
+            {"input": "HELLO", "output": true},
+            {"input": "Hello", "output": false},
+            {"input": "123", "output": true},
+            {"input": "ABC123def", "output": false}
+        ]
+    },
+    {
+        "id": 7,
+        "title": "Find the Second Largest Number",
+        "problem": "Write a function that finds the second largest number in an array of integers.",
+        "input": "An array of integers arr",
+        "output": "The second largest number, or -1 if it doesn’t exist (e.g., array has fewer than 2 distinct elements).",
+        "test_cases": [
+            {"input": "[5, 3, 8, 1, 9]", "output": 8},
+            {"input": "[1]", "output": -1},
+            {"input": "[4, 4, 4]", "output": -1},
+            {"input": "[10, 5]", "output": 5}
+        ]
+    },
+    {
+        "id": 8,
+        "title": "Remove Duplicates from an Array",
+        "problem": "Write a function that removes duplicates from an array and returns the unique elements.",
+        "input": "An array of integers arr",
+        "output": "An array with unique integers (order doesn’t matter)",
+        "test_cases": [
+            {"input": "[1, 2, 2, 3, 4, 4]", "output": "[1, 2, 3, 4]"},
+            {"input": "[5, 5, 5]", "output": "[5]"},
+            {"input": "[]", "output": "[]"},
+            {"input": "[1, 2, 3]", "output": "[1, 2, 3]"}
+        ]
+    },
+    {
+        "id": 9,
+        "title": "Check if Two Strings are Anagrams",
+        "problem": "Write a function that checks if two strings are anagrams (contain the same characters with the same frequency).",
+        "input": "Two strings s1 and s2",
+        "output": "true if they are anagrams, false otherwise",
+        "test_cases": [
+            {"input": ["listen", "silent"], "output": true},
+            {"input": ["hello", "world"], "output": false},
+            {"input": ["", ""], "output": true},
+            {"input": ["rat", "tar"], "output": true}
+        ]
+    },
+    {
+        "id": 10,
+        "title": "Find the Missing Number",
+        "problem": "Given an array of integers from 1 to n with one number missing, find the missing number.",
+        "input": "An array arr of length n-1 containing unique integers from 1 to n",
+        "output": "The missing integer",
+        "test_cases": [
+            {"input": "[1, 2, 4, 5]", "output": 3},
+            {"input": "[2, 3, 4, 5]", "output": 1},
+            {"input": "[1]", "output": 2},
+            {"input": "[1, 2, 3]", "output": 4}
+        ]
+    },
+    {
+        "id": 11,
+        "title": "Calculate Factorial",
+        "problem": "Write a function that calculates the factorial of a non-negative integer.",
+        "input": "An integer n",
+        "output": "The factorial of n (n!). Return -1 if n is negative.",
+        "test_cases": [
+            {"input": 5, "output": 120},
+            {"input": 0, "output": 1},
+            {"input": 3, "output": 6},
+            {"input": -1, "output": -1}
+        ]
+    },
+    {
+        "id": 12,
+        "title": "Merge Two Sorted Arrays",
+        "problem": "Write a function that merges two sorted arrays into one sorted array.",
+        "input": "Two sorted arrays arr1 and arr2",
+        "output": "A single sorted array containing all elements",
+        "test_cases": [
+            {"input": ["[1, 3, 5]", "[2, 4, 6]"], "output": "[1, 2, 3, 4, 5, 6]"},
+            {"input": ["[]", "[1, 2, 3]"], "output": "[1, 2, 3]"},
+            {"input": ["[1]", "[2]"], "output": "[1, 2]"},
+            {"input": ["[2, 4]", "[]"], "output": "[2, 4]"}
+        ]
+    },
+    {
+        "id": 13,
+        "title": "Check if a Number is Prime",
+        "problem": "Write a function that checks if a number is prime.",
+        "input": "An integer n",
+        "output": "true if n is prime, false otherwise",
+        "test_cases": [
+            {"input": 7, "output": true},
+            {"input": 4, "output": false},
+            {"input": 1, "output": false},
+            {"input": 13, "output": true}
+        ]
+    },
+    {
+        "id": 14,
+        "title": "Reverse Words in a Sentence",
+        "problem": "Write a function that reverses the order of words in a sentence.",
+        "input": "A string s containing words separated by spaces",
+        "output": "A string with the words in reverse order",
+        "test_cases": [
+            {"input": "Hello world", "output": "world Hello"},
+            {"input": "I am here", "output": "here am I"},
+            {"input": "a", "output": "a"},
+            {"input": "", "output": ""}
+        ]
+    },
+    {
+        "id": 15,
+        "title": "Find the Longest Word",
+        "problem": "Write a function that finds the longest word in a sentence. If multiple words have the same length, return the first one.",
+        "input": "A string s containing words separated by spaces",
+        "output": "The longest word",
+        "test_cases": [
+            {"input": "I love coding", "output": "coding"},
+            {"input": "cat dog", "output": "cat"},
+            {"input": "a", "output": "a"},
+            {"input": "hello hi there", "output": "hello"}
+        ]
+    },
+    {
+        "id": 16,
+        "title": "Sum of Digits",
+        "problem": "Write a function that calculates the sum of digits in a given integer.",
+        "input": "An integer n",
+        "output": "The sum of its digits",
+        "test_cases": [
+            {"input": 123, "output": 6},
+            {"input": 0, "output": 0},
+            {"input": 999, "output": 27},
+            {"input": -45, "output": 9}
+        ]
+    },
+    {
+        "id": 17,
+        "title": "Fibonacci Number",
+        "problem": "Write a function that returns the nth Fibonacci number (0-based index).",
+        "input": "An integer n",
+        "output": "The nth Fibonacci number. Return -1 if n is negative.",
+        "test_cases": [
+            {"input": 0, "output": 0},
+            {"input": 1, "output": 1},
+            {"input": 5, "output": 5},
+            {"input": -1, "output": -1}
+        ]
+    },
+    {
+        "id": 18,
+        "title": "Count Occurrences of a Character",
+        "problem": "Write a function that counts the occurrences of a specific character in a string.",
+        "input": "A string s and a character c",
+        "output": "The number of times c appears in s",
+        "test_cases": [
+            {"input": ["hello", "l"], "output": 2},
+            {"input": ["test", "z"], "output": 0},
+            {"input": ["aaa", "a"], "output": 3},
+            {"input": ["", "x"], "output": 0}
+        ]
+    },
+    {
+        "id": 19,
+        "title": "Is Power of Two",
+        "problem": "Write a function that checks if a number is a power of 2.",
+        "input": "An integer n",
+        "output": "true if n is a power of 2, false otherwise",
+        "test_cases": [
+            {"input": 4, "output": true},
+            {"input": 7, "output": false},
+            {"input": 1, "output": true},
+            {"input": 0, "output": false}
+        ]
+    },
+    {
+        "id": 20,
+        "title": "Rotate Array Right",
+        "problem": "Write a function that rotates an array to the right by k steps.",
+        "input": "An array arr and an integer k",
+        "output": "The rotated array",
+        "test_cases": [
+            {"input": ["[1, 2, 3, 4]", 1], "output": "[4, 1, 2, 3]"},
+            {"input": ["[1, 2, 3]", 0], "output": "[1, 2, 3]"},
+            {"input": ["[5, 6, 7]", 2], "output": "[6, 7, 5]"},
+            {"input": ["[]", 3], "output": "[]"}
+        ]
+    },
+    {
+        "id": 21,
+        "title": "Check Balanced Parentheses",
+        "problem": "Write a function that checks if a string of parentheses is balanced.",
+        "input": "A string s containing only '(' and ')'",
+        "output": "true if balanced, false otherwise",
+        "test_cases": [
+            {"input": "()", "output": true},
+            {"input": "(()", "output": false},
+            {"input": "(())", "output": true},
+            {"input": ")(", "output": false}
+        ]
+    },
+    {
+        "id": 22,
+        "title": "Find First Duplicate",
+        "problem": "Write a function that finds the first duplicate in an array.",
+        "input": "An array of integers arr",
+        "output": "The first duplicate number, or -1 if no duplicates",
+        "test_cases": [
+            {"input": "[1, 2, 3, 2, 4]", "output": 2},
+            {"input": "[1, 2, 3]", "output": -1},
+            {"input": "[5, 5, 5]", "output": 5},
+            {"input": "[]", "output": -1}
+        ]
+    },
+    {
+        "id": 23,
+        "title": "Convert to Binary",
+        "problem": "Write a function that converts a decimal integer to its binary representation as a string.",
+        "input": "An integer n",
+        "output": "The binary string representation",
+        "test_cases": [
+            {"input": 5, "output": "101"},
+            {"input": 0, "output": "0"},
+            {"input": 10, "output": "1010"},
+            {"input": 1, "output": "1"}
+        ]
+    },
+    {
+        "id": 24,
+        "title": "Find GCD",
+        "problem": "Write a function that finds the greatest common divisor (GCD) of two integers.",
+        "input": "Two integers a and b",
+        "output": "The GCD of a and b",
+        "test_cases": [
+            {"input": [48, 18], "output": 6},
+            {"input": [7, 13], "output": 1},
+            {"input": [0, 5], "output": 5},
+            {"input": [100, 10], "output": 10}
+        ]
+    },
+    {
+        "id": 25,
+        "title": "Capitalize First Letter",
+        "problem": "Write a function that capitalizes the first letter of each word in a string.",
+        "input": "A string s",
+        "output": "The string with each word's first letter capitalized",
+        "test_cases": [
+            {"input": "hello world", "output": "Hello World"},
+            {"input": "i am here", "output": "I Am Here"},
+            {"input": "a", "output": "A"},
+            {"input": "", "output": ""}
+        ]
+    },
+    {
+        "id": 26,
+        "title": "Find Minimum Difference",
+        "problem": "Write a function that finds the minimum difference between any two elements in an array.",
+        "input": "An array of integers arr",
+        "output": "The minimum difference, or -1 if less than 2 elements",
+        "test_cases": [
+            {"input": "[1, 5, 3, 10]", "output": 2},
+            {"input": "[2]", "output": -1},
+            {"input": "[4, 4, 4]", "output": 0},
+            {"input": "[7, 1, 5]", "output": 2}
+        ]
+    },
+    {
+        "id": 27,
+        "title": "Check if Sorted",
+        "problem": "Write a function that checks if an array is sorted in ascending order.",
+        "input": "An array of integers arr",
+        "output": "true if sorted, false otherwise",
+        "test_cases": [
+            {"input": "[1, 2, 3, 4]", "output": true},
+            {"input": "[1, 3, 2]", "output": false},
+            {"input": "[5]", "output": true},
+            {"input": "[]", "output": true}
+        ]
+    },
+    {
+        "id": 28,
+        "title": "Replace Spaces",
+        "problem": "Write a function that replaces all spaces in a string with '%20'.",
+        "input": "A string s",
+        "output": "The string with spaces replaced",
+        "test_cases": [
+            {"input": "hello world", "output": "hello%20world"},
+            {"input": "no spaces here", "output": "no%20spaces%20here"},
+            {"input": "a b c", "output": "a%20b%20c"},
+            {"input": "", "output": ""}
+        ]
+    },
+    {
+        "id": 29,
+        "title": "Find Pair with Sum",
+        "problem": "Write a function that finds a pair of numbers in an array that add up to a target sum.",
+        "input": "An array arr and an integer target",
+        "output": "An array of two indices [i, j] where arr[i] + arr[j] = target, or [-1, -1] if no pair exists",
+        "test_cases": [
+            {"input": ["[2, 7, 11, 15]", 9], "output": "[0, 1]"},
+            {"input": ["[1, 2, 3]", 10], "output": "[-1, -1]"},
+            {"input": ["[3, 3]", 6], "output": "[0, 1]"},
+            {"input": ["[1]", 2], "output": "[-1, -1]"}
+        ]
+    },
+    {
+        "id": 30,
+        "title": "Reverse Integer",
+        "problem": "Write a function that reverses an integer. Return 0 if the result overflows a 32-bit signed integer.",
+        "input": "An integer n",
+        "output": "The reversed integer",
+        "test_cases": [
+            {"input": 123, "output": 321},
+            {"input": -456, "output": -654},
+            {"input": 0, "output": 0},
+            {"input": 1534236469, "output": 0}
+        ]
+    },
+    {
+        "id": 31,
+        "title": "Find Length of Last Word",
+        "problem": "Write a function that finds the length of the last word in a string.",
+        "input": "A string s",
+        "output": "The length of the last word",
+        "test_cases": [
+            {"input": "Hello World", "output": 5},
+            {"input": "I am", "output": 2},
+            {"input": "a ", "output": 1},
+            {"input": "", "output": 0}
+        ]
+    },
+    {
+        "id": 32,
+        "title": "Square Root (Integer)",
+        "problem": "Write a function that returns the integer square root of a number (floor value).",
+        "input": "An integer n",
+        "output": "The largest integer whose square is <= n",
+        "test_cases": [
+            {"input": 16, "output": 4},
+            {"input": 8, "output": 2},
+            {"input": 0, "output": 0},
+            {"input": 17, "output": 4}
+        ]
+    },
+    {
+        "id": 33,
+        "title": "Check if Substring",
+        "problem": "Write a function that checks if a string is a substring of another string.",
+        "input": "Two strings s1 and s2",
+        "output": "true if s2 is a substring of s1, false otherwise",
+        "test_cases": [
+            {"input": ["hello", "ell"], "output": true},
+            {"input": ["world", "xyz"], "output": false},
+            {"input": ["a", "a"], "output": true},
+            {"input": ["", "test"], "output": false}
+        ]
+    },
+    {
+        "id": 34,
+        "title": "Count Primes",
+        "problem": "Write a function that counts the number of prime numbers less than n.",
+        "input": "An integer n",
+        "output": "The count of primes less than n",
+        "test_cases": [
+            {"input": 10, "output": 4},
+            {"input": 2, "output": 0},
+            {"input": 13, "output": 5},
+            {"input": 1, "output": 0}
+        ]
+    },
+    {
+        "id": 35,
+        "title": "Move Zeroes to End",
+        "problem": "Write a function that moves all zeroes in an array to the end while maintaining the relative order of non-zero elements.",
+        "input": "An array of integers arr",
+        "output": "The modified array",
+        "test_cases": [
+            {"input": "[0, 1, 0, 3, 12]", "output": "[1, 3, 12, 0, 0]"},
+            {"input": "[0, 0, 1]", "output": "[1, 0, 0]"},
+            {"input": "[1, 2, 3]", "output": "[1, 2, 3]"},
+            {"input": "[]", "output": "[]"}
+        ]
+    },
+    {
+        "id": 36,
+        "title": "Longest Consecutive 1s",
+        "problem": "Write a function that finds the longest sequence of consecutive 1s in the binary representation of a number.",
+        "input": "An integer n",
+        "output": "The length of the longest sequence of 1s",
+        "test_cases": [
+            {"input": 5, "output": 2},
+            {"input": 7, "output": 3},
+            {"input": 0, "output": 0},
+            {"input": 156, "output": 3}
+        ]
+    },
+    {
+        "id": 37,
+        "title": "Swap Case",
+        "problem": "Write a function that swaps the case of each character in a string.",
+        "input": "A string s",
+        "output": "The string with swapped case",
+        "test_cases": [
+            {"input": "Hello", "output": "hELLO"},
+            {"input": "WORLD", "output": "world"},
+            {"input": "aBc123", "output": "AbC123"},
+            {"input": "", "output": ""}
+        ]
+    },
+    {
+        "id": 38,
+        "title": "Product Except Self",
+        "problem": "Write a function that returns an array where each element is the product of all numbers in the input array except the one at that index.",
+        "input": "An array of integers arr",
+        "output": "The resulting array",
+        "test_cases": [
+            {"input": "[1, 2, 3, 4]", "output": "[24, 12, 8, 6]"},
+            {"input": "[2, 3]", "output": "[3, 2]"},
+            {"input": "[1]", "output": "[1]"},
+            {"input": "[0, 1, 2]", "output": "[2, 0, 0]"}
+        ]
+    },
+    {
+        "id": 39,
+        "title": "Check Perfect Square",
+        "problem": "Write a function that checks if a number is a perfect square.",
+        "input": "An integer n",
+        "output": "true if n is a perfect square, false otherwise",
+        "test_cases": [
+            {"input": 16, "output": true},
+            {"input": 14, "output": false},
+            {"input": 0, "output": true},
+            {"input": 25, "output": true}
+        ]
+    },
+    {
+        "id": 40,
+        "title": "Find Intersection of Two Arrays",
+        "problem": "Write a function that finds the intersection of two arrays (common elements).",
+        "input": "Two arrays arr1 and arr2",
+        "output": "An array of common elements (duplicates allowed)",
+        "test_cases": [
+            {"input": ["[1, 2, 2, 1]", "[2, 2]"], "output": "[2, 2]"},
+            {"input": ["[1, 2, 3]", "[4, 5]"], "output": "[]"},
+            {"input": ["[1]", "[1]"], "output": "[1]"},
+            {"input": ["[]", "[1, 2]"], "output": "[]"}
+        ]
+    },
+    {
+        "id": 41,
+        "title": "Generate Pascal's Triangle Row",
+        "problem": "Write a function that generates the nth row of Pascal's Triangle (0-based index).",
+        "input": "An integer n",
+        "output": "The nth row as an array",
+        "test_cases": [
+            {"input": 0, "output": "[1]"},
+            {"input": 1, "output": "[1, 1]"},
+            {"input": 3, "output": "[1, 3, 3, 1]"},
+            {"input": 4, "output": "[1, 4, 6, 4, 1]"}
+        ]
+    },
+    {
+        "id": 42,
+        "title": "Count Negative Numbers",
+        "problem": "Write a function that counts the number of negative numbers in an array.",
+        "input": "An array of integers arr",
+        "output": "The count of negative numbers",
+        "test_cases": [
+            {"input": "[-1, 2, -3, 4]", "output": 2},
+            {"input": "[1, 2, 3]", "output": 0},
+            {"input": "[-5, -5, -5]", "output": 3},
+            {"input": "[]", "output": 0}
+        ]
+    },
+    {
+        "id": 43,
+        "title": "Remove Vowels",
+        "problem": "Write a function that removes all vowels from a string.",
+        "input": "A string s",
+        "output": "The string without vowels (a, e, i, o, u, case-insensitive)",
+        "test_cases": [
+            {"input": "hello", "output": "hll"},
+            {"input": "WORLD", "output": "WRLD"},
+            {"input": "aeiou", "output": ""},
+            {"input": "xyz", "output": "xyz"}
+        ]
+    },
+    {
+        "id": 44,
+        "title": "Find Majority Element",
+        "problem": "Write a function that finds the majority element in an array (appears more than n/2 times). Assume it always exists.",
+        "input": "An array of integers arr",
+        "output": "The majority element",
+        "test_cases": [
+            {"input": "[3, 3, 4, 3]", "output": 3},
+            {"input": "[2, 2, 2, 1]", "output": 2},
+            {"input": "[1]", "output": 1},
+            {"input": "[7, 7, 7, 7]", "output": 7}
+        ]
+    },
+    {
+        "id": 45,
+        "title": "Check if Pangram",
+        "problem": "Write a function that checks if a string is a pangram (contains every letter of the alphabet at least once).",
+        "input": "A string s",
+        "output": "true if a pangram, false otherwise (case-insensitive, ignore non-letters)",
+        "test_cases": [
+            {"input": "The quick brown fox jumps over the lazy dog", "output": true},
+            {"input": "hello world", "output": false},
+            {"input": "abcdefghijklmnopqrstuvwxyz", "output": true},
+            {"input": "", "output": false}
+        ]
+    },
+    {
+        "id": 46,
+        "title": "Find Middle Element",
+        "problem": "Write a function that returns the middle element of an array. If the length is even, return the average of the two middle elements.",
+        "input": "An array of integers arr",
+        "output": "The middle element or average of two middle elements (as a float if needed)",
+        "test_cases": [
+            {"input": "[1, 2, 3, 4, 5]", "output": 3},
+            {"input": "[1, 2, 3, 4]", "output": 2.5},
+            {"input": "[7]", "output": 7},
+            {"input": "[]", "output": null}
+        ]
+    },
+    {
+        "id": 47,
+        "title": "Check if Power of Three",
+        "problem": "Write a function that checks if a number is a power of 3.",
+        "input": "An integer n",
+        "output": "true if n is a power of 3, false otherwise",
+        "test_cases": [
+            {"input": 9, "output": true},
+            {"input": 10, "output": false},
+            {"input": 1, "output": true},
+            {"input": 0, "output": false}
+        ]
+    },
+    {
+        "id": 48,
+        "title": "Sum of Array Except Self",
+        "problem": "Write a function that returns an array where each element is the sum of all numbers in the input array except the one at that index.",
+        "input": "An array of integers arr",
+        "output": "The resulting array",
+        "test_cases": [
+            {"input": "[1, 2, 3, 4]", "output": "[9, 8, 7, 6]"},
+            {"input": "[5, 5]", "output": "[5, 5]"},
+            {"input": "[1]", "output": "[0]"},
+            {"input": "[0, 1, 2]", "output": "[3, 2, 1]"}
+        ]
+    },
+    {
+        "id": 49,
+        "title": "Trim Spaces",
+        "problem": "Write a function that trims leading and trailing spaces from a string.",
+        "input": "A string s",
+        "output": "The string without leading or trailing spaces",
+        "test_cases": [
+            {"input": "  hello  ", "output": "hello"},
+            {"input": "world", "output": "world"},
+            {"input": "   ", "output": ""},
+            {"input": "", "output": ""}
+        ]
+    },
+    {
+        "id": 50,
+        "title": "Find Kth Largest Element",
+        "problem": "Write a function that finds the kth largest element in an array (1-based index).",
+        "input": "An array of integers arr and an integer k",
+        "output": "The kth largest element",
+        "test_cases": [
+            {"input": ["[3, 2, 1, 5, 6, 4]", 2], "output": 5},
+            {"input": ["[1]", 1], "output": 1},
+            {"input": ["[7, 4, 6]", 3], "output": 4},
+            {"input": ["[2, 1]", 1], "output": 2}
+        ]
+    },
+    {
+        "id": 51,
+        "title": "Check if Valid Email",
+        "problem": "Write a function that checks if a string is a valid email (simplified: contains '@', '.', and no spaces).",
+        "input": "A string s",
+        "output": "true if valid email format, false otherwise",
+        "test_cases": [
+            {"input": "test@example.com", "output": true},
+            {"input": "invalid email", "output": false},
+            {"input": "user@domain", "output": false},
+            {"input": "@.com", "output": false}
+        ]
+    },
+    {
+        "id": 52,
+        "title": "Sum of Odd Numbers",
+        "problem": "Write a function that calculates the sum of all odd numbers in an array.",
+        "input": "An array of integers arr",
+        "output": "The sum of odd numbers",
+        "test_cases": [
+            {"input": "[1, 2, 3, 4, 5]", "output": 9},
+            {"input": "[2, 4, 6]", "output": 0},
+            {"input": "[1, 3, 5]", "output": 9},
+            {"input": "[]", "output": 0}
+        ]
+    },
+    {
+        "id": 53,
+        "title": "Find Common Prefix",
+        "problem": "Write a function that finds the longest common prefix among an array of strings.",
+        "input": "An array of strings arr",
+        "output": "The longest common prefix",
+        "test_cases": [
+            {"input": ["flower", "flow", "flight"], "output": "fl"},
+            {"input": ["dog", "racecar", "car"], "output": ""},
+            {"input": ["abc", "abcd"], "output": "abc"},
+            {"input": [""], "output": ""}
+        ]
+    },
+    {
+        "id": 54,
+        "title": "Check if Binary String",
+        "problem": "Write a function that checks if a string contains only '0' and '1' characters.",
+        "input": "A string s",
+        "output": "true if binary, false otherwise",
+        "test_cases": [
+            {"input": "1010", "output": true},
+            {"input": "102", "output": false},
+            {"input": "", "output": true},
+            {"input": "01a", "output": false}
+        ]
+    },
+    {
+        "id": 55,
+        "title": "Find Max Consecutive Characters",
+        "problem": "Write a function that finds the length of the longest sequence of the same character in a string.",
+        "input": "A string s",
+        "output": "The length of the longest sequence",
+        "test_cases": [
+            {"input": "aabbb", "output": 3},
+            {"input": "abc", "output": 1},
+            {"input": "aaaa", "output": 4},
+            {"input": "", "output": 0}
+        ]
+    },
+    {
+        "id": 56,
+        "title": "Sum of Squares",
+        "problem": "Write a function that calculates the sum of squares of numbers in an array.",
+        "input": "An array of integers arr",
+        "output": "The sum of squares",
+        "test_cases": [
+            {"input": "[1, 2, 3]", "output": 14},
+            {"input": "[0]", "output": 0},
+            {"input": "[-1, -2]", "output": 5},
+            {"input": "[]", "output": 0}
+        ]
+    },
+    {
+        "id": 57,
+        "title": "Check if Leap Year",
+        "problem": "Write a function that checks if a year is a leap year.",
+        "input": "An integer year",
+        "output": "true if leap year, false otherwise",
+        "test_cases": [
+            {"input": 2020, "output": true},
+            {"input": 2100, "output": false},
+            {"input": 2000, "output": true},
+            {"input": 2023, "output": false}
+        ]
+    },
+    {
+        "id": 58,
+        "title": "Reverse Array in Place",
+        "problem": "Write a function that reverses an array in place.",
+        "input": "An array of integers arr",
+        "output": "The reversed array",
+        "test_cases": [
+            {"input": "[1, 2, 3]", "output": "[3, 2, 1]"},
+            {"input": "[1]", "output": "[1]"},
+            {"input": "[]", "output": "[]"},
+            {"input": "[4, 5, 6, 7]", "output": "[7, 6, 5, 4]"}
+        ]
+    },
+    {
+        "id": 59,
+        "title": "Count Words",
+        "problem": "Write a function that counts the number of words in a string (words separated by spaces).",
+        "input": "A string s",
+        "output": "The number of words",
+        "test_cases": [
+            {"input": "Hello world", "output": 2},
+            {"input": "I am here now", "output": 4},
+            {"input": "  ", "output": 0},
+            {"input": "one", "output": 1}
+        ]
+    },
+    {
+        "id": 60,
+        "title": "Find Closest Number to Zero",
+        "problem": "Write a function that finds the number closest to zero in an array. If there’s a tie, return the positive one.",
+        "input": "An array of integers arr",
+        "output": "The closest number to zero",
+        "test_cases": [
+            {"input": "[2, -1, 1, 3]", "output": 1},
+            {"input": "[-4, -2, 0]", "output": 0},
+            {"input": "[5]", "output": 5},
+            {"input": "[-1, 1]", "output": 1}
+        ]
+    },
+    {
+        "id": 61,
+        "title": "Check if Perfect Number",
+        "problem": "Write a function that checks if a number is a perfect number (equal to the sum of its proper divisors).",
+        "input": "An integer n",
+        "output": "true if a perfect number, false otherwise",
+        "test_cases": [
+            {"input": 6, "output": true},
+            {"input": 28, "output": true},
+            {"input": 12, "output": false},
+            {"input": 1, "output": false}
+        ]
+    },
+    {
+        "id": 62,
+        "title": "Find Median of Array",
+        "problem": "Write a function that finds the median of an array of integers (assume sorted for simplicity).",
+        "input": "A sorted array of integers arr",
+        "output": "The median (average of two middle elements if even length)",
+        "test_cases": [
+            {"input": "[1, 2, 3, 4, 5]", "output": 3},
+            {"input": "[1, 2, 3, 4]", "output": 2.5},
+            {"input": "[7]", "output": 7},
+            {"input": "[]", "output": null}
+        ]
+    },
+    {
+        "id": 63,
+        "title": "Convert to Title Case",
+        "problem": "Write a function that converts a string to title case (first letter of each word capitalized, rest lowercase).",
+        "input": "A string s",
+        "output": "The string in title case",
+        "test_cases": [
+            {"input": "hello world", "output": "Hello World"},
+            {"input": "I AM HERE", "output": "I Am Here"},
+            {"input": "a b c", "output": "A B C"},
+            {"input": "", "output": ""}
+        ]
+    },
+    {
+        "id": 64,
+        "title": "Find Next Greater Element",
+        "problem": "Write a function that finds the next greater element for each element in an array (or -1 if none exists).",
+        "input": "An array of integers arr",
+        "output": "An array of next greater elements",
+        "test_cases": [
+            {"input": "[4, 5, 2, 25]", "output": "[5, 25, 25, -1]"},
+            {"input": "[1, 2, 3]", "output": "[2, 3, -1]"},
+            {"input": "[3, 2, 1]", "output": "[-1, -1, -1]"},
+            {"input": "[]", "output": "[]"}
+        ]
+    },
+    {
+        "id": 65,
+        "title": "Check if Armstrong Number",
+        "problem": "Write a function that checks if a number is an Armstrong number (sum of its digits raised to the power of number of digits equals the number).",
+        "input": "An integer n",
+        "output": "true if an Armstrong number, false otherwise",
+        "test_cases": [
+            {"input": 153, "output": true},
+            {"input": 370, "output": true},
+            {"input": 123, "output": false},
+            {"input": 0, "output": true}
+        ]
+    },
+    {
+        "id": 66,
+        "title": "Rotate String Left",
+        "problem": "Write a function that rotates a string left by k positions.",
+        "input": "A string s and an integer k",
+        "output": "The rotated string",
+        "test_cases": [
+            {"input": ["hello", 2], "output": "llohe"},
+            {"input": ["abc", 1], "output": "bca"},
+            {"input": ["test", 0], "output": "test"},
+            {"input": ["", 3], "output": ""}
+        ]
+    },
+    {
+        "id": 67,
+        "title": "Find Smallest Positive Missing",
+        "problem": "Write a function that finds the smallest positive integer missing from an array.",
+        "input": "An array of integers arr",
+        "output": "The smallest positive missing integer",
+        "test_cases": [
+            {"input": "[1, 2, 0]", "output": 3},
+            {"input": "[3, 4, -1, 1]", "output": 2},
+            {"input": "[1, 2, 3]", "output": 4},
+            {"input": "[]", "output": 1}
+        ]
+    },
+    {
+        "id": 68,
+        "title": "Count Digits",
+        "problem": "Write a function that counts the number of digits in an integer.",
+        "input": "An integer n",
+        "output": "The number of digits",
+        "test_cases": [
+            {"input": 12345, "output": 5},
+            {"input": 0, "output": 1},
+            {"input": -789, "output": 3},
+            {"input": 10, "output": 2}
+        ]
+    },
+    {
+        "id": 69,
+        "title": "Check if All Unique",
+        "problem": "Write a function that checks if all characters in a string are unique.",
+        "input": "A string s",
+        "output": "true if all characters are unique, false otherwise",
+        "test_cases": [
+            {"input": "abcde", "output": true},
+            {"input": "hello", "output": false},
+            {"input": "a", "output": true},
+            {"input": "", "output": true}
+        ]
+    },
+    {
+        "id": 70,
+        "title": "Find Third Maximum",
+        "problem": "Write a function that finds the third maximum number in an array. Return the maximum if less than 3 distinct numbers exist.",
+        "input": "An array of integers arr",
+        "output": "The third maximum number",
+        "test_cases": [
+            {"input": "[3, 2, 1, 5, 6]", "output": 3},
+            {"input": "[1, 2]", "output": 2},
+            {"input": "[2, 2, 3, 1]", "output": 1},
+            {"input": "[5]", "output": 5}
+        ]
+    },
+    {
+        "id": 71,
+        "title": "Sum of First N Numbers",
+        "problem": "Write a function that calculates the sum of the first n natural numbers.",
+        "input": "An integer n",
+        "output": "The sum of numbers from 1 to n, or 0 if n <= 0",
+        "test_cases": [
+            {"input": 5, "output": 15},
+            {"input": 1, "output": 1},
+            {"input": 0, "output": 0},
+            {"input": 3, "output": 6}
+        ]
+    },
+    {
+        "id": 72,
+        "title": "Check if Rotation",
+        "problem": "Write a function that checks if one string is a rotation of another.",
+        "input": "Two strings s1 and s2",
+        "output": "true if s2 is a rotation of s1, false otherwise",
+        "test_cases": [
+            {"input": ["waterbottle", "erbottlewat"], "output": true},
+            {"input": ["hello", "olleh"], "output": false},
+            {"input": ["abc", "cab"], "output": true},
+            {"input": ["", ""], "output": true}
+        ]
+    },
+    {
+        "id": 73,
+        "title": "Find Max Product of Two Elements",
+        "problem": "Write a function that finds the maximum product of any two elements in an array.",
+        "input": "An array of integers arr",
+        "output": "The maximum product, or -1 if less than 2 elements",
+        "test_cases": [
+            {"input": "[1, 5, 4, 5]", "output": 25},
+            {"input": "[3, 7]", "output": 21},
+            {"input": "[1]", "output": -1},
+            {"input": "[-2, -3, 4]", "output": 12}
+        ]
+    },
+    {
+        "id": 74,
+        "title": "Count Triplets with Sum",
+        "problem": "Write a function that counts triplets in an array whose sum equals a target.",
+        "input": "An array of integers arr and an integer target",
+        "output": "The number of triplets",
+        "test_cases": [
+            {"input": ["[1, 2, 3, 4]", 6], "output": 1},
+            {"input": ["[1, 1, 1]", 3], "output": 1},
+            {"input": ["[2, 3, 4]", 10], "output": 0},
+            {"input": ["[]", 5], "output": 0}
+        ]
+    },
+    {
+        "id": 75,
+        "title": "Check if Valid Phone Number",
+        "problem": "Write a function that checks if a string is a valid phone number (simplified: 10 digits, optional dashes).",
+        "input": "A string s",
+        "output": "true if valid phone number, false otherwise",
+        "test_cases": [
+            {"input": "123-456-7890", "output": true},
+            {"input": "1234567890", "output": true},
+            {"input": "12-345-678", "output": false},
+            {"input": "abc-def-ghij", "output": false}
+        ]
+    },
+    {
+        "id": 76,
+        "title": "Find Longest Palindromic Substring Length",
+        "problem": "Write a function that finds the length of the longest palindromic substring in a string.",
+        "input": "A string s",
+        "output": "The length of the longest palindromic substring",
+        "test_cases": [
+            {"input": "babad", "output": 3},
+            {"input": "cbbd", "output": 2},
+            {"input": "a", "output": 1},
+            {"input": "", "output": 0}
+        ]
+    },
+    {
+        "id": 77,
+        "title": "Check if Happy Number",
+        "problem": "Write a function that checks if a number is a happy number (sum of squares of digits eventually reaches 1).",
+        "input": "An integer n",
+        "output": "true if a happy number, false otherwise",
+        "test_cases": [
+            {"input": 19, "output": true},
+            {"input": 2, "output": false},
+            {"input": 7, "output": true},
+            {"input": 4, "output": false}
+        ]
+    },
+    {
+        "id": 78,
+        "title": "Sum of Two Largest Elements",
+        "problem": "Write a function that finds the sum of the two largest elements in an array.",
+        "input": "An array of integers arr",
+        "output": "The sum of the two largest elements, or -1 if less than 2 elements",
+        "test_cases": [
+            {"input": "[1, 4, 2, 5]", "output": 9},
+            {"input": "[3]", "output": -1},
+            {"input": "[7, 7]", "output": 14},
+            {"input": "[0, -1, 2]", "output": 2}
+        ]
+    },
+    {
+        "id": 79,
+        "title": "Check if Valid Parentheses with Wildcards",
+        "problem": "Write a function that checks if a string of '(', ')', and '*' (wildcard) can form a valid parentheses sequence.",
+        "input": "A string s",
+        "output": "true if valid, false otherwise",
+        "test_cases": [
+            {"input": "()", "output": true},
+            {"input": "(*)", "output": true},
+            {"input": "(*))", "output": true},
+            {"input": "(()", "output": false}
+        ]
+    },
+    {
+        "id": 80,
+        "title": "Find Max Depth of Nested Parentheses",
+        "problem": "Write a function that finds the maximum depth of nested parentheses in a string.",
+        "input": "A string s containing '(' and ')'",
+        "output": "The maximum depth",
+        "test_cases": [
+            {"input": "(1+(2*3))", "output": 2},
+            {"input": "()", "output": 1},
+            {"input": "((()))", "output": 3},
+            {"input": "", "output": 0}
+        ]
+    },
+    {
+        "id": 81,
+        "title": "Count Set Bits",
+        "problem": "Write a function that counts the number of 1s in the binary representation of an integer.",
+        "input": "An integer n",
+        "output": "The number of set bits",
+        "test_cases": [
+            {"input": 7, "output": 3},
+            {"input": 0, "output": 0},
+            {"input": 13, "output": 3},
+            {"input": 1, "output": 1}
+        ]
+    },
+    {
+        "id": 82,
+        "title": "Find First Unique Character",
+        "problem": "Write a function that finds the index of the first unique character in a string (0-based).",
+        "input": "A string s",
+        "output": "The index of the first unique character, or -1 if none",
+        "test_cases": [
+            {"input": "leetcode", "output": 0},
+            {"input": "loveleetcode", "output": 2},
+            {"input": "aabb", "output": -1},
+            {"input": "", "output": -1}
+        ]
+    },
+    {
+        "id": 83,
+        "title": "Check if Power of Four",
+        "problem": "Write a function that checks if a number is a power of 4.",
+        "input": "An integer n",
+        "output": "true if a power of 4, false otherwise",
+        "test_cases": [
+            {"input": 16, "output": true},
+            {"input": 5, "output": false},
+            {"input": 1, "output": true},
+            {"input": 64, "output": true}
+        ]
+    },
+    {
+        "id": 84,
+        "title": "Find Sum of Left Leaves",
+        "problem": "Write a function that finds the sum of all left leaf nodes in a binary tree (simplified as an array representation).",
+        "input": "An array representing a binary tree (level-order)",
+        "output": "The sum of left leaves",
+        "test_cases": [
+            {"input": "[3, 9, 20, null, null, 15, 7]", "output": 24},
+            {"input": "[1]", "output": 0},
+            {"input": "[1, 2]", "output": 2},
+            {"input": "[]", "output": 0}
+        ]
+    },
+    {
+        "id": 85,
+        "title": "Reverse Vowels",
+        "problem": "Write a function that reverses the order of vowels in a string, keeping other characters in place.",
+        "input": "A string s",
+        "output": "The string with vowels reversed",
+        "test_cases": [
+            {"input": "hello", "output": "holle"},
+            {"input": "leetcode", "output": "leotcede"},
+            {"input": "aA", "output": "Aa"},
+            {"input": "", "output": ""}
+        ]
+    },
+    {
+        "id": 86,
+        "title": "Find Single Number",
+        "problem": "Write a function that finds the number that appears once in an array where every other number appears twice.",
+        "input": "An array of integers arr",
+        "output": "The single number",
+        "test_cases": [
+            {"input": "[2, 2, 1]", "output": 1},
+            {"input": "[4, 1, 2, 1, 2]", "output": 4},
+            {"input": "[1]", "output": 1},
+            {"input": "[3, 3, 7, 7, 10]", "output": 10}
+        ]
+    },
+    {
+        "id": 87,
+        "title": "Check if Valid Anagram with One Edit",
+        "problem": "Write a function that checks if two strings can be anagrams with at most one character edit.",
+        "input": "Two strings s1 and s2",
+        "output": "true if possible, false otherwise",
+        "test_cases": [
+            {"input": ["cat", "cut"], "output": true},
+            {"input": ["hello", "world"], "output": false},
+            {"input": ["bat", "tab"], "output": true},
+            {"input": ["a", "b"], "output": true}
+        ]
+    },
+    {
+        "id": 88,
+        "title": "Find Max Sum Subarray",
+        "problem": "Write a function that finds the maximum sum of any contiguous subarray.",
+        "input": "An array of integers arr",
+        "output": "The maximum sum",
+        "test_cases": [
+            {"input": "[-2, 1, -3, 4, -1, 2, 1, -5, 4]", "output": 6},
+            {"input": "[1]", "output": 1},
+            {"input": "[-1, -2, -3]", "output": -1},
+            {"input": "[5, 4, -1, 7]", "output": 15}
+        ]
+    },
+    {
+        "id": 89,
+        "title": "Count Palindromic Substrings",
+        "problem": "Write a function that counts the number of palindromic substrings in a string.",
+        "input": "A string s",
+        "output": "The number of palindromic substrings",
+        "test_cases": [
+            {"input": "abc", "output": 3},
+            {"input": "aaa", "output": 6},
+            {"input": "ababa", "output": 9},
+            {"input": "", "output": 0}
+        ]
+    },
+    {
+        "id": 90,
+        "title": "Find Longest Common Subsequence Length",
+        "problem": "Write a function that finds the length of the longest common subsequence between two strings.",
+        "input": "Two strings s1 and s2",
+        "output": "The length of the longest common subsequence",
+        "test_cases": [
+            {"input": ["ABCDGH", "AEDFHR"], "output": 3},
+            {"input": ["ABC", "ABC"], "output": 3},
+            {"input": ["ABC", "DEF"], "output": 0},
+            {"input": ["", "test"], "output": 0}
+        ]
+    },
+    {
+        "id": 91,
+        "title": "Check if Valid Sudoku Row",
+        "problem": "Write a function that checks if a row (array) from a Sudoku grid is valid (contains digits 1-9 without repetition, ignoring '.').",
+        "input": "An array of characters arr (length 9)",
+        "output": "true if valid, false otherwise",
+        "test_cases": [
+            {"input": "['5', '3', '.', '.', '7', '.', '.', '.', '1']", "output": true},
+            {"input": "['5', '5', '.', '.', '7', '.', '.', '.', '1']", "output": false},
+            {"input": "['1', '2', '3', '4', '5', '6', '7', '8', '9']", "output": true},
+            {"input": "['.', '.', '.', '.', '.', '.', '.', '.', '.']", "output": true}
+        ]
+    },
+    {
+        "id": 92,
+        "title": "Find Minimum in Rotated Sorted Array",
+        "problem": "Write a function that finds the minimum element in a rotated sorted array.",
+        "input": "An array of integers arr",
+        "output": "The minimum element",
+        "test_cases": [
+            {"input": "[3, 4, 5, 1, 2]", "output": 1},
+            {"input": "[4, 5, 6, 7, 0, 1]", "output": 0},
+            {"input": "[1]", "output": 1},
+            {"input": "[2, 1]", "output": 1}
+        ]
+    },
+    {
+        "id": 93,
+        "title": "Count Elements Greater Than X",
+        "problem": "Write a function that counts how many elements in an array are greater than a given value x.",
+        "input": "An array of integers arr and an integer x",
+        "output": "The count of elements greater than x",
+        "test_cases": [
+            {"input": ["[1, 5, 3, 8]", 4], "output": 2},
+            {"input": ["[2, 3, 4]", 5], "output": 0},
+            {"input": ["[1, 2]", 0], "output": 2},
+            {"input": ["[]", 3], "output": 0}
+        ]
+    },
+    {
+        "id": 94,
+        "title": "Find Peak Element",
+        "problem": "Write a function that finds a peak element in an array (greater than its neighbors). Return any peak if multiple exist.",
+        "input": "An array of integers arr",
+        "output": "The index of a peak element",
+        "test_cases": [
+            {"input": "[1, 2, 3, 1]", "output": 2},
+            {"input": "[1, 2, 1, 3, 5]", "output": 1},
+            {"input": "[5]", "output": 0},
+            {"input": "[2, 1]", "output": 0}
+        ]
+    },
+    {
+        "id": 95,
+        "title": "Convert Roman to Integer",
+        "problem": "Write a function that converts a Roman numeral string to an integer.",
+        "input": "A string s (valid Roman numeral)",
+        "output": "The integer value",
+        "test_cases": [
+            {"input": "III", "output": 3},
+            {"input": "IV", "output": 4},
+            {"input": "MCMXCIV", "output": 1994},
+            {"input": "IX", "output": 9}
+        ]
+    },
+    {
+        "id": 96,
+        "title": "Find Duplicate Number",
+        "problem": "Write a function that finds a duplicate number in an array containing n+1 integers where each integer is between 1 and n.",
+        "input": "An array of integers arr",
+        "output": "The duplicate number",
+        "test_cases": [
+            {"input": "[1, 3, 4, 2, 2]", "output": 2},
+            {"input": "[3, 1, 3, 4, 2]", "output": 3},
+            {"input": "[1, 1]", "output": 1},
+            {"input": "[2, 2, 2]", "output": 2}
+        ]
+    },
+    {
+        "id": 97,
+        "title": "Check if Valid Palindrome with One Removal",
+        "problem": "Write a function that checks if a string can be a palindrome by removing at most one character.",
+        "input": "A string s",
+        "output": "true if possible, false otherwise",
+        "test_cases": [
+            {"input": "aba", "output": true},
+            {"input": "abca", "output": true},
+            {"input": "abc", "output": false},
+            {"input": "deeee", "output": true}
+        ]
+    },
+    {
+        "id": 98,
+        "title": "Find Longest Increasing Subsequence Length",
+        "problem": "Write a function that finds the length of the longest increasing subsequence in an array.",
+        "input": "An array of integers arr",
+        "output": "The length of the longest increasing subsequence",
+        "test_cases": [
+            {"input": "[10, 9, 2, 5, 3, 7, 101]", "output": 4},
+            {"input": "[0, 1, 0, 3, 2]", "output": 3},
+            {"input": "[7]", "output": 1},
+            {"input": "[3, 2, 1]", "output": 1}
+        ]
+    },
+    {
+        "id": 99,
+        "title": "Count Squares",
+        "problem": "Write a function that counts the number of square numbers less than or equal to n.",
+        "input": "An integer n",
+        "output": "The count of square numbers",
+        "test_cases": [
+            {"input": 10, "output": 3},
+            {"input": 1, "output": 1},
+            {"input": 0, "output": 0},
+            {"input": 16, "output": 4}
+        ]
+    },
+    {
+        "id": 100,
+        "title": "Find Longest Word with Prefix",
+        "problem": "Write a function that finds the longest word in an array that starts with a given prefix.",
+        "input": "An array of strings arr and a string prefix",
+        "output": "The longest word with the prefix, or '' if none",
+        "test_cases": [
+            {"input": [["apple", "app", "april"], "ap"], "output": "apple"},
+            {"input": [["dog", "cat", "rat"], "d"], "output": "dog"},
+            {"input": [["test", "tent"], "x"], "output": ""},
+            {"input": [[""], ""], "output": ""}
+        ]
+    },
+    {
+        "id": 101,
+        "title": "Find Shortest Word",
+        "problem": "Write a function that finds the shortest word in a sentence. If multiple words have the same length, return the first one.",
+        "input": "A string s containing words separated by spaces",
+        "output": "The shortest word",
+        "test_cases": [
+            {"input": "I love coding daily", "output": "I"},
+            {"input": "cat dog rat", "output": "cat"},
+            {"input": "a ab abc", "output": "a"},
+            {"input": "hello", "output": "hello"}
+        ]
+    },
+    {
+        "id": 102,
+        "title": "Check if Divisible by Sum",
+        "problem": "Write a function that checks if a number is divisible by the sum of its digits.",
+        "input": "An integer n",
+        "output": "true if n is divisible by the sum of its digits, false otherwise",
+        "test_cases": [
+            {"input": 18, "output": true},
+            {"input": 23, "output": false},
+            {"input": 0, "output": false},
+            {"input": 21, "output": true}
+        ]
+    },
+    {
+        "id": 103,
+        "title": "Find Most Frequent Element",
+        "problem": "Write a function that finds the most frequent element in an array. If there’s a tie, return the smallest one.",
+        "input": "An array of integers arr",
+        "output": "The most frequent element",
+        "test_cases": [
+            {"input": "[1, 3, 3, 2, 1]", "output": 1},
+            {"input": "[4, 4, 4, 2, 2]", "output": 4},
+            {"input": "[1]", "output": 1},
+            {"input": "[5, 5, 3, 3]", "output": 3}
+        ]
+    },
+    {
+        "id": 104,
+        "title": "Check if String is Alternating",
+        "problem": "Write a function that checks if a string alternates between uppercase and lowercase letters.",
+        "input": "A string s",
+        "output": "true if alternating, false otherwise",
+        "test_cases": [
+            {"input": "AbCdE", "output": true},
+            {"input": "aBcDe", "output": true},
+            {"input": "ABCde", "output": false},
+            {"input": "aaBB", "output": false}
+        ]
+    },
+    {
+        "id": 105,
+        "title": "Find Closest Pair Sum",
+        "problem": "Write a function that finds the sum of two elements in an array closest to a target value.",
+        "input": "An array of integers arr and an integer target",
+        "output": "The sum closest to the target",
+        "test_cases": [
+            {"input": ["[1, 2, 3, 4]", 5], "output": 5},
+            {"input": ["[10, 22, 28, 29]", 50], "output": 51},
+            {"input": ["[1, 2]", 10], "output": 3},
+            {"input": ["[-1, 3, 5]", 0], "output": 2}
+        ]
+    },
+    {
+        "id": 106,
+        "title": "Find Largest Divisor",
+        "problem": "Write a function that finds the largest proper divisor of a number (excluding the number itself).",
+        "input": "An integer n (n > 1)",
+        "output": "The largest proper divisor",
+        "test_cases": [
+            {"input": 12, "output": 6},
+            {"input": 7, "output": 1},
+            {"input": 100, "output": 50},
+            {"input": 15, "output": 5}
+        ]
+    },
+    {
+        "id": 107,
+        "title": "Check if String is Interleaved",
+        "problem": "Write a function that checks if a string is an interleaving of two other strings (maintains relative order).",
+        "input": "Three strings s1, s2, and s3",
+        "output": "true if s3 is an interleaving of s1 and s2, false otherwise",
+        "test_cases": [
+            {"input": ["aab", "cc", "aabcc"], "output": true},
+            {"input": ["abc", "def", "abcdef"], "output": true},
+            {"input": ["ab", "cd", "abcdx"], "output": false},
+            {"input": ["", "", ""], "output": true}
+        ]
+    },
+    {
+        "id": 108,
+        "title": "Sum of Absolute Differences",
+        "problem": "Write a function that calculates the sum of absolute differences between consecutive elements in an array.",
+        "input": "An array of integers arr",
+        "output": "The sum of absolute differences",
+        "test_cases": [
+            {"input": "[1, 4, 6, 2]", "output": 9},
+            {"input": "[5]", "output": 0},
+            {"input": "[2, 2, 2]", "output": 0},
+            {"input": "[-1, 3, -5]", "output": 12}
+        ]
+    },
+    {
+        "id": 109,
+        "title": "Find Max Circular Subarray Sum",
+        "problem": "Write a function that finds the maximum sum of a subarray in a circular array (can wrap around).",
+        "input": "An array of integers arr",
+        "output": "The maximum circular subarray sum",
+        "test_cases": [
+            {"input": "[1, -2, 3, -2]", "output": 3},
+            {"input": "[5, -3, 5]", "output": 10},
+            {"input": "[-2, -3, -4]", "output": -2},
+            {"input": "[3, -1, 2, -1]", "output": 4}
+        ]
+    },
+    {
+        "id": 110,
+        "title": "Check if String is Valid Number",
+        "problem": "Write a function that checks if a string represents a valid number (integer or decimal, optional sign).",
+        "input": "A string s",
+        "output": "true if a valid number, false otherwise",
+        "test_cases": [
+            {"input": "123", "output": true},
+            {"input": "-45.67", "output": true},
+            {"input": "12.34.56", "output": false},
+            {"input": "abc", "output": false}
+        ]
+    },
+    {
+        "id": 111,
+        "title": "Find Number of Divisors",
+        "problem": "Write a function that calculates the total number of divisors of a given integer.",
+        "input": "An integer n (n > 0)",
+        "output": "The total number of divisors",
+        "test_cases": [
+            {"input": 12, "output": 6},
+            {"input": 7, "output": 2},
+            {"input": 1, "output": 1},
+            {"input": 16, "output": 5}
+        ]
+    },
+    {
+        "id": 112,
+        "title": "Check if String is Valid Parentheses Subsequence",
+        "problem": "Write a function that checks if a string is a valid subsequence of balanced parentheses (can skip characters).",
+        "input": "A string s containing '(', ')', and other characters",
+        "output": "true if a valid parentheses subsequence exists, false otherwise",
+        "test_cases": [
+            {"input": "a(b)c()", "output": true},
+            {"input": "((x)", "output": false},
+            {"input": "abc", "output": true},
+            {"input": "()a(b)", "output": true}
+        ]
+    },
+    {
+        "id": 113,
+        "title": "Find Minimum Moves to Equal Elements",
+        "problem": "Write a function that finds the minimum number of moves to make all array elements equal by incrementing n-1 elements by 1 per move.",
+        "input": "An array of integers arr",
+        "output": "The minimum number of moves",
+        "test_cases": [
+            {"input": "[1, 2, 3]", "output": 3},
+            {"input": "[1, 1, 1]", "output": 0},
+            {"input": "[2, 4]", "output": 2},
+            {"input": "[1, 10, 2, 9]", "output": 16}
+        ]
+    }
+]
