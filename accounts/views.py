@@ -77,16 +77,32 @@ def Logout_View(request):
 
 
 
-
-
-
 def Profile_View(request):
-    user_id = request.session.get('user_id')
-    if not user_id:
-        return redirect('login')
-    
-    user = get_object_or_404(UserRegistrations, id=user_id)
-    
+    # Get session data
+    google_user_data = request.session.get('session_data')
+    custom_user_id = request.session.get('user_id')
+
+    # Determine user based on authentication method
+    if google_user_data:
+        # Google sign-in case
+        # Assuming UserRegistrations has an email field that matches Google's email
+        try:
+            user = UserRegistrations.objects.get(email=google_user_data.get('email'))
+        except UserRegistrations.DoesNotExist:
+            # Optionally create a user if they don't exist
+            user = UserRegistrations.objects.create(
+                email=google_user_data.get('email'),
+                username=google_user_data.get('name', google_user_data.get('name')),
+                # Add other fields as needed, e.g., name, etc.
+            )
+            user.save()
+    elif custom_user_id:
+        # Custom sign-in case
+        user = get_object_or_404(UserRegistrations, id=custom_user_id)
+    else:
+        # No valid session data; redirect to login or handle as needed
+        return render(request, 'accounts/profile.html', {'error': 'Please log in to view your profile'})
+
     # Get or create streak
     try:
         streak = UserStreak.objects.get(user=user)
@@ -104,6 +120,7 @@ def Profile_View(request):
         .order_by('date')
     )
     
+    # Prepare context
     context = {
         'user': user,
         'saved_videos': saved_videos,
@@ -111,6 +128,15 @@ def Profile_View(request):
         'longest_streak': streak.longest_streak,
         'last_visit': streak.last_visit,
     }
+
+    # Add Google-specific data if available
+    if google_user_data:
+        context.update({
+            'google_user_data': google_user_data,
+            'profile_picture': google_user_data.get('picture'),
+            'full_name': google_user_data.get('full_name'),
+        })
+
     return render(request, 'accounts/profile.html', context)
 
 

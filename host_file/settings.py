@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['edulearn-c52m.onrender.com','127.0.0.1']
 
+SITE_ID = 1
+
 
 # Application definition
 
@@ -42,9 +44,21 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'coding_problems.apps.CodingProblemsConfig',
     'rest_framework',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend', # standard django backend
+    'allauth.account.auth_backends.AuthenticationBackend', # all auth backend
 ]
 
 MIDDLEWARE = [
+    'allauth.account.middleware.AccountMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -131,9 +145,17 @@ STATIC_ROOT = BASE_DIR / "staticfiles"    # Where files are collected
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Default
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # or 'cache' or 'cookie'
+SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds
+SESSION_COOKIE_SECURE = True  # Use True in production with HTTPS
+SESSION_SAVE_EVERY_REQUEST = True

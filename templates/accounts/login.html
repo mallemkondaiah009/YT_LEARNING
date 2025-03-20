@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load socialaccount %}  <!-- Add this line to load the socialaccount template tags -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -344,7 +345,8 @@
         </div>
 
         <div class="social-login">
-            <button type="button" class="social-button">
+            <!-- Updated Google Sign-In Button -->
+            <button onclick="window.location.href = '{% provider_login_url 'google' %}'" type="button" class="social-button">
                 <img src="https://www.google.com/favicon.ico" alt="Google logo">
                 Sign in with Google
             </button>

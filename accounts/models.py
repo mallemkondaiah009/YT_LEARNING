@@ -3,7 +3,7 @@ from django.utils import timezone
 
 # Create your models here.
 class UserRegistrations(models.Model):
-    username = models.CharField(max_length=150, unique=True)
+    username = models.CharField(max_length=150, unique=True,)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
 
