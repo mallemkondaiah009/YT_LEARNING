@@ -5,6 +5,18 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 from yt_learning.models import save_watch_later
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib import messages
+import time
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.contrib.auth.hashers import make_password, check_password
+from .tokens import custom_token_generator
+
 
 def Register_View(request):
     if request.method == 'POST':
@@ -184,3 +196,87 @@ def Login_Category_View(request):
         return redirect('videos_by_category', category_name=category_name)
     
     return render(request, 'accounts/login.html')
+
+
+# accounts/views.py
+
+# accounts/views.py
+import time
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.contrib.auth.hashers import make_password
+from .models import UserRegistrations
+from .tokens import custom_token_generator
+
+def forgot_password(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = UserRegistrations.objects.get(email=email)
+            token = custom_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            reset_link = f"{request.scheme}://{request.get_host()}/reset-password/{uid}/{token}/"
+            
+            print(f"Reset link: {reset_link}")  # Debug
+            
+            subject = 'Password Reset Request'
+            message = render_to_string('emails/password_reset_email.html', {
+                'user': user,
+                'reset_link': reset_link,
+            })
+            
+            send_mail(
+                subject,
+                message,
+                'hexacodesrepley@gmail.com',
+                [email],
+                fail_silently=False,
+                html_message=message
+            )
+            
+            messages.success(request, 'Password reset link has been sent to your email.')
+            return redirect('forgot_password')
+            
+        except UserRegistrations.DoesNotExist:
+            messages.error(request, 'No account found with this email.')
+            return redirect('forgot_password')
+            
+    return render(request, 'accounts/forgot_password.html')
+
+def reset_password(request, uidb64, token):
+    user = None
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        print(f"Decoded UID: {uid}")  # Debug
+        user = UserRegistrations.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, UserRegistrations.DoesNotExist) as e:
+        print(f"UID decoding error: {str(e)}")  # Debug
+        user = None
+
+    if user is not None and custom_token_generator.check_token(user, token):
+        if request.method == 'POST':
+            password = request.POST.get('password')
+            password2 = request.POST.get('password2')
+            
+            if password != password2:
+                messages.error(request, 'Passwords do not match.')
+                return redirect('reset_password', uidb64=uidb64, token=token)
+                
+            if len(password) < 8:
+                messages.error(request, 'Password must be at least 8 characters long.')
+                return redirect('reset_password', uidb64=uidb64, token=token)
+                
+            user.password = make_password(password)
+            user.save()
+            messages.success(request, 'Password has been reset successfully.')
+            return redirect('login')
+            
+        return render(request, 'accounts/reset_password.html')
+    else:
+        messages.error(request, 'The reset link is invalid or has expired.')
+        print(f"Token validation failed for user: {user}, token: {token}")  # Debug
+        return redirect('forgot_password')

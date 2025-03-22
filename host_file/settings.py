@@ -139,3 +139,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Default
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'hexacodesrepley@gmail.com' 
+EMAIL_HOST_PASSWORD = 'gopv pfyh teni uikr'
+DEFAULT_FROM_EMAIL = 'hexacodesrepley@gmail.com'
