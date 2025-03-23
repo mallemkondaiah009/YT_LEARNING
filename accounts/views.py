@@ -78,7 +78,7 @@ def Login_View(request):
         request.session['email']  = user.email
         request.session['username'] = user.username
         messages.success(request, 'Login successful.')
-        return redirect('categories_page') 
+        return redirect('landing_page') 
     
     return render(request, 'accounts/login.html')
 
