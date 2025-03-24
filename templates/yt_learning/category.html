@@ -39,7 +39,7 @@
             overflow-x: hidden;
         }
 
-        /* Header Styles (Copied Exactly from First Code) */
+        /* Header Styles */
         .header {
             background: rgba(229, 228, 226, 0.98);
             backdrop-filter: blur(10px);
@@ -69,7 +69,7 @@
             font-weight: 700;
             font-size: 1.25rem;
             transition: opacity 0.2s ease;
-            margin-left: -0.5rem; /* Move HexaCodes text slightly left */
+            margin-left: -0.5rem;
         }
 
         .nav-logo img {
@@ -226,6 +226,7 @@
             background: linear-gradient(to right, var(--text), var(--text-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease-out;
         }
 
         .categories-header p {
@@ -233,6 +234,8 @@
             color: var(--text-light);
             max-width: 600px;
             margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.3s;
+            animation-fill-mode: backwards;
         }
 
         .categories-grid {
@@ -251,10 +254,18 @@
             text-decoration: none;
             color: var(--text);
             border: 1px solid var(--border);
+            transition: all 0.3s ease; /* Added for smooth hover transition */
         }
 
         .category-card.programming-lang {
             background: white;
+        }
+
+        /* Hover effect for category cards */
+        .category-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--text);
+            box-shadow: 0 8px 24px var(--shadow);
         }
 
         .category-icon {
@@ -263,6 +274,11 @@
             border-radius: 0.5rem;
             flex-shrink: 0;
             overflow: hidden;
+            transition: transform 0.3s ease; /* Added for hover interaction */
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.1); /* Slight scale up on hover */
         }
 
         .category-icon img {
@@ -289,6 +305,11 @@
             color: var(--text-light);
             width: 18px;
             height: 18px;
+            transition: transform 0.3s ease; /* Added for hover interaction */
+        }
+
+        .category-card:hover .category-arrow svg {
+            transform: translateX(4px); /* Slight right movement on hover */
         }
 
         .empty-state {
@@ -376,7 +397,7 @@
             }
         }
 
-        /* Responsive Design (Updated to Match First Code) */
+        /* Responsive Design */
         @media (max-width: 768px) {
             .nav-container {
                 padding: 1rem;
@@ -503,7 +524,6 @@
     </style>
 </head>
 <body>
-    <!-- Header Section (Copied Exactly from First Code) -->
     <header class="header">
         <nav class="nav-container">
             <a href="{% url 'categories_page' %}" class="nav-logo">
@@ -519,7 +539,7 @@
                 {% if request.session.user_id %}
                     <a href="{% url 'landing_page' %}">Home</a>
                     <a href="{% url 'categories_page' %}">Categories</a>
-                    <a href="#Internships">Internships</a>
+                    <a href="{% url 'internships' %}">Internships</a>
                     <a href="{% url 'codeground' %}" class="code-ground-btn">
                         <span>Code Ground</span>
                     </a>
@@ -543,7 +563,6 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main class="main-content">
         <div class="container">
             <section class="categories-header">
@@ -586,26 +605,25 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="{% url 'landing_page' %}">Home</a>
-                <a href="#about">About Us</a>
-                <a href="#contact">Contact</a>
+                <h3>Company</h3>
+                <a href="/about">About Us</a>
+                <a href="/careers">Careers</a>
+                <a href="/contact">Contact</a>
             </div>
             <div class="footer-section">
                 <h3>Resources</h3>
-                <a href="#faq">FAQ</a>
-                <a href="#help">Help Center</a>
-                <a href="#terms">Terms of Use</a>
+                <a href="/blog">Blog</a>
+                <a href="/docs">Documentation</a>
+                <a href="/guides">Guides</a>
             </div>
             <div class="footer-section">
-                <h3>Connect</h3>
-                <a href="#twitter">Twitter</a>
-                <a href="#github">GitHub</a>
-                <a href="#linkedin">LinkedIn</a>
+                <h3>Legal</h3>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/cookies">Cookie Policy</a>
             </div>
         </div>
         <div class="footer-bottom">

@@ -16,6 +16,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth.hashers import make_password, check_password
 from .tokens import custom_token_generator
+from django.http import JsonResponse
 
 
 def Register_View(request):
@@ -95,11 +96,23 @@ def Profile_View(request):
 
     # Determine user based on authentication method
     if custom_user_id:
-        # Custom sign-in case
         user = get_object_or_404(UserRegistrations, id=custom_user_id)
     else:
-        # No valid session data; redirect to login or handle as needed
         return render(request, 'accounts/profile.html', {'error': 'Please log in to view your profile'})
+
+    # Handle POST requests for AJAX
+    if request.method == "POST" and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        action = request.POST.get('action')
+        if action == 'remove':
+            video_id = request.POST.get('video_id')
+            try:
+                saved_video = save_watch_later.objects.get(user=user, video_id=video_id)
+                saved_video.delete()
+                return JsonResponse({'status': 'success', 'message': 'Video removed from watch later'})
+            except save_watch_later.DoesNotExist:
+                return JsonResponse({'status': 'error', 'message': 'Video not found in watch later'})
+            except Exception as e:
+                return JsonResponse({'status': 'error', 'message': str(e)})
 
     # Get or create streak
     try:

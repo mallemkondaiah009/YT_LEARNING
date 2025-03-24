@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compiler | HexaCodes</title>
-    <link rel="icon" href="{% static 'images/hexa_codes_logo.jpg' %}" type="image/jpg">
+    <title>HexaCodes | Internships</title>
+    <link rel="icon" href="{% static 'images/hexacodes.png' %}" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,13 +16,13 @@
             --primary-dark: #000000;
             --secondary: #333333;
             --accent: #666666;
+            --background: #E5E4E2; /* Kept for reference */
+            --surface: #F5F5F5;   /* Kept for reference */
             --text: #1A1A1A;
             --text-light: #666666;
             --border: #D1D1D1;
             --shadow: rgba(0, 0, 0, 0.1);
             --hover: #EBEBEB;
-            --editor-bg: #F5F5F5;
-            --editor-text: #1A1A1A;
         }
 
         *, *::before, *::after {
@@ -36,7 +36,6 @@
             line-height: 1.6;
             color: var(--text);
             background: rgba(229, 228, 226, 0.98); /* Matches header */
-            min-height: 100vh;
             overflow-x: hidden;
         }
 
@@ -102,6 +101,8 @@
             font-size: 0.9375rem;
             padding: 0.5rem 1rem;
             border-radius: 0.375rem;
+            display: flex;
+            align-items: center;
             transition: all 0.2s ease;
         }
 
@@ -111,6 +112,7 @@
         }
 
         .nav-links .code-ground-btn {
+            position: relative;
             background: var(--primary);
             color: #FFFFFF !important;
             padding: 0.5rem 1rem;
@@ -119,12 +121,50 @@
             font-size: 0.875rem;
             box-shadow: 0 2px 4px var(--shadow);
             transition: all 0.2s ease;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 36px;
+        }
+
+        .nav-links .code-ground-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 4px;
+            background: linear-gradient(
+                to right,
+                #ff0000 0%,
+                #ff8000 15%,
+                #ffff00 30%,
+                #00ff00 45%,
+                #00ffff 60%,
+                #0000ff 75%,
+                #8000ff 90%,
+                #ff0000 100%
+            );
+            filter: blur(8px);
+            opacity: 0.7;
+            animation: rainbowGlow 3s linear infinite;
         }
 
         .nav-links .code-ground-btn:hover {
             background: var(--secondary);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px var(--shadow);
+        }
+
+        .nav-links .code-ground-btn span {
+            z-index: 2;
+        }
+
+        @keyframes rainbowGlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
         }
 
         .nav-icon .profile-icon {
@@ -150,6 +190,10 @@
             font-size: 0.875rem;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 36px;
         }
 
         .login-btn:hover {
@@ -158,155 +202,95 @@
             box-shadow: 0 4px 8px var(--shadow);
         }
 
-        /* Compiler Container */
-        .compiler-container {
+        /* Coming Soon Section */
+        .coming-soon {
+            min-height: 100vh;
+            background: rgba(229, 228, 226, 0.98); /* Matches header */
             display: flex;
-            max-width: 1280px;
-            margin: 80px auto 4rem;
-            padding: 0 2rem;
-            height: calc(100vh - 150px);
-            gap: 1rem;
-        }
-
-        .editor-wrapper {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: #FFFFFF;
-            border-radius: 0.75rem;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 6px var(--shadow);
-            overflow: hidden;
-        }
-
-        .output-wrapper {
-            flex: 0.5;
-            background: #FFFFFF;
-            border-radius: 0.75rem;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 6px var(--shadow);
-            overflow: hidden;
-        }
-
-        .editor-header {
-            padding: 0.5rem 1rem;
-            background: #E5E7EB;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-        }
-
-        .editor-header span {
-            font-size: 0.9375rem;
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        .editor-header .buttons {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .share-btn, .run-btn, .clear-btn {
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            border: none;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .share-btn {
-            background: #E5E7EB;
-            color: var(--text);
-        }
-
-        .share-btn:hover {
-            background: #D1D5DB;
-        }
-
-        .run-btn {
-            background: #2563EB;
-            color: #FFFFFF;
-        }
-
-        .run-btn:hover {
-            background: #1D4ED8;
-        }
-
-        .clear-btn {
-            background: #E5E7EB;
-            color: var(--text);
-        }
-
-        .clear-btn:hover {
-            background: #D1D5DB;
-        }
-
-        .code-editor {
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
             position: relative;
-            flex: 1;
-            display: flex;
+            overflow: hidden;
         }
 
-        .line-numbers {
-            width: 40px;
-            background: var(--editor-bg);
-            color: var(--text-light);
-            text-align: right;
-            padding: 1rem 0.5rem;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1rem;
-            border-right: 1px solid var(--border);
-            user-select: none;
+        .coming-soon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(51, 51, 51, 0.05) 0%, transparent 70%);
+            z-index: 0;
         }
 
-        .line-numbers span {
-            display: block;
-            line-height: 1.5;
+        .coming-soon-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
         }
 
-        textarea#code {
-            flex: 1;
-            padding: 1rem;
-            border: none;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1rem;
-            background: var(--editor-bg);
-            color: var(--editor-text);
-            resize: none;
-            outline: none;
-            line-height: 1.5;
-        }
-
-        .output-header {
-            padding: 0.5rem 1rem;
-            background: #E5E7EB;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .output-header h2 {
-            font-size: 0.9375rem;
-            font-weight: 500;
+        .coming-soon h1 {
+            font-size: 4rem;
+            font-weight: 700;
             color: var(--text);
+            margin-bottom: 2rem;
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 4px solid var(--text);
+            animation: typing 3s steps(20, end) infinite, blink 0.75s step-end infinite;
         }
 
-        .output-box {
-            padding: 1rem;
-            background: var(--editor-bg);
-            color: #34a853;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1rem;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            flex: 1;
+        .coming-soon p {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 4px;
+            background: #D1D1D1;
+            border-radius: 2px;
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .loader-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
             height: 100%;
+            background: var(--primary);
+            animation: load 2s ease-in-out infinite;
+        }
+
+        @keyframes typing {
+            0% { width: 0; }
+            50% { width: 100%; }
+            100% { width: 0; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        @keyframes load {
+            0% { left: -100%; }
+            50% { left: 0; }
+            100% { left: 100%; }
         }
 
         /* Footer */
         .footer {
-            background: #FFFFFF;
+            background: #FFFFFF; /* White background */
             color: var(--text);
             padding: 5rem 2rem 2.5rem;
             border-top: 1px solid var(--border);
@@ -331,6 +315,7 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--text);
+            line-height: 1.2;
         }
 
         .footer-brand p {
@@ -338,6 +323,7 @@
             max-width: 300px;
             font-weight: 400;
             font-size: 1rem;
+            line-height: 1.6;
         }
 
         .footer-logo {
@@ -362,6 +348,8 @@
             font-size: 1rem;
             font-weight: 600;
             color: var(--text);
+            margin-bottom: 1rem;
+            line-height: 1.2;
         }
 
         .footer-links a {
@@ -370,6 +358,7 @@
             transition: color 0.2s ease;
             font-size: 0.9375rem;
             font-weight: 400;
+            line-height: 1.6;
         }
 
         .footer-links a:hover {
@@ -388,6 +377,7 @@
             font-size: 0.875rem;
             font-weight: 400;
             text-align: center;
+            line-height: 1.6;
         }
 
         /* Mobile Menu */
@@ -438,7 +428,7 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: rgba(229, 228, 226, 0.98);
+                background: rgba(229, 228, 226, 0.98); /* Matches header */
                 flex-direction: column;
                 justify-content: center;
                 gap: 2rem;
@@ -455,17 +445,29 @@
                 font-size: 1.25rem;
                 width: 100%;
                 text-align: center;
+                padding: 1rem;
             }
 
-            .compiler-container {
-                flex-direction: column;
-                height: auto;
-                margin: 70px auto 2rem;
-                padding: 0 1rem;
+            .nav-links .code-ground-btn {
+                width: 50%;
+                margin: 0 auto;
+                height: 40px;
+                font-size: 1rem;
             }
 
-            .editor-wrapper, .output-wrapper {
-                width: 100%;
+            .nav-links .login-btn {
+                width: 50%;
+                margin: 0 auto;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .coming-soon h1 {
+                font-size: 2.75rem;
+            }
+
+            .coming-soon p {
+                font-size: 1.125rem;
             }
 
             .footer-content {
@@ -473,30 +475,45 @@
                 text-align: center;
             }
 
+            .footer-brand p {
+                margin: 0 auto;
+            }
+
             .footer-nav {
                 grid-template-columns: 1fr;
+                text-align: center;
                 gap: 3rem;
             }
         }
 
         @media (max-width: 480px) {
-            .editor-header span, .output-header h2 {
-                font-size: 0.875rem;
+            .coming-soon h1 {
+                font-size: 2.25rem;
             }
 
-            .share-btn, .run-btn, .clear-btn {
-                padding: 0.5rem;
-                font-size: 0.875rem;
+            .coming-soon p {
+                font-size: 1rem;
+            }
+
+            .nav-container {
+                padding: 0.75rem;
+            }
+
+            .nav-links .code-ground-btn {
+                width: 70%;
+            }
+
+            .nav-links .login-btn {
+                width: 70%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
     <header class="header">
         <nav class="nav-container">
             <a href="{% url 'categories_page' %}" class="nav-logo">
-                <img src="{% static 'images/hexa_codes_logo.jpg' %}" alt="HexaCodes Logo" class="logo-image">
+                <img src="{% static 'images/logo.png' %}" alt="HexaCodes Logo" class="logo-image">
                 HexaCodes
             </a>
             <button class="nav-toggle" aria-label="Toggle menu">
@@ -506,9 +523,12 @@
             </button>
             <div class="nav-links">
                 {% if request.session.user_id %}
-                    <a href="{% url 'categories_page' %}">Home</a>
-                    <a href="{% url 'codeground' %}" class="code-ground-btn active">Code</a>
-                    <a href="{% url 'logout' %}">Logout</a>
+                    <a href="{% url 'landing_page' %}">Home</a>
+                    <a href="{% url 'categories_page' %}">Categories</a>
+                    <a href="{% url 'internships' %}">Internships</a>
+                    <a href="{% url 'codeground' %}" class="code-ground-btn">
+                        <span>Code Ground</span>
+                    </a>
                     <a href="{% url 'profile' %}" class="nav-icon" title="Profile">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="profile-icon">
                             <circle cx="12" cy="12" r="11" fill="#1A1A1A"/>
@@ -517,154 +537,27 @@
                         </svg>
                     </a>
                 {% else %}
-                    <a href="{% url 'categories_page' %}">Home</a>
-                    <a href="{% url 'codeground' %}" class="code-ground-btn active">Code</a>
-                    <a href="{% url 'login' %}">Sign In</a>
-                    <a href="{% url 'register' %}">Sign Up</a>
+                    <a href="{% url 'landing_page' %}">Home</a>
+                    <a href="{% url 'categories_page' %}">Categories</a>
+                    <a href="{% url 'internships' %}">Internships</a>
+                    <a href="{% url 'codeground' %}" class="code-ground-btn">
+                        <span>Code Ground</span>
+                    </a>
+                    <a href="{% url 'login' %}" class="login-btn">Login</a>
                 {% endif %}
             </div>
         </nav>
     </header>
 
-    <!-- Compiler Section -->
-    <div class="compiler-container">
-        <div class="editor-wrapper">
-            <div class="editor-header">
-                <span>main.c</span>
-                <div class="buttons">
-                    <button class="share-btn">Share</button>
-                    <button class="run-btn" id="run-btn">Run</button>
-                    <button class="clear-btn" id="clear-btn">Clear</button>
-                </div>
-            </div>
-            <div class="code-editor">
-                <div class="line-numbers" id="line-numbers">
-                    <span>1</span>
-                </div>
-                <textarea id="code" spellcheck="false" placeholder="Write your code here..."></textarea>
-            </div>
+    <section class="coming-soon">
+        <div class="coming-soon-content">
+            <h1>Internships Coming Soon</h1>
+            <p>We're working hard to bring you exciting internship opportunities. Stay tuned!</p>
+            <div class="loader-bar"></div>
         </div>
-        <div class="output-wrapper">
-            <div class="output-header">
-                <h2>Output</h2>
-            </div>
-            <div class="output-box" id="output"></div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="footer-logo">
-                    <path d="M12 2l9 4.9v10.2L12 22l-9-4.9V6.9L12 2z"/>
-                    <path d="M12 16.5v5.5"/>
-                    <path d="M12 13.5V2"/>
-                    <path d="m7 5.5 5 3 5-3"/>
-                </svg>
-                <h3>HexaCodes</h3>
-                <p>Empowering developers through organized learning.</p>
-            </div>
-            <nav class="footer-nav">
-                <div class="footer-links">
-                    <h4>Company</h4>
-                    <a href="/about">About Us</a>
-                    <a href="/careers">Careers</a>
-                    <a href="/contact">Contact</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Resources</h4>
-                    <a href="/blog">Blog</a>
-                    <a href="/docs">Documentation</a>
-                    <a href="/guides">Guides</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Legal</h4>
-                    <a href="/privacy">Privacy Policy</a>
-                    <a href="/terms">Terms of Service</a>
-                    <a href="/cookies">Cookie Policy</a>
-                </div>
-            </nav>
-        </div>
-        <div class="footer-bottom">
-            <p class="copyright">© 2025 HexaCodes. All rights reserved.</p>
-        </div>
-    </footer>
+    </section>
 
     <script>
-        const codeTextarea = document.getElementById('code');
-        const lineNumbers = document.getElementById('line-numbers');
-        const outputBox = document.getElementById('output');
-
-        // Update line numbers dynamically
-        function updateLineNumbers() {
-            const lines = codeTextarea.value.split('\n').length;
-            lineNumbers.innerHTML = '';
-            for (let i = 1; i <= lines; i++) {
-                lineNumbers.innerHTML += `<span>${i}</span>`;
-            }
-        }
-
-        // Auto-complete brackets
-        codeTextarea.addEventListener('input', (e) => {
-            updateLineNumbers();
-            const cursorPos = codeTextarea.selectionStart;
-            const value = codeTextarea.value;
-            const char = value[cursorPos - 1];
-
-            const bracketPairs = {
-                '{': '}',
-                '[': ']',
-                '(': ')'
-            };
-
-            if (bracketPairs[char]) {
-                const closingBracket = bracketPairs[char];
-                codeTextarea.value = value.slice(0, cursorPos) + closingBracket + value.slice(cursorPos);
-                codeTextarea.selectionStart = codeTextarea.selectionEnd = cursorPos;
-            }
-        });
-
-        // Initial line numbers
-        updateLineNumbers();
-
-        // Run Code
-        document.getElementById('run-btn').addEventListener('click', () => {
-            const code = codeTextarea.value;
-
-            fetch('https://emkc.org/api/v2/piston/execute', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    language: 'c',
-                    version: '*',
-                    files: [{ content: code }],
-                    stdin: ''
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                outputBox.innerText = data.run.stdout || data.run.stderr || 'No output';
-            })
-            .catch(error => {
-                outputBox.innerText = 'Error running code';
-                console.error(error);
-            });
-        });
-
-        // Clear Code
-        document.getElementById('clear-btn').addEventListener('click', () => {
-            codeTextarea.value = '';
-            outputBox.innerText = '';
-            updateLineNumbers();
-        });
-
-        // Share Button (Placeholder)
-        document.querySelector('.share-btn').addEventListener('click', () => {
-            alert('Share functionality coming soon!');
-        });
-
-        // Mobile Menu Toggle
         document.querySelector('.nav-toggle').addEventListener('click', function() {
             this.classList.toggle('active');
             document.querySelector('.nav-links').classList.toggle('active');
