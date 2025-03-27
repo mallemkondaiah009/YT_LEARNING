@@ -84,8 +84,13 @@ def Login_View(request):
     return render(request, 'accounts/login.html')
 
 def Logout_View(request):
-    request.session.flush()
-    messages.success(request, 'Logout successful.')
+    # Check if user is logged in (assuming you store user info in session)
+    if 'user_id' in request.session:
+        # Clear user-specific session data
+        del request.session['user_id']
+        messages.success(request, 'Logout successful.')
+    else:
+        messages.info(request, 'No active user session found.')
     return redirect('login')
 
 
