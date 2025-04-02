@@ -146,5 +146,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'hexacodesrepley@gmail.com' 
-EMAIL_HOST_PASSWORD = 'gopv pfyh teni uikr'
+EMAIL_HOST_PASSWORD = 'oioj gblb gofd sryl'
 DEFAULT_FROM_EMAIL = 'hexacodesrepley@gmail.com'

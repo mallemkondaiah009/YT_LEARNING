@@ -16,13 +16,13 @@
             --primary-dark: #000000;
             --secondary: #333333;
             --accent: #666666;
-            --background: #E5E4E2; /* Kept for reference */
-            --surface: #F5F5F5;   /* Kept for reference */
+            --background: #FFFFFF; /* Updated to pure white */
+            --surface: #FFFFFF;   /* Updated to pure white */
             --text: #1A1A1A;
             --text-light: #666666;
             --border: #D1D1D1;
             --shadow: rgba(0, 0, 0, 0.1);
-            --hover: #EBEBEB;
+            --hover: #F5F5F5; /* Slightly lighter for hover effects */
         }
 
         *, *::before, *::after {
@@ -35,14 +35,14 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: var(--text);
-            background: rgba(229, 228, 226, 0.98); /* Matches header */
+            background: var(--background); /* Set to pure white */
             overflow-x: hidden;
         }
 
         /* Header Styles */
         .header {
-            background: rgba(229, 228, 226, 0.98);
-            backdrop-filter: blur(10px);
+            background: var(--background); /* Pure white background */
+            backdrop-filter: blur(10px); /* Optional: Retain if you want a slight blur effect */
             position: fixed;
             width: 100%;
             top: 0;
@@ -171,24 +171,24 @@
             width: 24px;
             height: 24px;
             padding: 4px;
-            background: #1A1A1A;
+            background: var(--primary);
             border-radius: 50%;
             transition: transform 0.2s ease, background 0.2s ease;
         }
 
         .nav-icon:hover .profile-icon {
             transform: scale(1.1);
-            background: #333333;
+            background: var(--secondary);
         }
 
         .login-btn {
-            background: #171717;
+            background: var(--primary);
             color: #FFFFFF !important;
             padding: 0.5rem 1rem;
             border-radius: 0.375rem;
             font-weight: 600;
             font-size: 0.875rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px var(--shadow);
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
@@ -205,7 +205,7 @@
         /* Coming Soon Section */
         .coming-soon {
             min-height: 100vh;
-            background: rgba(229, 228, 226, 0.98); /* Matches header */
+            background: var(--background); /* Pure white background */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -290,7 +290,7 @@
 
         /* Footer */
         .footer {
-            background: #FFFFFF; /* White background */
+            background: var(--background); /* Pure white background */
             color: var(--text);
             padding: 5rem 2rem 2.5rem;
             border-top: 1px solid var(--border);
@@ -417,7 +417,7 @@
                 opacity: 0;
             }
 
-            .nav-toggle.active span:nth-child(3) {
+            .nav-toggle.active span:nth3(3) {
                 transform: rotate(-45deg);
                 top: 11px;
             }
@@ -428,7 +428,7 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: rgba(229, 228, 226, 0.98); /* Matches header */
+                background: var(--background); /* Pure white background */
                 flex-direction: column;
                 justify-content: center;
                 gap: 2rem;
@@ -556,6 +556,39 @@
             <div class="loader-bar"></div>
         </div>
     </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>HexaCodes</h3>
+                <p>Your gateway to exciting internship opportunities in the tech industry.</p>
+                <img src="{% static 'images/logo.png' %}" alt="HexaCodes Logo" class="footer-logo">
+            </div>
+            <div class="footer-nav">
+                <div class="footer-links">
+                    <h4>About</h4>
+                    <a href="#">Our Story</a>
+                    <a href="#">Team</a>
+                    <a href="#">Careers</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <a href="#">Contact Us</a>
+                    <a href="#">FAQs</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Connect</h4>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Facebook</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright">© 2025 HexaCodes. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
         document.querySelector('.nav-toggle').addEventListener('click', function() {

@@ -16,8 +16,8 @@
             --primary-dark: #000000;
             --secondary: #333333;
             --accent: #666666;
-            --background: #E5E4E2;
-            --surface: #F5F5F5;
+            --background: #F8F9FA; /* Industry-level aesthetic white */
+            --surface: #FFFFFF; /* Pure white for contrast */
             --text: #1A1A1A;
             --text-light: #666666;
             --border: #D1D1D1;
@@ -41,13 +41,12 @@
 
         /* Header Styles */
         .header {
-            background: rgba(229, 228, 226, 0.98);
-            backdrop-filter: blur(10px);
+            background: var(--background); /* Matches main background */
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid var(--border);
+            /* border-bottom: 1px solid var(--border); Removed to eliminate line */
         }
 
         .nav-container {
@@ -202,119 +201,10 @@
             box-shadow: 0 4px 8px var(--shadow);
         }
 
-        /* Slider Styles */
-        .hero-slider {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            overflow: hidden;
-            background: var(--background);
-            margin-top: 70px;
-        }
-
-        .slider-container {
-            max-width: 1280px;
-            width: 100%;
-            height: 100%;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .slide {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .slide.active {
-            opacity: 1;
-        }
-
-        /* Decorative Code Elements */
-        .code-decor {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            width: 200px;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.9rem;
-            color: #999999;
-            opacity: 0.5;
-            pointer-events: none;
-            z-index: 5;
-            overflow: hidden;
-        }
-
-        .code-decor.left {
-            left: 0;
-            text-align: right;
-            padding-right: 1rem;
-        }
-
-        .code-decor.right {
-            right: 0;
-            text-align: left;
-            padding-left: 1rem;
-        }
-
-        .code-decor span {
-            display: block;
-            line-height: 1.8;
-            animation: scrollCode 20s linear infinite;
-        }
-
-        .code-decor.left span {
-            animation-direction: reverse;
-        }
-
-        @keyframes scrollCode {
-            0% { transform: translateY(50%); }
-            100% { transform: translateY(-50%); }
-        }
-
-        .slider-dots {
-            position: absolute;
-            bottom: 1rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0.75rem;
-            z-index: 10;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.3s ease;
-        }
-
-        .dot.active {
-            background: #FFFFFF;
-            transform: scale(1.2);
-        }
-
-        .dot:hover {
-            background: rgba(255, 255, 255, 0.8);
-            transform: scale(1.1);
-        }
-
         /* Main Content */
         .main-content {
-            min-height: calc(100vh - 200px);
-            padding: 2rem 2rem 4rem;
+            min-height: calc(100vh - 70px);
+            padding: 8rem 2rem 4rem;
         }
 
         .container {
@@ -600,13 +490,8 @@
                 font-size: 1rem;
             }
 
-            .hero-slider {
-                height: 350px;
-            }
-
-            .code-decor {
-                width: 150px;
-                font-size: 0.8rem;
+            .main-content {
+                padding: 6rem 1rem 3rem;
             }
 
             .categories-header h1 {
@@ -627,15 +512,6 @@
         }
 
         @media (max-width: 480px) {
-            .hero-slider {
-                height: 300px;
-            }
-
-            .code-decor {
-                width: 100px;
-                font-size: 0.7rem;
-            }
-
             .categories-header h1 {
                 font-size: 1.75rem;
             }
@@ -645,7 +521,7 @@
             }
 
             .main-content {
-                padding: 2rem 1rem 3rem;
+                padding: 6rem 1rem 3rem;
             }
 
             .nav-container {
@@ -702,67 +578,6 @@
         </nav>
     </header>
 
-    <!-- Slider Section -->
-    <section class="hero-slider">
-        <div class="slider-container">
-            <div class="slide active" style="background-image: url('{% static 'images/cdground.jpg' %}');"></div>
-            <div class="slide" style="background-image: url('{% static 'images/plangs.jpg' %}');"></div>
-            <div class="slide" style="background-image: url('{% static 'images/intern.jpg' %}');"></div>
-            <!-- Decorative Code Elements -->
-            <div class="code-decor left">
-                <span>
-                    function helloWorld() {<br>
-                      console.log("Code");<br>
-                    }<br>
-                    let x = 42;<br>
-                    if (true) {<br>
-                      return "Hexa";<br>
-                    }<br>
-                    const arr = [1, 2, 3];<br>
-                    for (let i = 0; i < 10; i++) {<br>
-                      print(i);<br>
-                    }<br>
-                    function helloWorld() {<br>
-                      console.log("Code");<br>
-                    }<br>
-                    let x = 42;<br>
-                    if (true) {<br>
-                      return "Hexa";<br>
-                    }<br>
-                    const arr = [1, 2, 3];<br>
-                    for (let i = 0; i < 10; i++) {<br>
-                      print(i);<br>
-                    }<br>
-                </span>
-            </div>
-            <div class="code-decor right">
-                <span>
-                    class HexaCode {<br>
-                      constructor() {<br>
-                        this.name = "Code";<br>
-                      }<br>
-                    }<br>
-                    import { learn } from 'hexacodes';<br>
-                    async function fetchData() {<br>
-                      await api.get();<br>
-                    }<br>
-                    const obj = { key: "value" };<br>
-                    class HexaCode {<br>
-                      constructor() {<br>
-                        this.name = "Code";<br>
-                      }<br>
-                    }<br>
-                    import { learn } from 'hexacodes';<br>
-                    async function fetchData() {<br>
-                      await api.get();<br>
-                    }<br>
-                    const obj = { key: "value" };<br>
-                </span>
-            </div>
-        </div>
-        <div class="slider-dots"></div>
-    </section>
-
     <main class="main-content">
         <div class="container">
             <section class="categories-header">
@@ -818,40 +633,6 @@
                 document.querySelector('.nav-links').classList.remove('active');
             }
         });
-
-        // Slider Script
-        const slides = document.querySelectorAll('.slide');
-        const dotsContainer = document.querySelector('.slider-dots');
-        let currentSlide = 0;
-
-        // Create dots
-        slides.forEach((_, index) => {
-            const dot = document.createElement('span');
-            dot.classList.add('dot');
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(index));
-            dotsContainer.appendChild(dot);
-        });
-
-        const dots = document.querySelectorAll('.dot');
-
-        function updateSlides() {
-            slides.forEach((slide, index) => {
-                slide.classList.toggle('active', index === currentSlide);
-                dots[index].classList.toggle('active', index === currentSlide);
-            });
-        }
-
-        function goToSlide(index) {
-            currentSlide = (index + slides.length) % slides.length;
-            updateSlides();
-        }
-
-        // Auto-slide every 5 seconds
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            updateSlides();
-        }, 5000);
     </script>
 </body>
 </html>
