@@ -16,7 +16,7 @@
             --primary-dark: #000000;
             --secondary: #333333;
             --accent: #666666;
-            --background: rgba(229, 228, 226, 0.98); /* Matches header */
+            --background: #FFFFFF; /* Changed to pure white */
             --surface: #F5F5F5;
             --text: #1A1A1A;
             --text-light: #666666;
@@ -36,19 +36,17 @@
             line-height: 1.6;
             color: var(--text);
             background: var(--background);
-            backdrop-filter: blur(10px); /* Matches header effect */
             overflow-x: hidden;
         }
 
         /* Header Styles */
         .header {
             background: var(--background);
-            backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid var(--border);
+            /* Removed border-bottom: 1px solid var(--border); */
         }
 
         .nav-container {
@@ -206,7 +204,7 @@
         /* Challenges Section */
         .challenges {
             padding: 8rem 2rem;
-            background: var(--background); /* Matches header/body */
+            background: var(--background);
             position: relative;
         }
 
@@ -239,7 +237,7 @@
 
         .challenge-card {
             padding: 2.5rem;
-            background: #FFFFFF; /* White background for cards */
+            background: #FFFFFF;
             border-radius: 0.75rem;
             transition: all 0.3s ease;
             border: 1px solid var(--border);
@@ -310,7 +308,7 @@
 
         /* Footer */
         .footer {
-            background: var(--background); /* Matches header/body */
+            background: var(--background);
             color: var(--text);
             padding: 5rem 2rem 2.5rem;
             border-top: 1px solid var(--border);
@@ -452,7 +450,7 @@
             .nav-toggle.active span:nth-child(3) {
                 transform: rotate(-45deg);
                 top: 11px;
- mobiles           }
+            }
 
             .nav-links {
                 position: fixed;
@@ -621,7 +619,7 @@
                 </div>
                 <h3>100 Days of Code</h3>
                 <p>Commit to coding daily for 100 days and track your progress</p>
-                <a href="{% url 'problems_list' %}" class="btn">Join Challenge</a>
+                <a href="#" class="btn">Join Challenge</a>
             </article>
 
             <article class="challenge-card">
