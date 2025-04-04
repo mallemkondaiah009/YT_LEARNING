@@ -12,14 +12,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* Base Styles with Theme from Profile Page */
         :root {
             --primary: #1A1A1A;
             --primary-dark: #000000;
             --secondary: #333333;
             --accent: #666666;
-            --background: #FFFFFF; /* Changed to pure white */
-            --surface: #FFFFFF;    /* Changed to pure white */
+            --background: #FFFFFF;
+            --surface: #FFFFFF;
             --text: #1A1A1A;
             --text-light: #666666;
             --border: #D1D1D1;
@@ -40,12 +39,11 @@
             background: var(--background);
             min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             padding: 1rem;
         }
 
-        /* Register Container */
         .register-container {
             background: var(--surface);
             width: 100%;
@@ -56,7 +54,6 @@
             border: 1px solid var(--border);
         }
 
-        /* Header */
         .register-header {
             text-align: center;
             margin-bottom: 2rem;
@@ -74,13 +71,12 @@
         .register-header p {
             font-size: 0.875rem;
             color: var(--text-light);
-            margin-top: 0.25rem;
+            margin-top: 0.5rem;
         }
 
-        /* Form Elements */
         .form-group {
-            margin-bottom: 1.25rem;
             position: relative;
+            margin-bottom: 1.5rem;
         }
 
         .form-group i {
@@ -97,7 +93,7 @@
             padding: 0.75rem 1rem 0.75rem 2.5rem;
             font-size: 0.875rem;
             color: var(--text);
-            background-color: var(--surface);
+            background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 0.375rem;
             transition: all 0.2s ease;
@@ -114,17 +110,16 @@
             color: #dc2626;
             font-size: 0.75rem;
             margin-top: 0.375rem;
+            text-align: left;
         }
 
-        /* Submit Button */
         .submit-button {
-            display: block;
             width: 100%;
-            padding: 0.75rem 1.5rem;
+            padding: 0.75rem;
             font-size: 0.875rem;
             font-weight: 600;
             color: #FFFFFF;
-            background-color: var(--primary);
+            background: var(--primary);
             border: none;
             border-radius: 0.375rem;
             cursor: pointer;
@@ -133,7 +128,7 @@
         }
 
         .submit-button:hover {
-            background-color: var(--secondary);
+            background: var(--secondary);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px var(--shadow);
         }
@@ -143,32 +138,11 @@
             box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.3);
         }
 
-        /* Divider */
-        .divider {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            margin: 1.5rem 0;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .divider span {
-            padding: 0 1rem;
-            color: var(--text-light);
-            font-size: 0.875rem;
-        }
-
-        /* Login Link */
         .login-link {
             text-align: center;
             font-size: 0.875rem;
             color: var(--text-light);
+            margin-top: 1.5rem;
         }
 
         .login-link a {
@@ -181,7 +155,6 @@
             text-decoration: underline;
         }
 
-        /* Alert Messages */
         .messages {
             position: fixed;
             top: 1rem;
@@ -201,57 +174,51 @@
             line-height: 1.5;
             box-shadow: 0 4px 6px var(--shadow);
             animation: slideIn 0.3s ease-out forwards;
-            opacity: 0;
-            transform: translateX(100%);
             border: 1px solid var(--border);
         }
 
         .alert-success {
-            background-color: #E5F5E5;
+            background: #E5F5E5;
             color: #2D6A2D;
             border-color: #A3D9A3;
         }
 
         .alert-error {
-            background-color: #FEE2E2;
+            background: #FEE2E2;
             color: #9B2C2C;
             border-color: #FCA5A5;
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(100%); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         @keyframes slideOut {
-            from {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateX(100%);
-            }
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(100%); }
         }
 
         .alert.fade-out {
             animation: slideOut 0.3s ease-in forwards;
         }
 
-        /* Responsive Design */
         @media (max-width: 480px) {
             .register-container {
                 padding: 1.5rem;
+                max-width: 90%;
             }
 
             .register-header h1 {
                 font-size: 1.25rem;
+            }
+
+            .form-input {
+                padding: 0.65rem 1rem 0.65rem 2.5rem;
+            }
+
+            .submit-button {
+                padding: 0.65rem;
             }
 
             .messages {
@@ -277,19 +244,19 @@
             messages.forEach(message => {
                 setTimeout(() => {
                     message.classList.add('fade-out');
-                    setTimeout(() => {
-                        message.remove();
-                    }, 300);
+                    setTimeout(() => message.remove(), 300);
                 }, 5000);
             });
         });
     </script>
     {% endif %}
+
     <main class="register-container">
         <div class="register-header">
             <h1>Create an Account</h1>
             <p>Please fill in your details to register</p>
         </div>
+
         <form method="POST" action="">
             {% csrf_token %}
             <div class="form-group">
@@ -304,6 +271,7 @@
                 >
                 <div class="error" id="usernameError"></div>
             </div>
+
             <div class="form-group">
                 <i class="fa-solid fa-at"></i>
                 <input 
@@ -316,6 +284,7 @@
                 >
                 <div class="error" id="emailError"></div>
             </div>
+
             <div class="form-group">
                 <i class="fa-solid fa-key"></i>
                 <input 
@@ -328,6 +297,7 @@
                 >
                 <div class="error" id="passwordError"></div>
             </div>
+
             <div class="form-group">
                 <i class="fa-solid fa-shield-halved"></i>
                 <input 
@@ -340,13 +310,10 @@
                 >
                 <div class="error" id="confirmPasswordError"></div>
             </div>
-            <button type="submit" class="submit-button">
-                Create Account
-            </button>
+
+            <button type="submit" class="submit-button">Create Account</button>
         </form>
-        <div class="divider">
-            <span>or Login with</span>
-        </div>
+
         <p class="login-link">
             Already have an account? <a href="{% url 'login' %}">Login</a>
         </p>
