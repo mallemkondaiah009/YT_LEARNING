@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('yt_learning.urls')),
     path('', include('accounts.urls')),
-    path('', include('coding_problems.urls')),
+    path('', include('codeground.urls')),
     path('', include('internships.urls')),
     
 

@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'yt_learning.apps.YtLearningConfig',
     'accounts.apps.AccountsConfig',
     'internships.apps.InternshipsConfig',
-    'coding_problems.apps.CodingProblemsConfig',
-    'rest_framework',
+    'codeground.apps.CodegroundConfig',
 ]
 
 
