@@ -675,10 +675,6 @@
                 {% if request.session.user_id %}
                     <a href="{% url 'landing_page' %}">Home</a>
                     <a href="{% url 'categories_page' %}">Categories</a>
-                    <a href="{% url 'internships' %}">Internships</a>
-                    <a href="{% url 'code-reels' %}" class="code-ground-btn">
-                        <span>Code Ground</span>
-                    </a>
                     <a href="{% url 'profile' %}" class="nav-icon" title="Profile">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="profile-icon">
                             <circle cx="12" cy="12" r="11" fill="#1A1A1A"/>
@@ -689,10 +685,6 @@
                 {% else %}
                     <a href="{% url 'landing_page' %}">Home</a>
                     <a href="{% url 'categories_page' %}">Categories</a>
-                    <a href="{% url 'internships' %}">Internships</a>
-                    <a href="{% url 'codeground' %}" class="code-ground-btn">
-                        <span>Code Ground</span>
-                    </a>
                     <a href="{% url 'login' %}" class="login-btn">Login</a>
                 {% endif %}
             </div>
@@ -721,24 +713,38 @@
         <h2>Advanced Learning Solutions</h2>
         <div class="features-container">
             <div class="feature-row animate-on-scroll">
-                <img src="{% static 'images/organize.jpg' %}" alt="Organize" class="feature-image">
+                <img src="{% static 'images/organize.jpg' %}" alt="Video Organization" class="feature-image">
                 <div class="feature-content">
-                    <h3>Streamlined Organization</h3>
-                    <p>Efficiently manage your learning resources with our intuitive categorization system. Save, sort, and access your educational content with ease, ensuring a clutter-free experience tailored to your professional development needs.</p>
+                    <h3>Video Organization</h3>
+                    <p>Effortlessly organize your educational videos with our intuitive system. Categorize, tag, and access content seamlessly, ensuring a streamlined learning experience tailored to your development goals.</p>
                 </div>
             </div>
             <div class="feature-row reverse animate-on-scroll">
-                <img src="{% static 'images/progress.jpg' %}" alt="Progress" class="feature-image">
+                <img src="{% static 'images/progress.jpg' %}" alt="Progress Tracking" class="feature-image">
                 <div class="feature-content">
-                    <h3>Progress Monitoring</h3>
-                    <p>Track your learning journey with precision using our advanced progress tracking tools. Visualize your achievements, set milestones, and maintain motivation as you advance through your programming curriculum.</p>
+                    <h3>Progress Tracking</h3>
+                    <p>Monitor your learning journey with precision. Our advanced tools visualize your progress, set milestones, and keep you motivated as you advance through your programming curriculum.</p>
                 </div>
             </div>
             <div class="feature-row animate-on-scroll">
-                <img src="{% static 'images/code.jpg' %}" alt="Code" class="feature-image">
+                <img src="{% static 'images/save.jpg' %}" alt="Save and Remove" class="feature-image">
                 <div class="feature-content">
-                    <h3>Interactive Coding Environment</h3>
-                    <p>Enhance your coding skills in our state-of-the-art code playground. Practice real-world scenarios, test your solutions instantly, and receive immediate feedback in a professional-grade development environment.</p>
+                    <h3>Save-and-Remove Functionality</h3>
+                    <p>Curate your learning resources with ease. Save important videos for quick access and remove content you no longer need, maintaining a clutter-free and personalized learning environment.</p>
+                </div>
+            </div>
+            <div class="feature-row reverse animate-on-scroll">
+                <img src="{% static 'images/daily.jpg' %}" alt="Daily Engagement Analytics" class="feature-image">
+                <div class="feature-content">
+                    <h3>Daily Engagement Analytics</h3>
+                    <p>Gain insights into your learning habits with daily engagement analytics. Track time spent, content viewed, and progress made to optimize your study routine and boost productivity.</p>
+                </div>
+            </div>
+            <div class="feature-row animate-on-scroll">
+                <img src="{% static 'images/pass.jpg' %}" alt="Secure Password Recovery" class="feature-image">
+                <div class="feature-content">
+                    <h3>Secure Password Recovery</h3>
+                    <p>Protect your account with our secure password recovery system. Easily regain access through a robust, user-friendly process, ensuring your data remains safe and accessible.</p>
                 </div>
             </div>
         </div>
@@ -758,21 +764,21 @@
             <nav class="footer-nav">
                 <div class="footer-links">
                     <h4>Company</h4>
-                    <a href="/about">About Us</a>
-                    <a href="/careers">Careers</a>
-                    <a href="/contact">Contact</a>
+                    <a href="#about">About Us</a>
+                    <a href="#careers">Careers</a>
+                    <a href="#contact">Contact</a>
                 </div>
                 <div class="footer-links">
                     <h4>Resources</h4>
-                    <a href="/blog">Blog</a>
-                    <a href="/docs">Documentation</a>
-                    <a href="/guides">Guides</a>
+                    <a href="#blog">Blog</a>
+                    <a href="#docs">Documentation</a>
+                    <a href="#guides">Guides</a>
                 </div>
                 <div class="footer-links">
                     <h4>Legal</h4>
-                    <a href="/privacy">Privacy Policy</a>
-                    <a href="/terms">Terms of Service</a>
-                    <a href="/cookies">Cookie Policy</a>
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#cookies">Cookie Policy</a>
                 </div>
             </nav>
         </div>

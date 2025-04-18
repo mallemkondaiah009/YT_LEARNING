@@ -672,10 +672,6 @@
                 {% if request.session.session_data or request.session.user_id %}
                     <a href="{% url 'landing_page' %}">Home</a>
                     <a href="{% url 'categories_page' %}">Categories</a>
-                    <a href="{% url 'internships' %}">Internships</a>
-                    <a href="{% url 'codeground' %}" class="code-ground-btn">
-                        <span>Code Ground</span>
-                    </a>
                     <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
                     <a href="{% url 'profile' %}" title="Profile" class="nav-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="profile-icon">
@@ -687,10 +683,6 @@
                 {% else %}
                     <a href="{% url 'landing_page' %}">Home</a>
                     <a href="{% url 'categories_page' %}">Categories</a>
-                    <a href="{% url 'internships' %}">Internships</a>
-                    <a href="{% url 'codeground' %}" class="code-ground-btn">
-                        <span>Code Ground</span>
-                    </a>
                     <a href="{% url 'login' %}" class="login-btn">Login</a>
                 {% endif %}
             </div>

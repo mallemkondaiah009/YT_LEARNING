@@ -23,8 +23,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('yt_learning.urls')),
     path('', include('accounts.urls')),
-    path('', include('codeground.urls')),
-    path('', include('internships.urls')),
-    
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

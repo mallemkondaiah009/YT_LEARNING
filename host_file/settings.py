@@ -39,8 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'yt_learning.apps.YtLearningConfig',
     'accounts.apps.AccountsConfig',
-    'internships.apps.InternshipsConfig',
-    'codeground.apps.CodegroundConfig',
 ]
 
 
