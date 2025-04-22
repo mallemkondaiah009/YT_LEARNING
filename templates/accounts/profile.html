@@ -17,8 +17,8 @@
             --primary-dark: #000000;
             --secondary: #333333;
             --accent: #666666;
-            --background: #FFFFFF; /* Pure white background */
-            --surface: #FFFFFF; /* Pure white surface */
+            --background: #FFFFFF;
+            --surface: #FFFFFF;
             --text: #1A1A1A;
             --text-light: #666666;
             --border: #D1D1D1;
@@ -29,33 +29,32 @@
             --success: #2ecc71;
             --error: #e74c3c;
         }
-        
+
         *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: var(--text);
-            background: var(--background); /* Pure white background */
+            background: var(--background);
             min-height: 100vh;
             overflow-x: hidden;
         }
-        
-        /* Header Styles */
+
         .header {
-            background: var(--background); /* Pure white background */
+            background: var(--background);
             backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 100;
-            border-bottom: none; /* Remove border */
+            border-bottom: none;
         }
-        
+
         .nav-container {
             max-width: 1280px;
             margin: 0 auto;
@@ -65,7 +64,7 @@
             justify-content: space-between;
             height: 70px;
         }
-        
+
         .nav-logo {
             display: flex;
             align-items: center;
@@ -77,13 +76,13 @@
             transition: opacity 0.2s ease;
             margin-left: -0.5rem;
         }
-        
+
         .nav-logo img {
             height: 32px;
             width: auto;
             object-fit: contain;
         }
-        
+
         .nav-toggle {
             display: none;
             cursor: pointer;
@@ -92,14 +91,14 @@
             padding: 0;
             z-index: 20;
         }
-        
+
         .nav-links {
             display: flex;
             align-items: center;
             gap: 2rem;
             height: 100%;
         }
-        
+
         .nav-links a {
             text-decoration: none;
             color: var(--text-light);
@@ -111,12 +110,12 @@
             align-items: center;
             transition: all 0.2s ease;
         }
-        
+
         .nav-links a.active {
             color: var(--text);
             background: var(--hover);
         }
-        
+
         .nav-links .code-ground-btn {
             position: relative;
             background: var(--primary);
@@ -133,7 +132,7 @@
             justify-content: center;
             height: 36px;
         }
-        
+
         .nav-links .code-ground-btn::after {
             content: '';
             position: absolute;
@@ -157,36 +156,34 @@
             opacity: 0.7;
             animation: rainbowGlow 3s linear infinite;
         }
-        
+
         .nav-links .code-ground-btn:hover {
             background: var(--secondary);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px var(--shadow);
         }
-        
+
         .nav-links .code-ground-btn span {
             z-index: 2;
         }
-        
+
         @keyframes rainbowGlow {
             0% { background-position: 0% 50%; }
             100% { background-position: 200% 50%; }
         }
-        
-        .nav-icon .profile-icon {
+
+        .nav-icon .profile-picture {
             width: 24px;
             height: 24px;
-            padding: 4px;
-            background: #1A1A1A;
             border-radius: 50%;
-            transition: transform 0.2s ease, background 0.2s ease;
+            object-fit: cover;
+            transition: transform 0.2s ease;
         }
-        
-        .nav-icon:hover .profile-icon {
+
+        .nav-icon:hover .profile-picture {
             transform: scale(1.1);
-            background: #333333;
         }
-        
+
         .login-btn, .logout-btn {
             background: #171717;
             color: #FFFFFF !important;
@@ -201,14 +198,13 @@
             justify-content: center;
             height: 36px;
         }
-        
+
         .login-btn:hover, .logout-btn:hover {
             background: var(--secondary);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px var(--shadow);
         }
-        
-        /* Notification Styles */
+
         .notification-container {
             position: fixed;
             top: 20px;
@@ -216,7 +212,7 @@
             z-index: 1000;
             width: 300px;
         }
-        
+
         .notification {
             padding: 1rem 1.5rem;
             margin-bottom: 1rem;
@@ -229,15 +225,15 @@
             transform: translateY(-20px);
             animation: slideIn 0.3s ease-out forwards, slideOut 0.3s ease-in 2.7s forwards;
         }
-        
+
         .notification.success {
             background: var(--success);
         }
-        
+
         .notification.error {
             background: var(--error);
         }
-        
+
         @keyframes slideIn {
             from {
                 opacity: 0;
@@ -248,7 +244,7 @@
                 transform: translateY(0);
             }
         }
-        
+
         @keyframes slideOut {
             from {
                 opacity: 1;
@@ -259,15 +255,13 @@
                 transform: translateY(-20px);
             }
         }
-        
-        /* Layout */
+
         .container {
             max-width: 1280px;
             margin: 0 auto;
             padding: 8rem 2rem 4rem;
         }
-        
-        /* Profile Section */
+
         .profile-section {
             background: var(--surface);
             border-radius: 0.75rem;
@@ -276,12 +270,16 @@
             margin-bottom: 4rem;
             border: 1px solid var(--border);
         }
-        
+
         .profile-header {
             margin-bottom: 2rem;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
         }
-        
+
         .profile-header h1 {
             font-size: 2.5rem;
             font-weight: 700;
@@ -290,13 +288,22 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
+        .profile-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border);
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
         .profile-info {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
-        
+
         .info-item {
             display: flex;
             align-items: center;
@@ -307,13 +314,13 @@
             border-radius: 0.5rem;
             transition: all 0.3s ease;
         }
-        
+
         .info-item:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px var(--shadow);
             background: white;
         }
-        
+
         .info-icon {
             width: 40px;
             height: 40px;
@@ -323,7 +330,7 @@
             background: var(--hover);
             color: var(--text-light);
         }
-        
+
         .info-content {
             flex: 1;
             display: flex;
@@ -331,7 +338,7 @@
             gap: 0.5rem;
             overflow: hidden;
         }
-        
+
         .info-label {
             font-size: 0.875rem;
             color: var(--text-light);
@@ -339,7 +346,7 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-        
+
         .info-value {
             font-size: 1.25rem;
             color: var(--text);
@@ -348,15 +355,14 @@
             overflow-wrap: break-word;
             max-width: 100%;
         }
-        
-        /* Fire Animation for Current Streak */
+
         .fire-effect {
             width: 24px;
             height: 24px;
             flex-shrink: 0;
             animation: fireGlow 1.5s ease-in-out infinite;
         }
-        
+
         @keyframes fireGlow {
             0% {
                 transform: scale(1);
@@ -371,17 +377,16 @@
                 filter: drop-shadow(0 0 2px var(--fire-orange));
             }
         }
-        
-        /* Watch Later Section */
+
         .watch-later {
             margin-top: 5rem;
         }
-        
+
         .section-header {
             margin-bottom: 2.5rem;
             text-align: center;
         }
-        
+
         .section-header h2 {
             font-size: 2rem;
             font-weight: 700;
@@ -390,21 +395,20 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
-        /* Video Grid */
+
         .video-grid-wrapper {
             width: 100%;
             overflow-x: auto;
             scrollbar-width: thin;
             scrollbar-color: var(--accent) var(--background);
         }
-        
+
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 2rem;
         }
-        
+
         .video-card {
             background: var(--surface);
             border-radius: 0.75rem;
@@ -412,19 +416,19 @@
             border: 1px solid var(--border);
             transition: all 0.3s ease;
         }
-        
+
         .video-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 6px 16px var(--shadow);
         }
-        
+
         .video-content {
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
         }
-        
+
         .video-embed {
             position: relative;
             width: 100%;
@@ -433,7 +437,7 @@
             overflow: hidden;
             background: var(--primary-dark);
         }
-        
+
         .video-embed iframe {
             position: absolute;
             top: 0;
@@ -443,14 +447,14 @@
             border: none;
             border-radius: 0.5rem 0.5rem 0 0;
         }
-        
+
         .controls-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 1rem;
         }
-        
+
         .remove-button {
             cursor: pointer;
             padding: 0.5rem 1rem;
@@ -465,18 +469,18 @@
             border-radius: 0.375rem;
             transition: all 0.2s ease;
         }
-        
+
         .remove-button:hover {
             background: var(--hover);
             color: var(--error);
         }
-        
+
         .remove-button svg {
             width: 18px;
             height: 18px;
             flex-shrink: 0;
         }
-        
+
         .no-videos {
             grid-column: 1 / -1;
             text-align: center;
@@ -489,21 +493,20 @@
             box-shadow: 0 4px 12px var(--shadow);
             border: 1px solid var(--border);
         }
-        
-        /* Responsive Design */
+
         @media (max-width: 768px) {
             .nav-container {
                 padding: 1rem;
                 height: 60px;
             }
-        
+
             .nav-toggle {
                 display: block;
                 width: 24px;
                 height: 24px;
                 position: relative;
             }
-        
+
             .nav-toggle span {
                 display: block;
                 width: 100%;
@@ -513,7 +516,7 @@
                 left: 0;
                 transition: all 0.3s ease;
             }
-        
+
             .nav-toggle span:nth-child(1) { top: 6px; }
             .nav-toggle span:nth-child(2) { top: 11px; }
             .nav-toggle span:nth-child(3) { top: 16px; }
@@ -528,7 +531,7 @@
                 transform: rotate(-45deg);
                 top: 11px;
             }
-        
+
             .nav-links {
                 position: fixed;
                 top: 0;
@@ -543,120 +546,123 @@
                 transition: transform 0.3s ease;
                 padding: 2rem;
             }
-        
+
             .nav-links.active {
                 transform: translateX(0);
             }
-        
+
             .nav-links a {
                 font-size: 1.25rem;
                 width: 100%;
                 text-align: center;
                 padding: 1rem;
             }
-        
+
             .nav-links .code-ground-btn {
                 width: 50%;
                 margin: 0 auto;
                 height: 40px;
                 font-size: 1rem;
             }
-        
+
             .nav-links .logout-btn {
                 width: 50%;
                 margin: 0 auto;
                 height: 40px;
                 font-size: 1rem;
             }
-        
+
             .nav-links .login-btn {
                 width: 50%;
                 margin: 0 auto;
                 height: 40px;
                 font-size: 1rem;
             }
-        
+
             .container {
                 padding: 6rem 1.5rem 3rem;
             }
-        
+
             .profile-section {
                 padding: 2rem;
             }
-        
+
             .video-grid {
                 grid-template-columns: 1fr;
             }
-        
+
             .profile-header h1 {
                 font-size: 2rem;
             }
-        
+
             .section-header h2 {
                 font-size: 1.75rem;
             }
         }
-        
+
         @media (max-width: 480px) {
             .nav-container {
                 padding: 0.75rem;
             }
-        
+
             .nav-links .code-ground-btn {
                 width: 70%;
             }
-        
+
             .nav-links .logout-btn {
                 width: 70%;
             }
-        
+
             .nav-links .login-btn {
                 width: 70%;
             }
-        
+
             .profile-header h1 {
                 font-size: 1.75rem;
             }
-        
+
             .section-header h2 {
                 font-size: 1.5rem;
             }
-        
+
             .info-item {
                 padding: 1rem;
             }
-        
+
             .info-value {
                 font-size: 1.125rem;
             }
-        
+
             .video-content {
                 padding: 1rem;
             }
-        
+
             .no-videos {
                 padding: 3rem;
                 font-size: 1.125rem;
             }
-        
+
             .notification-container {
                 width: 90%;
                 right: 5%;
                 top: 10px;
             }
-        
+
             .notification {
                 font-size: 0.875rem;
                 padding: 0.75rem 1rem;
+            }
+
+            .profile-picture {
+                width: 80px;
+                height: 80px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Notification Container -->
     <div class="notification-container" id="notificationContainer"></div>
 
-    <!-- Header Section with Logout Button -->
     <header class="header">
         <nav class="nav-container">
             <a href="{% url 'categories_page' %}" class="nav-logo">
@@ -669,16 +675,16 @@
                 <span></span>
             </button>
             <div class="nav-links">
-                {% if request.session.session_data or request.session.user_id %}
+                {% if user.is_authenticated %}
                     <a href="{% url 'landing_page' %}">Home</a>
                     <a href="{% url 'categories_page' %}">Categories</a>
                     <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
-                    <a href="{% url 'profile' %}" title="Profile" class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="profile-icon">
-                            <circle cx="12" cy="12" r="11" fill="#1A1A1A"/>
-                            <path d="M12 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" fill="#FFFFFF"/>
-                            <path d="M16 18c0-2.2-1.8-4-4-4s-4 1.8-4 4" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-                        </svg>
+                    <a href="{% url 'profile' %}" class="nav-icon" title="Profile">
+                        {% if user.socialaccount_set.all.0.extra_data.picture %}
+                            <img src="{{ user.socialaccount_set.all.0.extra_data.picture }}" alt="Profile Picture" class="profile-picture">
+                        {% else %}
+                            <img src="https://via.placeholder.com/100" alt="Default Profile Picture" class="profile-picture">
+                        {% endif %}
                     </a>
                 {% else %}
                     <a href="{% url 'landing_page' %}">Home</a>
@@ -692,6 +698,11 @@
     <div class="container">
         <section class="profile-section">
             <header class="profile-header">
+                {% if user.socialaccount_set.all.0.extra_data.picture %}
+                    <img src="{{ user.socialaccount_set.all.0.extra_data.picture }}" alt="Profile Picture" class="profile-picture">
+                {% else %}
+                    <img src="https://via.placeholder.com/100" alt="Default Profile Picture" class="profile-picture">
+                {% endif %}
                 <h1>Profile Information</h1>
             </header>
 
@@ -835,7 +846,6 @@
                             videoCard.style.opacity = '0';
                             setTimeout(() => {
                                 videoCard.remove();
-                                // Check if grid is empty after removal
                                 if (!document.querySelector('.video-card')) {
                                     const grid = document.querySelector('.video-grid');
                                     grid.innerHTML = '<div class="no-videos">No videos saved for later.</div>';

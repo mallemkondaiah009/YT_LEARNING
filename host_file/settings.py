@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['edulearn-c52m.onrender.com','127.0.0.1']
 
+SITE_ID = 1
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,10 +41,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'yt_learning.apps.YtLearningConfig',
     'accounts.apps.AccountsConfig',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 
 MIDDLEWARE = [
+    'allauth.account.middleware.AccountMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -129,6 +139,22 @@ STATIC_ROOT = BASE_DIR / "staticfiles"    # Where files are collected
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# google credentials
+
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend', # standard django backend
+    'allauth.account.auth_backends.AuthenticationBackend', # all auth backend
+]
+
+#SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SIGNUP_REDIRECT_URL = 'landing_page'  # Redirect URL after signup
+LOGIN_REDIRECT_URL = 'landing_page'
+LOGOUT_REDIRECT_URL = 'login'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -145,3 +171,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'hexacodesrepley@gmail.com' 
 EMAIL_HOST_PASSWORD = 'oioj gblb gofd sryl'
 DEFAULT_FROM_EMAIL = 'hexacodesrepley@gmail.com'
+

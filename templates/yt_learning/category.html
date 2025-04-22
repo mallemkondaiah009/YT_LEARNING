@@ -42,11 +42,12 @@
         /* Header Styles */
         .header {
             background: var(--background); /* Matches main background */
-            position: fixed;
+            position
+
+System: fixed;
             width: 100%;
             top: 0;
             z-index: 100;
-            /* border-bottom: 1px solid var(--border); Removed to eliminate line */
         }
 
         .nav-container {
@@ -166,18 +167,16 @@
             100% { background-position: 200% 50%; }
         }
 
-        .nav-icon .profile-icon {
+        .nav-icon .profile-picture {
             width: 24px;
             height: 24px;
-            padding: 4px;
-            background: #1A1A1A;
             border-radius: 50%;
-            transition: transform 0.2s ease, background 0.2s ease;
+            object-fit: cover;
+            transition: transform 0.2s ease;
         }
 
-        .nav-icon:hover .profile-icon {
+        .nav-icon:hover .profile-picture {
             transform: scale(1.1);
-            background: #333333;
         }
 
         .login-btn {
@@ -551,15 +550,15 @@
                 <span></span>
             </button>
             <div class="nav-links">
-                {% if request.session.user_id %}
+                {% if user.is_authenticated %}
                     <a href="{% url 'landing_page' %}">Home</a>
                     <a href="{% url 'categories_page' %}">Categories</a>
                     <a href="{% url 'profile' %}" class="nav-icon" title="Profile">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="profile-icon">
-                            <circle cx="12" cy="12" r="11" fill="#1A1A1A"/>
-                            <path d="M12 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" fill="#FFFFFF"/>
-                            <path d="M16 18c0-2.2-1.8-4-4-4s-4 1.8-4 4" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-                        </svg>
+                        {% if user.socialaccount_set.all.0.extra_data.picture %}
+                            <img src="{{ user.socialaccount_set.all.0.extra_data.picture }}" alt="Profile Picture" class="profile-picture">
+                        {% else %}
+                            <img src="https://via.placeholder.com/100" alt="Default Profile Picture" class="profile-picture">
+                        {% endif %}
                     </a>
                 {% else %}
                     <a href="{% url 'landing_page' %}">Home</a>

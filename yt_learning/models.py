@@ -1,5 +1,7 @@
 from django.db import models
-from accounts.models import UserRegistrations
+#from accounts.models import UserRegistrations
+from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class Bashalu(models.Model):
@@ -33,7 +35,7 @@ class Videos(models.Model):
 
 class save_watch_later(models.Model):
     video = models.ForeignKey(Videos, on_delete=models.CASCADE)
-    user = models.ForeignKey(UserRegistrations, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
 
 
@@ -49,7 +51,7 @@ class Language(models.Model):
     
 
 class VideoProgress(models.Model):
-    user = models.ForeignKey(UserRegistrations, on_delete=models.CASCADE, related_name='video_progress', null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='video_progress', null=True)
     video = models.ForeignKey(Videos, on_delete=models.CASCADE, related_name='user_progress', null=True)
     progress = models.FloatField(default=0.0)
     updated_at = models.DateTimeField(auto_now=True)

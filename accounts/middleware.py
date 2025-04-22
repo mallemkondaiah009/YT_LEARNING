@@ -1,20 +1,20 @@
-# middleware.py
 from django.utils import timezone
-from .models import UserStreak, UserRegistrations
+from .models import UserStreak
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 
 class StreakMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
-        user_id = request.session.get('user_id')
-        if user_id:
+        # Use request.user for the authenticated user
+        if request.user.is_authenticated:
             try:
-                user = UserRegistrations.objects.get(id=user_id)
-                streak, _ = UserStreak.objects.get_or_create(user=user)
+                streak, _ = UserStreak.objects.get_or_create(user=request.user)
                 streak.update_streak()
-            except UserRegistrations.DoesNotExist:
-                pass
-        
+            except Exception:
+                pass  # Handle any potential database errors silently
+
         response = self.get_response(request)
         return response

@@ -17,8 +17,8 @@
             --primary-dark: #000000;
             --secondary: #333333;
             --accent: #666666;
-            --background: #F8F9FA; /* Updated to match previous page */
-            --surface: #FFFFFF; /* Adjusted to pure white for contrast */
+            --background: #F8F9FA;
+            --surface: #FFFFFF;
             --text: #1A1A1A;
             --text-light: #666666;
             --border: #D1D1D1;
@@ -46,15 +46,13 @@
             position: relative;
         }
 
-        /* Header Styles */
         .header {
-            background: rgba(248, 249, 250, 0.98); /* Updated to match new --background */
+            background: rgba(248, 249, 250, 0.98);
             backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid var (--border);
         }
 
         .nav-container {
@@ -174,18 +172,16 @@
             100% { background-position: 200% 50%; }
         }
 
-        .nav-icon .profile-icon {
+        .nav-icon .profile-picture {
             width: 24px;
             height: 24px;
-            padding: 4px;
-            background: #1A1A1A;
             border-radius: 50%;
-            transition: transform 0.2s ease, background 0.2s ease;
+            object-fit: cover;
+            transition: transform 0.2s ease;
         }
 
-        .nav-icon:hover .profile-icon {
+        .nav-icon:hover .profile-picture {
             transform: scale(1.1);
-            background: #333333;
         }
 
         .login-btn {
@@ -209,7 +205,6 @@
             box-shadow: 0 4px 8px var(--shadow);
         }
 
-        /* Notification Styles */
         .notification-container {
             position: fixed;
             top: 20px;
@@ -244,28 +239,15 @@
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes slideOut {
-            from {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); }
         }
 
-        /* Blur and Login Prompt Styles */
         .blur-overlay {
             position: fixed;
             top: 0;
@@ -330,7 +312,6 @@
             box-shadow: 0 4px 8px var(--shadow);
         }
 
-        /* Main Content Styles */
         .container {
             max-width: 1440px;
             margin: 0 auto;
@@ -363,27 +344,14 @@
             animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
-        /* New Animation Keyframes */
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .language-select-container {
@@ -782,7 +750,7 @@
         }
     </style>
 </head>
-<body class="{% if request.session.user_id %}logged-in{% endif %}">
+<body class="{% if user.is_authenticated %} logged-in{% endif %}">
     <!-- Notification Container -->
     <div class="notification-container" id="notificationContainer"></div>
 
@@ -799,15 +767,15 @@
                 <span></span>
             </button>
             <div class="nav-links">
-                {% if request.session.user_id %}
+                {% if user.is_authenticated %}
                     <a href="{% url 'landing_page' %}">Home</a>
                     <a href="{% url 'categories_page' %}">Categories</a>
                     <a href="{% url 'profile' %}" class="nav-icon" title="Profile">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="profile-icon">
-                            <circle cx="12" cy="12" r="11" fill="#1A1A1A"/>
-                            <path d="M12 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" fill="#FFFFFF"/>
-                            <path d="M16 18c0-2.2-1.8-4-4-4s-4 1.8-4 4" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-                        </svg>
+                        {% if user.socialaccount_set.all.0.extra_data.picture %}
+                            <img src="{{ user.socialaccount_set.all.0.extra_data.picture }}" alt="Profile Picture" class="profile-picture">
+                        {% else %}
+                            <img src="https://via.placeholder.com/100" alt="Default Profile Picture" class="profile-picture">
+                        {% endif %}
                     </a>
                 {% else %}
                     <a href="{% url 'landing_page' %}">Home</a>
@@ -818,7 +786,7 @@
     </header>
 
     <!-- Blur Overlay and Login Prompt for Non-Logged-In Users -->
-    {% if not request.session.user_id %}
+    {% if not user.is_authenticated %}
     <div class="blur-overlay"></div>
     <div class="login-prompt">
         <p>Please log in to access video content</p>
@@ -834,7 +802,7 @@
     <!-- Main Content -->
     <div class="container">
         <section class="content-header">
-            {% if request.session.user_id %}
+            {% if user.is_authenticated and videos %}
             <div class="overall-progress-container">
                 <span class="overall-progress-label">Overall Progress</span>
                 <div class="overall-progress-bar-wrapper">
@@ -860,7 +828,7 @@
 
         <main class="video-grid-wrapper">
             <div class="video-grid">
-                {% if request.session.user_id %}
+                {% if user.is_authenticated %}
                     {% for video in videos %}
                         <article class="video-card" data-video-id="{{ video.id }}">
                             <div class="video-content">
@@ -922,10 +890,11 @@
             }
         });
 
-        {% if request.session.user_id %}
+        {% if user.is_authenticated %}
         document.addEventListener('DOMContentLoaded', () => {
             const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+            // Save video button handler
             document.querySelectorAll('.save-button').forEach(button => {
                 button.addEventListener('click', async (e) => {
                     e.preventDefault();
@@ -941,20 +910,15 @@
                             body: `action=save&video_id=${videoId}`
                         });
                         const data = await response.json();
-                        if (data.status === 'success') {
-                            showNotification(data.message, 'success');
-                        } else if (data.status === 'info') {
-                            showNotification(data.message, 'info');
-                        } else {
-                            showNotification('Error: ' + data.message, 'error');
-                        }
+                        showNotification(data.message, data.status);
                     } catch (error) {
-                        console.error('Error:', error);
+                        console.error('Error saving video:', error);
                         showNotification('An error occurred while saving the video.', 'error');
                     }
                 });
             });
 
+            // Language select handler
             const languageSelect = document.getElementById('languageSelect');
             languageSelect.addEventListener('change', async (e) => {
                 const selectedLanguage = e.target.value;
@@ -975,13 +939,15 @@
                         showNotification('Failed to change language', 'error');
                     }
                 } catch (error) {
-                    console.error('Error:', error);
+                    console.error('Error changing language:', error);
                     showNotification('An error occurred while changing language', 'error');
                 }
             });
 
+            // Progress checkbox handler
             document.querySelectorAll('.progress-checkbox').forEach(checkbox => {
                 checkbox.addEventListener('change', async (e) => {
+                    if (!e.isTrusted) return; // Only process user-initiated changes
                     const videoId = checkbox.getAttribute('data-video-id');
                     const isChecked = checkbox.checked;
                     const overallProgressBar = document.querySelector('.overall-progress-bar');
@@ -1005,12 +971,13 @@
                                 overallProgressBar.style.width = `${data.overall_progress}%`;
                                 progressPercentage.textContent = `${data.overall_progress}% Complete`;
                             }
+                            showNotification('Progress updated successfully', 'success');
                         } else {
                             checkbox.checked = !isChecked;
                             showNotification(`Failed to update progress: ${data.message}`, 'error');
                         }
                     } catch (error) {
-                        console.error('Error:', error);
+                        console.error('Error updating progress:', error);
                         checkbox.checked = !isChecked;
                         showNotification('An error occurred while updating progress', 'error');
                     } finally {

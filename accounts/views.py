@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import UserRegistrations, UserStreak
+from .models import UserStreak
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
@@ -17,6 +17,10 @@ from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth.hashers import make_password, check_password
 from .tokens import custom_token_generator
 from django.http import JsonResponse
+from django.contrib.auth.models import User
+from django.contrib.auth import logout
+#from django.contrib.auth.decorators import login_required
+from .decorators import custom_login_required
 
 
 def Register_View(request):
@@ -33,19 +37,19 @@ def Register_View(request):
             return render(request, 'accounts/register.html')
 
         # Validation: Check if username is already taken
-        if UserRegistrations.objects.filter(username=username).exists():
+        if User.objects.filter(username=username).exists():
             messages.error(request, 'Username is already taken.')
             return render(request, 'accounts/register.html')
 
         # Validation: Check if email is already taken
-        if UserRegistrations.objects.filter(email=email).exists():
+        if User.objects.filter(email=email).exists():
             messages.error(request, 'Email is already taken.')
             return render(request, 'accounts/register.html')
 
         # Create the user if all validations pass
         try:
             # Use create_user() to securely hash the password
-            user = UserRegistrations.objects.create(username=username, email=email, password=make_password(password),)
+            user = User.objects.create(username=username, email=email, password=make_password(password),)
             user.save()
             messages.success(request, 'Account created successfully.')
             return redirect('login')  # Redirect to login page after successful registration
@@ -64,8 +68,8 @@ def Login_View(request):
 
         #fetch user from database
         try: 
-            user = UserRegistrations.objects.get(email=email)
-        except UserRegistrations.DoesNotExist:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
             messages.error(request, 'Invalid email or password.')
             return render(request, 'accounts/login.html')
         
@@ -75,35 +79,26 @@ def Login_View(request):
             return render(request, 'accounts/login.html')
         
         # set user session
-        request.session['user_id'] = user.id
-        request.session['email']  = user.email
-        request.session['username'] = user.username
+        # request.session['user_id'] = user.id
+        # request.session['email']  = user.email
+        # request.session['username'] = user.username
         messages.success(request, 'Login successful.')
         return redirect('landing_page') 
     
     return render(request, 'accounts/login.html')
 
 def Logout_View(request):
-    # Check if user is logged in (assuming you store user info in session)
-    if 'user_id' in request.session:
-        # Clear user-specific session data
-        del request.session['user_id']
-        messages.success(request, 'Logout successful.')
-    else:
-        messages.info(request, 'No active user session found.')
+    # Log out the user using Django's built-in logout function
+    logout(request)
+    messages.success(request, 'Logout successful.')
     return redirect('login')
 
 
 
+@custom_login_required
 def Profile_View(request):
-    # Get session data
-    custom_user_id = request.session.get('user_id')
-
-    # Determine user based on authentication method
-    if custom_user_id:
-        user = get_object_or_404(UserRegistrations, id=custom_user_id)
-    else:
-        return render(request, 'accounts/profile.html', {'error': 'Please log in to view your profile'})
+    # Use request.user for the authenticated user
+    user = request.user
 
     # Handle POST requests for AJAX
     if request.method == "POST" and request.headers.get('x-requested-with') == 'XMLHttpRequest':
@@ -162,19 +157,19 @@ def Register_Category_View(request):
             return render(request, 'accounts/register.html')
 
         # Validation: Check if username is already taken
-        if UserRegistrations.objects.filter(username=username).exists():
+        if User.objects.filter(username=username).exists():
             messages.error(request, 'Username is already taken.')
             return render(request, 'accounts/register.html')
 
         # Validation: Check if email is already taken
-        if UserRegistrations.objects.filter(email=email).exists():
+        if User.objects.filter(email=email).exists():
             messages.error(request, 'Email is already taken.')
             return render(request, 'accounts/register.html')
 
         # Create the user if all validations pass
         try:
             # Use create_user() to securely hash the password
-            user = UserRegistrations.objects.create(username=username, email=email, password=make_password(password),)
+            user = User.objects.create(username=username, email=email, password=make_password(password),)
             user.save()
             messages.success(request, 'Account created successfully.')
             return redirect('login_category')  # Redirect to login page after successful registration
@@ -194,8 +189,8 @@ def Login_Category_View(request):
 
         #fetch user from database
         try: 
-            user = UserRegistrations.objects.get(email=email)
-        except UserRegistrations.DoesNotExist:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
             messages.error(request, 'Invalid email or password.')
             return render(request, 'accounts/login.html')
         
@@ -205,9 +200,9 @@ def Login_Category_View(request):
             return render(request, 'accounts/login.html')
         
         # set user session
-        request.session['user_id'] = user.id
-        request.session['email']  = user.email
-        request.session['username'] = user.username
+        # request.session['user_id'] = user.id
+        # request.session['email']  = user.email
+        # request.session['username'] = user.username
         messages.success(request, 'Login successful.')
         #take category_id from the form and redirect to videos_by_category
         category_name=request.session.get('category_name')
@@ -216,25 +211,12 @@ def Login_Category_View(request):
     return render(request, 'accounts/login.html')
 
 
-# accounts/views.py
-
-# accounts/views.py
-import time
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_str
-from django.contrib.auth.hashers import make_password
-from .models import UserRegistrations
-from .tokens import custom_token_generator
 
 def forgot_password(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         try:
-            user = UserRegistrations.objects.get(email=email)
+            user = User.objects.get(email=email)
             token = custom_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             reset_link = f"{request.scheme}://{request.get_host()}/reset-password/{uid}/{token}/"
@@ -259,7 +241,7 @@ def forgot_password(request):
             messages.success(request, 'Password reset link has been sent to your email.')
             return redirect('forgot_password')
             
-        except UserRegistrations.DoesNotExist:
+        except User.DoesNotExist:
             messages.error(request, 'No account found with this email.')
             return redirect('forgot_password')
             
@@ -270,8 +252,8 @@ def reset_password(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
         print(f"Decoded UID: {uid}")  # Debug
-        user = UserRegistrations.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, UserRegistrations.DoesNotExist) as e:
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist) as e:
         print(f"UID decoding error: {str(e)}")  # Debug
         user = None
 
