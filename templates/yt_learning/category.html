@@ -42,9 +42,7 @@
         /* Header Styles */
         .header {
             background: var(--background); /* Matches main background */
-            position
-
-System: fixed;
+            position: fixed;
             width: 100%;
             top: 0;
             z-index: 100;
@@ -58,6 +56,7 @@ System: fixed;
             align-items: center;
             justify-content: space-between;
             height: 70px;
+            overflow-x: hidden; /* Prevent horizontal overflow */
         }
 
         .nav-logo {
@@ -75,6 +74,8 @@ System: fixed;
         .nav-logo img {
             height: 32px;
             width: auto;
+            max-height: 32px; /* Prevent logo from being too large */
+            max-width: 100%; /* Ensure it fits within container */
             object-fit: contain;
         }
 
@@ -84,7 +85,7 @@ System: fixed;
             background: none;
             border: none;
             padding: 0;
-            z-index: 20;
+            z-index: 30; /* Ensure above other elements */
         }
 
         .nav-links {
@@ -168,15 +169,15 @@ System: fixed;
         }
 
         .nav-icon .profile-picture {
-            width: 24px;
-            height: 24px;
+            width: 32px; /* Increased size for desktop */
+            height: 32px;
             border-radius: 50%;
             object-fit: cover;
             transition: transform 0.2s ease;
         }
 
         .nav-icon:hover .profile-picture {
-            transform: scale(1.1);
+            transform: scale(1.15); /* Slightly larger hover effect */
         }
 
         .login-btn {
@@ -313,7 +314,7 @@ System: fixed;
         }
 
         .category-card:hover::after {
-            opacity: 0.3;
+               opacity: 0.3;
         }
 
         @keyframes rainbowShift {
@@ -410,34 +411,53 @@ System: fixed;
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-container {
-                padding: 1rem;
+                padding: 1rem 1.5rem; /* Slightly more padding for breathing room */
                 height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center; /* Center header content */
+                flex-wrap: nowrap; /* Prevent wrapping */
+            }
+
+            .nav-logo {
+                font-size: 1rem; /* Slightly smaller logo text */
+                flex-shrink: 0; /* Prevent logo from shrinking too much */
+                margin: 0 auto; /* Center logo */
+                position: relative;
+                left: -16px; /* Adjust for toggle button */
+            }
+
+            .nav-logo img {
+                height: 28px; /* Slightly smaller logo for mobile */
             }
 
             .nav-toggle {
                 display: block;
-                width: 24px;
-                height: 24px;
-                position: relative;
+                width: 32px; /* Larger tap target */
+                height: 32px;
+                position: absolute;
+                right: 1.5rem; /* Position toggle on the right */
+                top: 50%;
+                transform: translateY(-50%);
             }
 
             .nav-toggle span {
                 display: block;
                 width: 100%;
-                height: 2px;
+                height: 3px; /* Thicker lines for visibility */
                 background: var(--text);
                 position: absolute;
                 left: 0;
                 transition: all 0.3s ease;
             }
 
-            .nav-toggle span:nth-child(1) { top: 6px; }
-            .nav-toggle span:nth-child(2) { top: 11px; }
-            .nav-toggle span:nth-child(3) { top: 16px; }
+            .nav-toggle span:nth-child(1) { top: 8px; }
+            .nav-toggle span:nth-child(2) { top: 14px; }
+            .nav-toggle span:nth-child(3) { top: 20px; }
 
             .nav-toggle.active span:nth-child(1) {
                 transform: rotate(45deg);
-                top: 11px;
+                top: 14px;
             }
 
             .nav-toggle.active span:nth-child(2) {
@@ -446,7 +466,7 @@ System: fixed;
 
             .nav-toggle.active span:nth-child(3) {
                 transform: rotate(-45deg);
-                top: 11px;
+                top: 14px;
             }
 
             .nav-links {
@@ -458,10 +478,14 @@ System: fixed;
                 background: var(--background);
                 flex-direction: column;
                 justify-content: center;
+                align-items: center; /* Center links horizontally */
                 gap: 2rem;
                 transform: translateX(100%);
                 transition: transform 0.3s ease;
                 padding: 2rem;
+                max-height: 100vh; /* Prevent overflow */
+                overflow-y: auto; /* Allow scrolling if needed */
+                z-index: 20;
             }
 
             .nav-links.active {
@@ -475,18 +499,18 @@ System: fixed;
                 padding: 1rem;
             }
 
-            .nav-links .code-ground-btn {
-                width: 50%;
-                margin: 0 auto;
-                height: 40px;
+            .nav-links .code-ground-btn,
+            .nav-links .login-btn {
+                width: 80%; /* Slightly larger buttons */
+                max-width: 300px; /* Prevent buttons from being too wide */
+                height: 48px; /* Larger tap target */
                 font-size: 1rem;
+                margin: 0 auto; /* Center buttons */
             }
 
-            .nav-links .login-btn {
-                width: 50%;
-                margin: 0 auto;
+            .nav-links .nav-icon .profile-picture {
+                width: 40px; /* Larger profile picture on mobile */
                 height: 40px;
-                font-size: 1rem;
             }
 
             .main-content {
@@ -511,6 +535,46 @@ System: fixed;
         }
 
         @media (max-width: 480px) {
+            .nav-container {
+                padding: 1rem 1rem; /* Adjusted padding */
+                height: 56px; /* Slightly smaller header */
+            }
+
+            .nav-logo {
+                font-size: 0.9rem; /* Even smaller logo text */
+                left: -14px; /* Adjust for smaller toggle */
+            }
+
+            .nav-logo img {
+                height: 24px; /* Smaller logo for very small screens */
+            }
+
+            .nav-toggle {
+                width: 28px;
+                height: 28px;
+                right: 1rem;
+            }
+
+            .nav-toggle span:nth-child(1) { top: 6px; }
+            .nav-toggle span:nth-child(2) { top: 12px; }
+            .nav-toggle span:nth-child(3) { top: 18px; }
+
+            .nav-toggle.active span:nth-child(1) {
+                top: 12px;
+            }
+
+            .nav-toggle.active span:nth-child(3) {
+                top: 12px;
+            }
+
+            .nav-links .code-ground-btn,
+            .nav-links .login-btn {
+                width: 90%; /* Full width for very small screens */
+                max-width: 280px;
+                height: 44px;
+                font-size: 0.9375rem;
+            }
+
             .categories-header h1 {
                 font-size: 1.75rem;
             }
@@ -520,19 +584,7 @@ System: fixed;
             }
 
             .main-content {
-                padding: 6rem 1rem 3rem;
-            }
-
-            .nav-container {
-                padding: 0.75rem;
-            }
-
-            .nav-links .code-ground-btn {
-                width: 70%;
-            }
-
-            .nav-links .login-btn {
-                width: 70%;
+                padding: 5rem 1rem 2rem; /* Adjusted padding */
             }
         }
     </style>
@@ -613,16 +665,28 @@ System: fixed;
 
     <script>
         // Navigation Toggle
-        document.querySelector('.nav-toggle').addEventListener('click', function() {
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        navToggle.addEventListener('click', function() {
             this.classList.toggle('active');
-            document.querySelector('.nav-links').classList.toggle('active');
+            navLinks.classList.toggle('active');
         });
 
+        // Close menu when clicking outside
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.nav-container')) {
-                document.querySelector('.nav-toggle').classList.remove('active');
-                document.querySelector('.nav-links').classList.remove('active');
+                navToggle.classList.remove('active');
+                navLinks.classList.remove('active');
             }
+        });
+
+        // Close menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
         });
     </script>
 </body>
