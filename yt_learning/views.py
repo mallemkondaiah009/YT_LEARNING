@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from accounts.decorators import custom_login_required
 
 
-@custom_login_required
+
 def landing_page(request):
     return render(request, 'yt_learning/landing_page.html')
 
