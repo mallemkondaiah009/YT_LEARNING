@@ -9,5 +9,9 @@ def custom_login_required(view_func):
         if not request.user.is_authenticated:
             login_url = f"{reverse('login')}?next={request.path}"
             return redirect(login_url)
+        # Check if user is admin (staff or superuser)
+        if request.user.is_staff or request.user.is_superuser:
+            login_url = f"{reverse('login')}?next={request.path}"
+            return redirect(login_url)
         return view_func(request, *args, **kwargs)
     return wrapper

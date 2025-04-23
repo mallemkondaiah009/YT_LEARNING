@@ -100,6 +100,10 @@ def Profile_View(request):
     # Use request.user for the authenticated user
     user = request.user
 
+    # Check if user is admin (staff or superuser)
+    if user.is_staff or user.is_superuser:
+        return redirect('login')  # Redirect to login page
+
     # Handle POST requests for AJAX
     if request.method == "POST" and request.headers.get('x-requested-with') == 'XMLHttpRequest':
         action = request.POST.get('action')

@@ -5,18 +5,20 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from .models import Videos, Category, save_watch_later
 from django.contrib.auth.models import User
-#from accounts.decorators import custom_login_required
+from accounts.decorators import custom_login_required
 
 
+@custom_login_required
 def landing_page(request):
     return render(request, 'yt_learning/landing_page.html')
 
 # Categories page view
+@custom_login_required
 def categories_page(request):
     categories = Category.objects.all()  # Fetch all categories from the database
     return render(request, 'yt_learning/category.html', {'categories': categories})
 
-
+@custom_login_required
 def videos_by_category(request, category_name):
     # Retrieve category
     category = get_object_or_404(Category, name=category_name)
