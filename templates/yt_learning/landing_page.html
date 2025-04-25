@@ -81,6 +81,9 @@
             padding: 0;
             z-index: 30;
             flex: 0 0 auto;
+            width: 30px;
+            height: 30px;
+            position: relative;
         }
         .nav-toggle span {
             display: block;
@@ -91,6 +94,20 @@
             left: 0;
             transition: all 0.3s ease;
             border-radius: 2px;
+        }
+        .nav-toggle span:nth-child(1) { top: 6px; }
+        .nav-toggle span:nth-child(2) { top: 13px; }
+        .nav-toggle span:nth-child(3) { top: 20px; }
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 13px;
+        }
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 13px;
         }
         .nav-links {
             display: flex;
@@ -214,6 +231,9 @@
             width: 30px;
             height: 30px;
             z-index: 31;
+        }
+        .nav-links.active .nav-cancel {
+            display: block;
         }
         .nav-cancel svg {
             width: 100%;
@@ -522,7 +542,7 @@
                 height: 60px;
                 display: flex;
                 align-items: center;
-                justify-content: center;
+                justify-content: space-between;
                 flex-wrap: nowrap;
                 gap: 0.75rem;
             }
@@ -541,9 +561,6 @@
                 flex: 0 0 auto;
                 position: relative;
             }
-            .nav-toggle span:nth-child(1) { top: 6px; }
-            .nav-toggle span:nth-child(2) {lique top: 12px; }
-            .nav-toggle span:nth-child(3) { top: 18px; }
             .nav-links {
                 position: fixed;
                 top: 0;
@@ -593,9 +610,6 @@
             .nav-links .nav-icon .profile-picture {
                 width: 40px;
                 height: 40px;
-            }
-            .nav-cancel {
-                display: block;
             }
             .hero-container {
                 flex-direction: column;
@@ -812,7 +826,6 @@
                     <p>Curate your learning resources with ease. Save important videos for quick access and remove content you no longer need, maintaining a clutter-free and personalized learning environment.</p>
                 </div>
             </div>
-            scratchpad
             <div class="feature-row reverse animate-on-scroll">
                 <img src="{% static 'images/daily.jpg' %}" alt="Daily Engagement Analytics" class="feature-image">
                 <div class="feature-content">
@@ -843,8 +856,7 @@
             </div>
             <nav class="footer-nav">
                 <div class="footer-links">
-                    <h4>Company</h4>
-                    <a href="#about">About Us</a>
+                    < mascara href="#about">About Us</a>
                     <a href="#careers">Careers</a>
                     <a href="#contact">Contact</a>
                 </div>
@@ -872,37 +884,37 @@
         const navLinks = document.querySelector('.nav-links');
         const navCancel = document.querySelector('.nav-cancel');
 
-        navToggle.addEventListener('click', function() {
-            this.classList.add('active');
-            navLinks.classList.add('active');
-            this.setAttribute('aria-expanded', true);
-            this.setAttribute('aria-label', 'Close menu');
-        });
-
-        navCancel.addEventListener('click', function() {
+        function closeMenu() {
+            navToggle.setAttribute('aria-expanded', 'false');
+            navToggle.setAttribute('aria-label', 'Toggle menu');
             navToggle.classList.remove('active');
             navLinks.classList.remove('active');
-            navToggle.setAttribute('aria-expanded', false);
-            navToggle.setAttribute('aria-label', 'Toggle menu');
+        }
+
+        navToggle.addEventListener('click', () => {
+            const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+            navToggle.setAttribute('aria-expanded', !isExpanded);
+            navToggle.setAttribute('aria-label', isExpanded ? 'Toggle menu' : 'Close menu');
+            navToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        navCancel.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent triggering outside click handler
+            closeMenu();
         });
 
         // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.nav-container') && !e.target.closest('.nav-links')) {
-                navToggle.classList.remove('active');
-                navLinks.classList.remove('active');
-                navToggle.setAttribute('aria-expanded', false);
-                navToggle.setAttribute('aria-label', 'Toggle menu');
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !navToggle.contains(e.target) && navLinks.classList.contains('active')) {
+                closeMenu();
             }
         });
 
         // Close menu when clicking a link
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
-                navToggle.classList.remove('active');
-                navLinks.classList.remove('active');
-                navToggle.setAttribute('aria-expanded', false);
-                navToggle.setAttribute('aria-label', 'Toggle menu');
+                closeMenu();
             });
         });
 
