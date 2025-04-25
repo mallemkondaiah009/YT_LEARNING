@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -245,6 +245,136 @@
         }
         .nav-cancel:hover svg {
             stroke: var(--secondary);
+        }
+
+        /* Original Notification Styles (Kept Unchanged) */
+        .notifications {
+            position: absolute;
+            top: 70px;
+            right: 2rem;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-width: 320px;
+            width: 90%;
+        }
+        .notification {
+            background: #000000;
+            border-radius: 0.5rem;
+            padding: 1rem 2.5rem 1rem 1rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: #FFFFFF;
+            position: relative;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .notification.hide {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        .notification-success {
+            border-left: 4px solid #4ADE80;
+        }
+        .notification-error {
+            border-left: 4px solid #F87171;
+        }
+        .notification-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.25rem;
+            transition: background 0.2s ease;
+        }
+        .notification-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .notification-close svg {
+            width: 16px;
+            height: 16px;
+            stroke: #FFFFFF;
+        }
+        .notification-close:hover svg {
+            stroke: #E5E7EB;
+        }
+
+        /* New Header Notification Styles */
+        .header-notifications {
+            position: absolute;
+            top: 70px; /* Below the nav-container (70px height) */
+            right: 2rem;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-width: 320px;
+            width: 90%;
+        }
+        .header-notification {
+            background: #000000; /* Black background */
+            border-radius: 0.5rem;
+            padding: 1rem 2.5rem 1rem 1rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: #FFFFFF; /* White text */
+            position: relative;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .header-notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .header-notification.hide {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        .header-notification-success {
+            border-left: 4px solid #4ADE80; /* Brighter green for success */
+        }
+        .header-notification-error {
+            border-left: 4px solid #F87171; /* Brighter red for error */
+        }
+        .header-notification-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.25rem;
+            transition: background 0.2s ease;
+        }
+        .header-notification-close:hover {
+            background: rgba(255, 255, 255, 0.2); /* Slight transparency for hover effect */
+        }
+        .header-notification-close svg {
+            width: 16px;
+            height: 16px;
+            stroke: #FFFFFF; /* White stroke for visibility */
+        }
+        .header-notification-close:hover svg {
+            stroke: #E5E7EB; /* Light gray for hover */
         }
 
         /* Hero Section */
@@ -611,6 +741,16 @@
                 width: 40px;
                 height: 40px;
             }
+            .notifications {
+                top: 60px;
+                right: 1.5rem;
+                max-width: 280px;
+            }
+            .header-notifications {
+                top: 60px; /* Adjust for smaller header height */
+                right: 1.5rem;
+                max-width: 280px;
+            }
             .hero-container {
                 flex-direction: column;
                 text-align: center;
@@ -717,6 +857,20 @@
                 top: 1rem;
                 right: 1rem;
             }
+            .notifications {
+                top: 56px;
+                right: 1rem;
+                max-width: 260px;
+            }
+            .header-notifications {
+                top: 56px; /* Adjust for smallest header height */
+                right: 1rem;
+                max-width: 260px;
+            }
+            .header-notification {
+                font-size: 0.8125rem;
+                padding: 0.75rem 2rem 0.75rem 0.75rem;
+            }
             .hero h1 {
                 font-size: 2rem;
             }
@@ -782,6 +936,20 @@
                 {% endif %}
             </div>
         </nav>
+        {% if messages %}
+            <div class="header-notifications" role="alert" aria-live="polite">
+                {% for message in messages %}
+                    <div class="header-notification {% if message.tags == 'success' %}header-notification-success{% else %}header-notification-error{% endif %}" role="alert">
+                        {{ message }}
+                        <button class="header-notification-close" aria-label="Close notification">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     </header>
     <section class="hero">
         <div class="hero-container">
@@ -856,7 +1024,8 @@
             </div>
             <nav class="footer-nav">
                 <div class="footer-links">
-                    < mascara href="#about">About Us</a>
+                    <h4>Company</h4>
+                    <a href="#about">About Us</a>
                     <a href="#careers">Careers</a>
                     <a href="#contact">Contact</a>
                 </div>
@@ -931,6 +1100,36 @@
 
         const animatedElements = document.querySelectorAll('.animate-on-scroll');
         animatedElements.forEach(el => observer.observe(el));
+
+        // Notification Handling
+        const notifications = document.querySelectorAll('.header-notification');
+
+        notifications.forEach((notification, index) => {
+            // Show notification with slight delay for staggered effect
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, index * 100); // Stagger by 100ms per notification
+
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                notification.classList.add('hide');
+                // Remove from DOM after animation completes
+                setTimeout(() => {
+                    notification.remove();
+                }, 300); // Match CSS transition duration
+            }, 5000 + index * 100); // 5 seconds + stagger delay
+
+            // Close button handler
+            const closeButton = notification.querySelector('.header-notification-close');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => {
+                    notification.classList.add('hide');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300); // Match CSS transition duration
+                });
+            }
+        });
     </script>
 </body>
 </html>
