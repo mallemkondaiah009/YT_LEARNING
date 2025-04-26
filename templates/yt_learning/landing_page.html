@@ -60,7 +60,7 @@
             align-items: center;
             gap: 0.75rem;
             text-decoration: none;
-            color: var(--text);
+            color: #000000; /* Darkened to full black */
             font-weight: 700;
             font-size: 1.25rem;
             transition: opacity 0.2s ease;
@@ -89,7 +89,7 @@
             display: block;
             width: 100%;
             height: 3px;
-            background: var(--text);
+            background: #000000; /* Darkened to full black */
             position: absolute;
             left: 0;
             transition: all 0.3s ease;
@@ -119,7 +119,7 @@
         }
         .nav-links a {
             text-decoration: none;
-            color: var(--text-light);
+            color: #333333; /* Darkened from --text-light (#666666) to darker gray */
             font-weight: 500;
             font-size: 0.9375rem;
             padding: 0.5rem 1rem;
@@ -129,12 +129,12 @@
             transition: all 0.2s ease;
         }
         .nav-links a.active {
-            color: var(--text);
-            background: var(--hover);
+            color: #FFFFFF; /* White text for active */
+            background: #000000; /* Black background for active */
         }
         .nav-links .code-ground-btn {
             position: relative;
-            background: var(--primary);
+            background: #000000; /* Darkened to full black */
             color: #FFFFFF !important;
             padding: 0.5rem 1rem;
             border-radius: 0.375rem;
@@ -172,7 +172,7 @@
             animation: rainbowGlow 3s linear infinite;
         }
         .nav-links .code-ground-btn:hover {
-            background: var(--secondary);
+            background: #1A1A1A; /* Slightly lighter black for hover */
             transform: translateY(-2px);
             box-shadow: 0 4px 8px var(--shadow);
         }
@@ -194,14 +194,14 @@
             transform: scale(1.15);
         }
         .btn-primary {
-            background: var(--text);
+            background: #000000; /* Darkened to full black */
             color: var(--surface) !important;
             padding: 0.625rem 1.5rem;
             border-radius: 0.375rem;
             font-weight: 600;
         }
         .login-btn {
-            background: #171717;
+            background: #000000; /* Darkened from #171717 to full black */
             color: #FFFFFF !important;
             padding: 0.5rem 1rem;
             border-radius: 0.375rem;
@@ -215,7 +215,7 @@
             height: 36px;
         }
         .login-btn:hover {
-            background: var(--secondary);
+            background: #1A1A1A; /* Slightly lighter black for hover */
             transform: translateY(-2px);
             box-shadow: 0 4px 8px var(--shadow);
         }
@@ -238,13 +238,13 @@
         .nav-cancel svg {
             width: 100%;
             height: 100%;
-            stroke: var(--text);
+            stroke: #000000; /* Darkened to full black */
             stroke-width: 3;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
         .nav-cancel:hover svg {
-            stroke: var(--secondary);
+            stroke: #1A1A1A; /* Slightly lighter black for hover */
         }
 
         /* Original Notification Styles (Kept Unchanged) */
@@ -315,7 +315,7 @@
         /* New Header Notification Styles */
         .header-notifications {
             position: absolute;
-            top: 70px; /* Below the nav-container (70px height) */
+            top: 70px;
             right: 2rem;
             z-index: 2000;
             display: flex;
@@ -325,13 +325,13 @@
             width: 90%;
         }
         .header-notification {
-            background: #000000; /* Black background */
+            background: #000000;
             border-radius: 0.5rem;
             padding: 1rem 2.5rem 1rem 1rem;
             box-shadow: 0 4px 12px var(--shadow);
             font-size: 0.875rem;
             font-weight: 400;
-            color: #FFFFFF; /* White text */
+            color: #FFFFFF;
             position: relative;
             transform: translateX(100%);
             opacity: 0;
@@ -346,10 +346,10 @@
             opacity: 0;
         }
         .header-notification-success {
-            border-left: 4px solid #4ADE80; /* Brighter green for success */
+            border-left: 4px solid #4ADE80;
         }
         .header-notification-error {
-            border-left: 4px solid #F87171; /* Brighter red for error */
+            border-left: 4px solid #F87171;
         }
         .header-notification-close {
             position: absolute;
@@ -366,15 +366,15 @@
             transition: background 0.2s ease;
         }
         .header-notification-close:hover {
-            background: rgba(255, 255, 255, 0.2); /* Slight transparency for hover effect */
+            background: rgba(255, 255, 255, 0.2);
         }
         .header-notification-close svg {
             width: 16px;
             height: 16px;
-            stroke: #FFFFFF; /* White stroke for visibility */
+            stroke: #FFFFFF;
         }
         .header-notification-close:hover svg {
-            stroke: #E5E7EB; /* Light gray for hover */
+            stroke: #E5E7EB;
         }
 
         /* Hero Section */
@@ -747,7 +747,7 @@
                 max-width: 280px;
             }
             .header-notifications {
-                top: 60px; /* Adjust for smaller header height */
+                top: 60px;
                 right: 1.5rem;
                 max-width: 280px;
             }
@@ -863,7 +863,7 @@
                 max-width: 260px;
             }
             .header-notifications {
-                top: 56px; /* Adjust for smallest header height */
+                top: 56px;
                 right: 1rem;
                 max-width: 260px;
             }
@@ -920,7 +920,8 @@
                     </svg>
                 </button>
                 {% if user.is_authenticated %}
-                    <a href="{% url 'landing_page' %}">Home</a>
+                    <a href="{% url 'landing_page' %}" class="active">Home</a>
+                    <a href="{% url 'analyze_sentiment' %}">Sentiment Analizer</a>
                     <a href="{% url 'categories_page' %}">Categories</a>
                     <a href="{% url 'profile' %}" class="nav-icon" title="Profile">
                         {% if user.socialaccount_set.all.0.extra_data.picture %}
@@ -931,6 +932,7 @@
                     </a>
                 {% else %}
                     <a href="{% url 'landing_page' %}">Home</a>
+                    <a href="{% url 'analyze_sentiment' %}">Sentiment Analizer</a>
                     <a href="{% url 'categories_page' %}">Categories</a>
                     <a href="{% url 'login' %}" class="login-btn">Login</a>
                 {% endif %}
@@ -1069,25 +1071,22 @@
         });
 
         navCancel.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent triggering outside click handler
+            e.stopPropagation();
             closeMenu();
         });
 
-        // Close menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!navLinks.contains(e.target) && !navToggle.contains(e.target) && navLinks.classList.contains('active')) {
                 closeMenu();
             }
         });
 
-        // Close menu when clicking a link
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 closeMenu();
             });
         });
 
-        // Scroll-triggered Animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1101,32 +1100,27 @@
         const animatedElements = document.querySelectorAll('.animate-on-scroll');
         animatedElements.forEach(el => observer.observe(el));
 
-        // Notification Handling
         const notifications = document.querySelectorAll('.header-notification');
 
         notifications.forEach((notification, index) => {
-            // Show notification with slight delay for staggered effect
             setTimeout(() => {
                 notification.classList.add('show');
-            }, index * 100); // Stagger by 100ms per notification
+            }, index * 100);
 
-            // Auto-hide after 5 seconds
             setTimeout(() => {
                 notification.classList.add('hide');
-                // Remove from DOM after animation completes
                 setTimeout(() => {
                     notification.remove();
-                }, 300); // Match CSS transition duration
-            }, 5000 + index * 100); // 5 seconds + stagger delay
+                }, 300);
+            }, 5000 + index * 100);
 
-            // Close button handler
             const closeButton = notification.querySelector('.header-notification-close');
             if (closeButton) {
                 closeButton.addEventListener('click', () => {
                     notification.classList.add('hide');
                     setTimeout(() => {
                         notification.remove();
-                    }, 300); // Match CSS transition duration
+                    }, 300);
                 });
             }
         });

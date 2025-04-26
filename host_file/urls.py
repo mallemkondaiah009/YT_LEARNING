@@ -25,5 +25,6 @@ urlpatterns = [
     path('accounts/',include('allauth.urls')),
     path('', include('yt_learning.urls')),
     path('', include('accounts.urls')),
+    path('', include('sentiment_analysis.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

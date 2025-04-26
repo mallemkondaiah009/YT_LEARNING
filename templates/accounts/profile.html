@@ -92,6 +92,34 @@
             z-index: 20;
         }
 
+        .nav-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--text); /* Changed to black */
+            position: absolute;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle span:nth-child(1) { top: 6px; }
+        .nav-toggle span:nth-child(2) { top: 11px; }
+        .nav-toggle span:nth-child(3) { top: 16px; }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 11px;
+        }
+
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 11px;
+        }
+
         .nav-links {
             display: flex;
             align-items: center;
@@ -101,7 +129,7 @@
 
         .nav-links a {
             text-decoration: none;
-            color: var(--text-light);
+            color: var(--text); /* Changed to black */
             font-weight: 500;
             font-size: 0.9375rem;
             padding: 0.5rem 1rem;
@@ -173,15 +201,15 @@
         }
 
         .nav-icon .profile-picture {
-            width: 24px;
-            height: 24px;
+            width: 28px; /* Increased from 24px */
+            height: 28px; /* Increased from 24px */
             border-radius: 50%;
             object-fit: cover;
             transition: transform 0.2s ease;
         }
 
         .nav-icon:hover .profile-picture {
-            transform: scale(1.1);
+            transform: scale(1.15); /* Adjusted for slightly larger icon */
         }
 
         .login-btn, .logout-btn {
@@ -507,31 +535,6 @@
                 position: relative;
             }
 
-            .nav-toggle span {
-                display: block;
-                width: 100%;
-                height: 2px;
-                background: var(--text);
-                position: absolute;
-                left: 0;
-                transition: all 0.3s ease;
-            }
-
-            .nav-toggle span:nth-child(1) { top: 6px; }
-            .nav-toggle span:nth-child(2) { top: 11px; }
-            .nav-toggle span:nth-child(3) { top: 16px; }
-            .nav-toggle.active span:nth-child(1) {
-                transform: rotate(45deg);
-                top: 11px;
-            }
-            .nav-toggle.active span:nth-child(2) {
-                opacity: 0;
-            }
-            .nav-toggle.active span:nth-child(3) {
-                transform: rotate(-45deg);
-                top: 11px;
-            }
-
             .nav-links {
                 position: fixed;
                 top: 0;
@@ -577,6 +580,11 @@
                 margin: 0 auto;
                 height: 40px;
                 font-size: 1rem;
+            }
+
+            .nav-links .nav-icon .profile-picture {
+                width: 32px; /* Increased for mobile */
+                height: 32px; /* Increased for mobile */
             }
 
             .container {
@@ -677,6 +685,7 @@
             <div class="nav-links">
                 {% if user.is_authenticated %}
                     <a href="{% url 'landing_page' %}">Home</a>
+                    <a href="{% url 'analyze_sentiment' %}">Sentiment Analizer</a>
                     <a href="{% url 'categories_page' %}">Categories</a>
                     <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
                     <a href="{% url 'profile' %}" class="nav-icon" title="Profile">
@@ -688,6 +697,7 @@
                     </a>
                 {% else %}
                     <a href="{% url 'landing_page' %}">Home</a>
+                    <a href="{% url 'analyze_sentiment' %}">Sentiment Analizer</a>
                     <a href="{% url 'categories_page' %}">Categories</a>
                     <a href="{% url 'login' %}" class="login-btn">Login</a>
                 {% endif %}

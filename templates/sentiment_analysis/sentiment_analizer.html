@@ -1,0 +1,673 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Analyze text sentiment with HexaCodes' Sentiment Analyzer tool.">
+    <meta property="og:title" content="HexaCodes | Sentiment Analysis">
+    <meta property="og:image" content="{% static 'images/logo.png' %}">
+    <title>Sentiment Analysis | HexaCodes</title>
+    <link rel="icon" href="{% static 'images/hexacodes.png' %}" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #1A1A1A;
+            --primary-dark: #000000;
+            --secondary: #333333;
+            --accent: #666666;
+            --background: #FFFFFF;
+            --surface: #FFFFFF;
+            --text: #1A1A1A;
+            --text-light: #666666;
+            --border: #D1D1D1;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --hover: #EBEBEB;
+        }
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--background);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: var(--background);
+            margin-top: 70px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--background);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            overflow-x: hidden;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 1.25rem;
+            transition: opacity 0.2s ease;
+            flex: 0 0 auto;
+        }
+        .nav-logo img {
+            height: 32px;
+            width: auto;
+            max-height: 32px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        .nav-toggle {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            z-index: 30;
+            flex: 0 0 auto;
+            width: 30px;
+            height: 30px;
+            position: relative;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: var(--text);
+            position: absolute;
+            left: 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        .nav-toggle span:nth-child(1) { top: 6px; }
+        .nav-toggle span:nth-child(2) { top: 13px; }
+        .nav-toggle span:nth-child(3) { top: 20px; }
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 13px;
+        }
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 13px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            height: 100%;
+            z-index: 1001;
+            position: relative;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9375rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+        .nav-links a.active {
+            color: #FFFFFF; /* Changed to white */
+            background: var(--primary); /* Changed to black */
+        }
+        .nav-links .code-ground-btn {
+            position: relative;
+            background: var(--primary);
+            color: #FFFFFF !important;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            box-shadow: 0 2px 4px var(--shadow);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 36px;
+        }
+        .nav-links .code-ground-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 4px;
+            background: linear-gradient(
+                to right,
+                #ff0000 0%,
+                #ff8000 15%,
+                #ffff00 30%,
+                #00ff00 45%,
+                #00ffff 60%,
+                #0000ff 75%,
+                #8000ff 90%,
+                #ff0000 100%
+            );
+            filter: blur(8px);
+            opacity: 0.7;
+            animation: rainbowGlow 3s linear infinite;
+        }
+        .nav-links .code-ground-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+        .nav-links .code-ground-btn span {
+            z-index: 2;
+        }
+        @keyframes rainbowGlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        .nav-icon .profile-picture {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.2s ease;
+        }
+        .nav-icon:hover .profile-picture {
+            transform: scale(1.15);
+        }
+        .login-btn {
+            background: #171717;
+            color: #FFFFFF !important;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 36px;
+        }
+        .login-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+        .nav-cancel {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 30px;
+            height: 30px;
+            z-index: 31;
+        }
+        .nav-links.active .nav-cancel {
+            display: block;
+        }
+        .nav-cancel svg {
+            width: 100%;
+            height: 100%;
+            stroke: var(--text);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .nav-cancel:hover svg {
+            stroke: var(--secondary);
+        }
+
+        /* Header Notification Styles */
+        .header-notifications {
+            position: absolute;
+            top: 70px;
+            right: 2rem;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-width: 320px;
+            width: 90%;
+        }
+        .header-notification {
+            background: #000000;
+            border-radius: 0.5rem;
+            padding: 1rem 2.5rem 1rem 1rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: #FFFFFF;
+            position: relative;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .header-notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .header-notification.hide {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        .header-notification-success {
+            border-left: 4px solid #4ADE80;
+        }
+        .header-notification-error {
+            border-left: 4px solid #F87171;
+        }
+        .header-notification-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.25rem;
+            transition: background 0.2s ease;
+        }
+        .header-notification-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .header-notification-close svg {
+            width: 16px;
+            height: 16px;
+            stroke: #FFFFFF;
+        }
+        .header-notification-close:hover svg {
+            stroke: #E5E7EB;
+        }
+
+        /* Sentiment Analysis Styles */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease-in-out;
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+        }
+        form {
+            background-color: var(--surface);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px var(--shadow);
+            width: 80%;
+            max-width: 600px;
+            animation: slideIn 1s ease-in-out;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            resize: vertical;
+        }
+        button {
+            background-color: var(--primary);
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        h2 {
+            margin-top: 20px;
+            animation: slideIn 1s ease-in-out;
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+        }
+        #result {
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                background: var(--background);
+            }
+            .nav-container {
+                padding: 1rem 1.5rem;
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+                gap: 0.75rem;
+            }
+            .nav-logo {
+                font-size: 1rem;
+                flex: 0 0 auto;
+                line-height: 1.2;
+            }
+            .nav-logo img {
+                height: 28px;
+            }
+            .nav-toggle {
+                display: block;
+                width: 30px;
+                height: 30px;
+                flex: 0 0 auto;
+                position: relative;
+            }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: var(--background);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                padding: 3rem 2rem 2rem;
+                min-height: 100vh;
+                overflow-y: auto;
+                z-index: 1001;
+            }
+            .nav-links.active {
+                transform: translateX(0);
+            }
+            .nav-links a {
+                font-size: 1.25rem;
+                width: 100%;
+                text-align: center;
+                padding: 1rem;
+                display: block;
+            }
+            .nav-links .code-ground-btn,
+            .nav-links .login-btn {
+                width: 80%;
+                max-width: 300px;
+                height: 48px;
+                font-size: 1rem;
+                margin: 0.5rem auto;
+            }
+            .nav-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                padding: 1rem;
+            }
+            .nav-links .nav-icon .profile-picture {
+                width: 40px;
+                height: 40px;
+            }
+            .header-notifications {
+                top: 60px;
+                right: 1.5rem;
+                max-width: 280px;
+            }
+            main {
+                margin-top: 60px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            form {
+                width: 90%;
+            }
+        }
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 1rem 1rem;
+                height: 56px;
+                gap: 0.5rem;
+            }
+            .nav-logo {
+                font-size: 0.9rem;
+            }
+            .nav-logo img {
+                height: 24px;
+            }
+            .nav-toggle {
+                width: 28px;
+                height: 28px;
+            }
+            .nav-toggle span:nth-child(1) { top: 5px; }
+            .nav-toggle span:nth-child(2) { top: 11px; }
+            .nav-toggle span:nth-child(3) { top: 17px; }
+            .nav-links .code-ground-btn,
+            .nav-links .login-btn {
+                width: 90%;
+                max-width: 280px;
+                height: 44px;
+                font-size: 0.9375rem;
+            }
+            .nav-cancel {
+                width: 28px;
+                height: 28px;
+                top: 1rem;
+                right: 1rem;
+            }
+            .header-notifications {
+                top: 56px;
+                right: 1rem;
+                max-width: 260px;
+            }
+            main {
+                margin-top: 56px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            h2 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="{% url 'categories_page' %}" class="nav-logo">
+                <img src="{% static 'images/logo.png' %}" 
+                     onerror="this.src='{% static 'images/fallback.png' %}'" 
+                     alt="HexaCodes Logo" class="logo-image">
+                HexaCodes
+            </a>
+            <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <button class="nav-cancel" aria-label="Close menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'landing_page' %}">Home</a>
+                    <a href="{% url 'analyze_sentiment' %}" class="active">Sentiment Analyzer</a>
+                    <a href="{% url 'categories_page' %}">Categories</a>
+                    <a href="{% url 'profile' %}" class="nav-icon" title="Profile">
+                        <img src="{{ user.socialaccount_set.all.0.extra_data.picture|default:'https://via.placeholder.com/100' }}" 
+                             alt="Profile Picture" class="profile-picture">
+                    </a>
+                {% else %}
+                    <a href="{% url 'landing_page' %}">Home</a>
+                    <a href="{% url 'analyze_sentiment' %}" class="active">Sentiment Analyzer</a>
+                    <a href="{% url 'categories_page' %}">Categories</a>
+                    <a href="{% url 'login' %}" class="login-btn">Login</a>
+                {% endif %}
+            </div>
+        </nav>
+        {% if messages %}
+            <div class="header-notifications" role="alert" aria-live="polite">
+                {% for message in messages %}
+                    <div class="header-notification 
+                        {% if message.tags == 'success' %}header-notification-success
+                        {% elif message.tags == 'error' %}header-notification-error
+                        {% else %}header-notification-info{% endif %}" role="alert">
+                        {{ message }}
+                        <button class="header-notification-close" aria-label="Close notification">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </header>
+    <main>
+        <h1>Sentiment Analysis</h1>
+        <form id="sentimentForm">
+            {% csrf_token %}
+            <textarea name="text" rows="4" cols="50" placeholder="Enter text here..."></textarea>
+            <button type="submit">Analyze Sentiment</button>
+        </form>
+        <h2>Result: <span id="result"></span></h2>
+    </main>
+    <script>
+        // Navigation Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const navCancel = document.querySelector('.nav-cancel');
+
+        function closeMenu() {
+            navToggle.setAttribute('aria-expanded', 'false');
+            navToggle.setAttribute('aria-label', 'Toggle menu');
+            navToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+        }
+
+        navToggle.addEventListener('click', () => {
+            const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+            navToggle.setAttribute('aria-expanded', !isExpanded);
+            navToggle.setAttribute('aria-label', isExpanded ? 'Toggle menu' : 'Close menu');
+            navToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        navCancel.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeMenu();
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !navToggle.contains(e.target) && navLinks.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                closeMenu();
+            });
+        });
+
+        // Notification Handling
+        const notifications = document.querySelectorAll('.header-notification');
+        notifications.forEach((notification, index) => {
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, index * 100);
+            setTimeout(() => {
+                notification.classList.add('hide');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 5000 + index * 100);
+            const closeButton = notification.querySelector('.header-notification-close');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => {
+                    notification.classList.add('hide');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                });
+            }
+        });
+
+        // Sentiment Form Submission
+        document.getElementById('sentimentForm').onsubmit = async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const response = await fetch('{% url "analyze_sentiment" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                }
+            });
+            const data = await response.json();
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = data.sentiment || data.error;
+            if (data.sentiment === 'positive') {
+                resultElement.style.color = 'green';
+            } else if (data.sentiment === 'negative') {
+                resultElement.style.color = 'red';
+            } else {
+                resultElement.style.color = '#007BFF';
+            }
+        };
+    </script>
+</body>
+</html>

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'yt_learning.apps.YtLearningConfig',
     'accounts.apps.AccountsConfig',
+    'sentiment_analysis.apps.SentimentAnalysisConfig',
 
     'django.contrib.sites',
     'allauth',
