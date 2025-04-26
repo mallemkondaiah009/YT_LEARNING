@@ -60,11 +60,12 @@
             align-items: center;
             gap: 0.75rem;
             text-decoration: none;
-            color: #000000; /* Darkened to full black */
+            color: #000000;
             font-weight: 700;
             font-size: 1.25rem;
             transition: opacity 0.2s ease;
             flex: 0 0 auto;
+            z-index: 1002;
         }
         .nav-logo img {
             height: 32px;
@@ -72,42 +73,6 @@
             max-height: 32px;
             max-width: 100%;
             object-fit: contain;
-        }
-        .nav-toggle {
-            display: none;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 0;
-            z-index: 30;
-            flex: 0 0 auto;
-            width: 30px;
-            height: 30px;
-            position: relative;
-        }
-        .nav-toggle span {
-            display: block;
-            width: 100%;
-            height: 3px;
-            background: #000000; /* Darkened to full black */
-            position: absolute;
-            left: 0;
-            transition: all 0.3s ease;
-            border-radius: 2px;
-        }
-        .nav-toggle span:nth-child(1) { top: 6px; }
-        .nav-toggle span:nth-child(2) { top: 13px; }
-        .nav-toggle span:nth-child(3) { top: 20px; }
-        .nav-toggle.active span:nth-child(1) {
-            transform: rotate(45deg);
-            top: 13px;
-        }
-        .nav-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .nav-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg);
-            top: 13px;
         }
         .nav-links {
             display: flex;
@@ -119,7 +84,7 @@
         }
         .nav-links a {
             text-decoration: none;
-            color: #333333; /* Darkened from --text-light (#666666) to darker gray */
+            color: #333333;
             font-weight: 500;
             font-size: 0.9375rem;
             padding: 0.5rem 1rem;
@@ -129,12 +94,12 @@
             transition: all 0.2s ease;
         }
         .nav-links a.active {
-            color: #FFFFFF; /* White text for active */
-            background: #000000; /* Black background for active */
+            color: #FFFFFF;
+            background: #000000;
         }
         .nav-links .code-ground-btn {
             position: relative;
-            background: #000000; /* Darkened to full black */
+            background: #000000;
             color: #FFFFFF !important;
             padding: 0.5rem 1rem;
             border-radius: 0.375rem;
@@ -172,7 +137,7 @@
             animation: rainbowGlow 3s linear infinite;
         }
         .nav-links .code-ground-btn:hover {
-            background: #1A1A1A; /* Slightly lighter black for hover */
+            background: #1A1A1A;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px var(--shadow);
         }
@@ -194,14 +159,14 @@
             transform: scale(1.15);
         }
         .btn-primary {
-            background: #000000; /* Darkened to full black */
+            background: #000000;
             color: var(--surface) !important;
             padding: 0.625rem 1.5rem;
             border-radius: 0.375rem;
             font-weight: 600;
         }
         .login-btn {
-            background: #000000; /* Darkened from #171717 to full black */
+            background: #000000;
             color: #FFFFFF !important;
             padding: 0.5rem 1rem;
             border-radius: 0.375rem;
@@ -215,9 +180,47 @@
             height: 36px;
         }
         .login-btn:hover {
-            background: #1A1A1A; /* Slightly lighter black for hover */
+            background: #1A1A1A;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px var(--shadow);
+        }
+
+        /* Hamburger Menu Styles (from sentiment_analysis) */
+        .nav-toggle {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            z-index: 30;
+            flex: 0 0 auto;
+            width: 30px;
+            height: 30px;
+            position: relative;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: var(--text);
+            position: absolute;
+            left: 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        .nav-toggle span:nth-child(1) { top: 6px; }
+        .nav-toggle span:nth-child(2) { top: 13px; }
+        .nav-toggle span:nth-child(3) { top: 20px; }
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 13px;
+        }
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 13px;
         }
         .nav-cancel {
             display: none;
@@ -238,81 +241,16 @@
         .nav-cancel svg {
             width: 100%;
             height: 100%;
-            stroke: #000000; /* Darkened to full black */
+            stroke: var(--text);
             stroke-width: 3;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
         .nav-cancel:hover svg {
-            stroke: #1A1A1A; /* Slightly lighter black for hover */
+            stroke: var(--secondary);
         }
 
-        /* Original Notification Styles (Kept Unchanged) */
-        .notifications {
-            position: absolute;
-            top: 70px;
-            right: 2rem;
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            max-width: 320px;
-            width: 90%;
-        }
-        .notification {
-            background: #000000;
-            border-radius: 0.5rem;
-            padding: 1rem 2.5rem 1rem 1rem;
-            box-shadow: 0 4px 12px var(--shadow);
-            font-size: 0.875rem;
-            font-weight: 400;
-            color: #FFFFFF;
-            position: relative;
-            transform: translateX(100%);
-            opacity: 0;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-        .notification.show {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        .notification.hide {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        .notification-success {
-            border-left: 4px solid #4ADE80;
-        }
-        .notification-error {
-            border-left: 4px solid #F87171;
-        }
-        .notification-close {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 0.25rem;
-            transition: background 0.2s ease;
-        }
-        .notification-close:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        .notification-close svg {
-            width: 16px;
-            height: 16px;
-            stroke: #FFFFFF;
-        }
-        .notification-close:hover svg {
-            stroke: #E5E7EB;
-        }
-
-        /* New Header Notification Styles */
+        /* Header Notification Styles */
         .header-notifications {
             position: absolute;
             top: 70px;
@@ -664,9 +602,6 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .header {
-                background: var(--background);
-            }
             .nav-container {
                 padding: 1rem 1.5rem;
                 height: 60px;
@@ -697,7 +632,7 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: var(--background);
+                background: var(--surface);
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -707,10 +642,8 @@
                 transition: transform 0.3s ease;
                 padding: 3rem 2rem 2rem;
                 min-height: 100vh;
-                max-height: 100vh;
                 overflow-y: auto;
                 z-index: 1001;
-                transform: translateZ(0);
             }
             .nav-links.active {
                 transform: translateX(0);
@@ -740,11 +673,6 @@
             .nav-links .nav-icon .profile-picture {
                 width: 40px;
                 height: 40px;
-            }
-            .notifications {
-                top: 60px;
-                right: 1.5rem;
-                max-width: 280px;
             }
             .header-notifications {
                 top: 60px;
@@ -856,11 +784,6 @@
                 height: 28px;
                 top: 1rem;
                 right: 1rem;
-            }
-            .notifications {
-                top: 56px;
-                right: 1rem;
-                max-width: 260px;
             }
             .header-notifications {
                 top: 56px;
@@ -1050,7 +973,46 @@
         </div>
     </footer>
     <script>
-        // Navigation Toggle
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        animatedElements.forEach(el => observer.observe(el));
+
+        // Notification handling
+        const notifications = document.querySelectorAll('.header-notification');
+        notifications.forEach((notification, index) => {
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, index * 100);
+
+            setTimeout(() => {
+                notification.classList.add('hide');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 5000 + index * 100);
+
+            const closeButton = notification.querySelector('.header-notification-close');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => {
+                    notification.classList.add('hide');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                });
+            }
+        });
+
+        // Navigation Toggle (from sentiment_analysis)
         const navToggle = document.querySelector('.nav-toggle');
         const navLinks = document.querySelector('.nav-links');
         const navCancel = document.querySelector('.nav-cancel');
@@ -1085,44 +1047,6 @@
             link.addEventListener('click', () => {
                 closeMenu();
             });
-        });
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, {
-            threshold: 0.2
-        });
-
-        const animatedElements = document.querySelectorAll('.animate-on-scroll');
-        animatedElements.forEach(el => observer.observe(el));
-
-        const notifications = document.querySelectorAll('.header-notification');
-
-        notifications.forEach((notification, index) => {
-            setTimeout(() => {
-                notification.classList.add('show');
-            }, index * 100);
-
-            setTimeout(() => {
-                notification.classList.add('hide');
-                setTimeout(() => {
-                    notification.remove();
-                }, 300);
-            }, 5000 + index * 100);
-
-            const closeButton = notification.querySelector('.header-notification-close');
-            if (closeButton) {
-                closeButton.addEventListener('click', () => {
-                    notification.classList.add('hide');
-                    setTimeout(() => {
-                        notification.remove();
-                    }, 300);
-                });
-            }
         });
     </script>
 </body>
