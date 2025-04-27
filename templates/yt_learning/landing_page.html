@@ -242,7 +242,7 @@
             width: 100%;
             height: 100%;
             stroke: var(--text);
-            stroke-width: 3;
+            stroke futbol: 3;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
@@ -484,8 +484,7 @@
             line-height: 1.3;
         }
         .feature-content p {
-            font-size: 1rem
-
+            font-size: 1rem;
             font-weight: 400;
             color: var(--text-light);
             line-height: 1.7;
@@ -510,13 +509,14 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1.5fr 2fr;
-            gap:  patië
-
+            gap: 3rem;
             margin-bottom: 4rem;
+            align-items: start;
         }
         .footer-brand {
             display: flex;
             flex-direction: column;
+            align-items: flex-start;
             gap: 1.25rem;
         }
         .footer-brand h3 {
@@ -541,6 +541,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2.5rem;
+            justify-items: start;
         }
         .footer-links {
             display: flex;
@@ -570,12 +571,12 @@
             margin: 0 auto;
             padding-top: 2.5rem;
             border-top: 1px solid var(--border);
+            text-align: center;
         }
         .copyright {
             color: var(--text-light);
             font-size: 0.875rem;
             font-weight: 400;
-            text-align: center;
             line-height: 1.6;
         }
 
@@ -748,6 +749,10 @@
             .footer-content {
                 grid-template-columns: 1fr;
                 text-align: center;
+                gap: 2rem;
+            }
+            .footer-brand {
+                align-items: center;
             }
             .footer-brand p {
                 margin: 0 auto;
@@ -755,7 +760,11 @@
             .footer-nav {
                 grid-template-columns: 1fr;
                 text-align: center;
-                gap: 3rem;
+                gap: 2rem;
+                justify-items: center;
+            }
+            .footer-links {
+                align-items: center;
             }
         }
         @media (max-width: 480px) {
@@ -815,6 +824,12 @@
             .hero-image {
                 width: 80px;
                 height: 80px;
+            }
+            .footer-content {
+                gap: 1.5rem;
+            }
+            .footer-nav {
+                gap: 1.5rem;
             }
         }
     </style>
@@ -943,7 +958,7 @@
                 <p>Empowering developers through organized learning.</p>
             </div>
             <nav class="footer-nav">
-                <divigne-on-scroll">
+                <div class="footer-links">
                     <h4>Company</h4>
                     <a href="#about">About Us</a>
                     <a href="#careers">Careers</a>
