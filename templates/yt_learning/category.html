@@ -660,7 +660,7 @@
                         {% if user.socialaccount_set.all.0.extra_data.picture %}
                             <img src="{{ user.socialaccount_set.all.0.extra_data.picture }}" alt="Profile Picture" class="profile-picture">
                         {% else %}
-                            <img src="https://via.placeholder.com/100" alt="Default Profile Picture" class="profile-picture">
+                            <img src="{% static 'images/default_image.jpg' %}" alt="Default Profile Picture" class="profile-picture">
                         {% endif %}
                     </a>
                 {% else %}

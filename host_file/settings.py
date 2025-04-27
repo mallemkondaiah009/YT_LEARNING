@@ -147,6 +147,7 @@ ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend', # standard django backend
     'allauth.account.auth_backends.AuthenticationBackend', # all auth backend
+    'accounts.auth_backend.EmailBackend', # custom email backend
 ]
 
 #SOCIALACCOUNT_AUTO_SIGNUP = True

@@ -21,11 +21,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth import logout
 #from django.contrib.auth.decorators import login_required
 from .decorators import custom_login_required
+from django.contrib.auth import authenticate, login
 
 
 def Register_View(request):
     if request.method == 'POST':
-        # Get form data
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -46,45 +46,34 @@ def Register_View(request):
             messages.error(request, 'Email is already taken.')
             return render(request, 'accounts/register.html')
 
-        # Create the user if all validations pass
+        # Create the user using create_user
         try:
-            # Use create_user() to securely hash the password
-            user = User.objects.create(username=username, email=email, password=make_password(password),)
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password  # create_user hashes the password automatically
+            )
             user.save()
             messages.success(request, 'Account created successfully.')
-            return redirect('login')  # Redirect to login page after successful registration
+            return redirect('login')  # Redirect to login page
         except Exception as e:
             messages.error(request, f'An error occurred: {e}')
             return render(request, 'accounts/register.html')
 
-    # Render the registration form for GET requests
     return render(request, 'accounts/register.html')
 
 def Login_View(request):
     if request.method == 'POST':
-        # Get form data
         email = request.POST.get('email')
         password = request.POST.get('password')
-
-        #fetch user from database
-        try: 
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
+        user = authenticate(request, email=email, password=password)  # Use custom backend or username=email
+        if user is not None:
+            login(request, user)
+            messages.success(request, f"Welcome back, {user.username}!")
+            return redirect('landing_page')
+        else:
             messages.error(request, 'Invalid email or password.')
             return render(request, 'accounts/login.html')
-        
-        #Validate password
-        if not check_password(password, user.password):
-            messages.error(request, 'Invalid email or password.')
-            return render(request, 'accounts/login.html')
-        
-        # set user session
-        # request.session['user_id'] = user.id
-        # request.session['email']  = user.email
-        # request.session['username'] = user.username
-        messages.success(request, 'Login successful.')
-        return redirect('landing_page') 
-    
     return render(request, 'accounts/login.html')
 
 def Logout_View(request):

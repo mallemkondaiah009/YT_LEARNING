@@ -185,10 +185,11 @@
             text-decoration: none;
         }
 
-        .google-login i {
+        .google-logo {
+            width: 20px;
+            height: 20px;
             margin-right: 0.5rem;
-            color: var(--google-blue);
-            font-size: 1.2rem;
+            vertical-align: middle;
         }
 
         .google-login:hover {
@@ -352,7 +353,8 @@
         </div>
 
         <a href="{% provider_login_url 'google' %}" class="google-login">
-            <i class="fa-brands fa-google"></i> Sign in with Google
+            <img src="{% static 'images/google_logo.jpeg' %}" alt="Google Logo" class="google-logo">
+            Sign in with Google
         </a>
 
         <p class="register-link">

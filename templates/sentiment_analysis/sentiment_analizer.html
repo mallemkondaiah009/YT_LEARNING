@@ -547,8 +547,11 @@
                     <a href="{% url 'analyze_sentiment' %}" class="active">Sentiment Analyzer</a>
                     <a href="{% url 'categories_page' %}">Categories</a>
                     <a href="{% url 'profile' %}" class="nav-icon" title="Profile">
-                        <img src="{{ user.socialaccount_set.all.0.extra_data.picture|default:'https://via.placeholder.com/100' }}" 
-                             alt="Profile Picture" class="profile-picture">
+                        {% if user.socialaccount_set.all.0.extra_data.picture %}
+                            <img src="{{ user.socialaccount_set.all.0.extra_data.picture }}" alt="Profile Picture" class="profile-picture">
+                        {% else %}
+                            <img src="{% static 'images/default_image.jpg' %}" alt="Default Profile Picture" class="profile-picture">
+                        {% endif %}
                     </a>
                 {% else %}
                     <a href="{% url 'landing_page' %}">Home</a>
