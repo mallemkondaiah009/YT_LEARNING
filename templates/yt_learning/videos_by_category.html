@@ -791,6 +791,8 @@
                     <a href="{% url 'landing_page' %}">Home</a>
                     <a href="{% url 'analyze_sentiment' %}">Sentiment Analizer</a>
                     <a href="{% url 'categories_page' %}" class="active">Categories</a>
+                    <a href="{% url 'internships' %}">Internships</a>
+                    <a href="{% url 'compiler' %}">Code Ground</a>
                     <a href="{% url 'profile' %}" class="nav-icon" title="Profile">
                         {% if user.socialaccount_set.all.0.extra_data.picture %}
                             <img src="{{ user.socialaccount_set.all.0.extra_data.picture }}" alt="Profile Picture" class="profile-picture">
@@ -802,6 +804,8 @@
                     <a href="{% url 'landing_page' %}">Home</a>
                     <a href="{% url 'analyze_sentiment' %}">Sentiment Analizer</a>
                     <a href="{% url 'categories_page' %}" class="active">Categories</a>
+                    <a href="{% url 'internships' %}">Internships</a>
+                    <a href="{% url 'compiler' %}">Code Ground</a>
                     <a href="{% url 'login' %}" class="login-btn">Login</a>
                 {% endif %}
             </div>

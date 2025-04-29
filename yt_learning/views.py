@@ -139,8 +139,8 @@ def videos_by_category(request, category_name):
     return render(request, 'yt_learning/videos_by_category.html', context)
 
 
-def Code_Ground_view(request):
-    return render(request, 'compilers/codeground.html')
+def Internships_view(request):
+    return render(request, 'yt_learning/internships.html')
 
-def Compilers_view(request):
-    return render(request, 'compilers/compiler.html')
+def Compiler_view(request):
+    return render(request, 'yt_learning/compiler.html')
