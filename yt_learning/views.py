@@ -18,7 +18,7 @@ def categories_page(request):
     categories = Category.objects.all()  # Fetch all categories from the database
     return render(request, 'yt_learning/category.html', {'categories': categories})
 
-#@custom_login_required
+
 def videos_by_category(request, category_name):
     # Retrieve category
     category = get_object_or_404(Category, name=category_name)

@@ -69,7 +69,7 @@ def Login_View(request):
         user = authenticate(request, email=email, password=password)  # Use custom backend or username=email
         if user is not None:
             login(request, user)
-            messages.success(request, f"Welcome back, {user.username}!")
+            messages.success(request, f"Successfully sined in as, {user.username}!")
             return redirect('landing_page')
         else:
             messages.error(request, 'Invalid email or password.')
@@ -136,85 +136,15 @@ def Profile_View(request):
     return render(request, 'accounts/profile.html', context)
 
 
-def Register_Category_View(request):
-    if request.method == 'POST':
-        # Get form data
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        confirm_password = request.POST.get('confirmPassword')
-
-        # Validation: Check if passwords match
-        if password != confirm_password:
-            messages.error(request, 'Passwords do not match.')
-            return render(request, 'accounts/register.html')
-
-        # Validation: Check if username is already taken
-        if User.objects.filter(username=username).exists():
-            messages.error(request, 'Username is already taken.')
-            return render(request, 'accounts/register.html')
-
-        # Validation: Check if email is already taken
-        if User.objects.filter(email=email).exists():
-            messages.error(request, 'Email is already taken.')
-            return render(request, 'accounts/register.html')
-
-        # Create the user if all validations pass
-        try:
-            # Use create_user() to securely hash the password
-            user = User.objects.create(username=username, email=email, password=make_password(password),)
-            user.save()
-            messages.success(request, 'Account created successfully.')
-            return redirect('login_category')  # Redirect to login page after successful registration
-        except Exception as e:
-            messages.error(request, f'An error occurred: {e}')
-            return render(request, 'accounts/register.html')
-
-    # Render the registration form for GET requests
-    return render(request, 'accounts/register.html')
-
-
-def Login_Category_View(request):
-    if request.method == 'POST':
-        # Get form data
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-
-        #fetch user from database
-        try: 
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
-            messages.error(request, 'Invalid email or password.')
-            return render(request, 'accounts/login.html')
-        
-        #Validate password
-        if not check_password(password, user.password):
-            messages.error(request, 'Invalid email or password.')
-            return render(request, 'accounts/login.html')
-        
-        # set user session
-        # request.session['user_id'] = user.id
-        # request.session['email']  = user.email
-        # request.session['username'] = user.username
-        messages.success(request, 'Login successful.')
-        #take category_id from the form and redirect to videos_by_category
-        category_name=request.session.get('category_name')
-        return redirect('videos_by_category', category_name=category_name)
-    
-    return render(request, 'accounts/login.html')
-
-
 
 def forgot_password(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        email = request.POST.get('email').strip().lower()
         try:
-            user = User.objects.get(email=email)
+            user = User.objects.get(email__iexact=email)
             token = custom_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             reset_link = f"{request.scheme}://{request.get_host()}/reset-password/{uid}/{token}/"
-            
-            print(f"Reset link: {reset_link}")  # Debug
             
             subject = 'Password Reset Request'
             message = render_to_string('emails/password_reset_email.html', {
@@ -237,17 +167,17 @@ def forgot_password(request):
         except User.DoesNotExist:
             messages.error(request, 'No account found with this email.')
             return redirect('forgot_password')
-            
+        except User.MultipleObjectsReturned:
+            messages.error(request, 'Multiple accounts found with this email.')
+            return redirect('forgot_password')     
     return render(request, 'accounts/forgot_password.html')
 
 def reset_password(request, uidb64, token):
     user = None
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
-        print(f"Decoded UID: {uid}")  # Debug
         user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist) as e:
-        print(f"UID decoding error: {str(e)}")  # Debug
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
     if user is not None and custom_token_generator.check_token(user, token):
@@ -271,5 +201,4 @@ def reset_password(request, uidb64, token):
         return render(request, 'accounts/reset_password.html')
     else:
         messages.error(request, 'The reset link is invalid or has expired.')
-        print(f"Token validation failed for user: {user}, token: {token}")  # Debug
         return redirect('forgot_password')
