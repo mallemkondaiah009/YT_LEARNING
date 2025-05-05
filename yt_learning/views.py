@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from .models import Videos, Category, save_watch_later
 from django.contrib.auth.models import User
-from accounts.decorators import custom_login_required
+
 
 
 
